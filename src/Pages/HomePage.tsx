@@ -1,4 +1,4 @@
-import { Center, VStack} from "@chakra-ui/react";
+import { Center, VStack } from "@chakra-ui/react";
 
 import useAuth from "../hooks/useAuth";
 import NavBar from "../components/Nav/NavBar";

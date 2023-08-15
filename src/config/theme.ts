@@ -173,7 +173,7 @@ const ButtonStyle: ComponentStyleConfig = {
       borderRadius: "8px",
       color: "#828282",
       fontFamily: "Poppins",
-      fontWeight: "400",
+      fontWeight: "500",
       fontSize: "15px",
       letterSpacing: "-0.42px",
       _hover: {
@@ -423,6 +423,8 @@ const theme = extendTheme({
     },
     primary: "#2F80ED",
     primaryLight: "#5497f0",
+    grayDark: "#4F4F4F",
+    grayLight: "#828282"
   },
   components: {
     Input: InputStyle,

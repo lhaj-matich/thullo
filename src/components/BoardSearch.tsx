@@ -21,7 +21,7 @@ export interface User {
 }
 
 export interface Board {
-  id: string;
+  id?: string;
   title: string;
   coverImage: string | null;
   visibility: boolean;
@@ -42,12 +42,12 @@ export interface BoardsReponse {
 const BoardSearch = () => {
   const boardsClient = new apiClient<BoardsReponse>("/boards");
   const boxRef = useRef<HTMLDivElement>(null);
-  const [visibility, setVisibilty] = useState(true);
+  const [visibility, setVisibilty] = useState(false);
   const [searchArea, setSearchArea] = useState(false);
   const [searchText, setsearchText] = useState("");
-  const { data, refetch } = useQuery<BoardsReponse>({
+  const { data, refetch } = useQuery<Board[]>({
     queryKey: ["boards"],
-    queryFn: () => boardsClient.getData().then((res) => res.data),
+    queryFn: () => boardsClient.getData().then((res) => res.data.boards),
   });
 
   const searchData = (data: Board[] | undefined) => {
@@ -82,22 +82,21 @@ const BoardSearch = () => {
         FocusCb={() => setSearchArea(true)}
       />
       <Box __css={styles} visibility={searchArea ? "visible" : "hidden"}>
-        <HStack alignItems="center" justifyContent="space-between">
+        <HStack paddingBottom={2} alignItems="center" justifyContent="space-between">
           <Heading
             as="h6"
             fontWeight="400"
             color="#828282"
             fontFamily="Poppins"
             fontSize="19px"
-            paddingBottom={2}
           >
             Search in
           </Heading>
-          <VisibiltyButton onClick={(visibility) => setVisibilty(visibility)} />
+          <VisibiltyButton onClick={(visibility) => setVisibilty(!visibility)} />
         </HStack>
         <Divider />
         <BoardList
-          data={searchText.length > 0 ? searchData(data?.boards) : []}
+          data={searchText.length > 0 ? searchData(data) : []}
         />
       </Box>
     </Box>

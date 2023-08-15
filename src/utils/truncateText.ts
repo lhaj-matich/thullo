@@ -1,4 +1,4 @@
-export const truncateText = (input: string) => {
-  if (input.length > 26) return input.slice(0, 23) + "...";
+export const truncateText = (input: string, max: number) => {
+  if (input.length > max) return input.slice(0, max - 3) + "...";
   return input;
 };

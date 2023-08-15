@@ -38,7 +38,7 @@ const InvitesListItem = ({type, author, users, boardName, boardCover, createdAt,
       <VStack alignItems="flex-start" width="100%">
         <HStack justifyContent="space-between" width="100%">
           <Heading as="p" letterSpacing="-0.5px" fontWeight="500" color="#4F4F4F" fontFamily="Poppins" fontSize="16px">
-            { truncateText(boardName) }
+            { truncateText(boardName, 26) }
           </Heading>
           <Text color="#BDBDBD" fontWeight="400" fontSize="10px">
             { moment(createdAt).fromNow() }

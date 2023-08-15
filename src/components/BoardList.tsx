@@ -1,4 +1,3 @@
-import React from "react";
 import { Box, Text, useStyleConfig } from "@chakra-ui/react";
 
 import { Board } from "./BoardSearch";
@@ -19,7 +18,7 @@ const BoardList = ({ data: boards }: BoardListProps) => {
             name={item.title}
             members={item.users?.length}
             image={item.coverImage}
-            id={item.id}
+            id={item.id || ""}
             visibility={item.visibility}
           />
         ))

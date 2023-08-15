@@ -19,7 +19,7 @@ const Logo = () => {
           fill="#2F80ED"
         />
       </svg>
-      <Heading as="h5" fontSize="23px" fontFamily="Poppins">
+      <Heading as="h5" marginLeft={1} fontWeight={600} fontSize="23px" fontFamily="Poppins">
         Thullo
       </Heading>
     </HStack>

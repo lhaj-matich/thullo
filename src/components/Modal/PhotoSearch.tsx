@@ -19,8 +19,12 @@ import {
 } from "../../config/constants";
 import FormSearchInput from "../FormSearchInput";
 
-const PhotoSearch = () => {
-  const [imageId, setImageId] = useState("");
+interface PhotoSearchProps {
+   setImageId: (id: string) => void;
+   id: string;
+}
+
+const PhotoSearch = ({setImageId, id}: PhotoSearchProps) => {
   const [search, setSearch] = useState("");
   const [images, setImages] = useState<string[]>(RANDOM_IMAGES);
   const getImages = (search: string) => {
@@ -63,8 +67,8 @@ const PhotoSearch = () => {
           ChangeCb={(e) => setSearch(e.target.value)}
         />
         <ImagesList
-          selectImage={setImageId}
-          id={imageId}
+          selectImage={(id) => setImageId(id)}
+          id={id}
           imagesIds={images || []}
         />
       </MenuList>

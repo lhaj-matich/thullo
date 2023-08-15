@@ -22,7 +22,7 @@ const BoardListItem = ({ name, image, members, id, visibility }: BoardListItemPr
       <HStack>
         <Image borderRadius="12px" src={image || ""} height="40px" width="40px" />
         <Heading as="p" letterSpacing="-0.5px" fontWeight="400" color="#4F4F4F" fontFamily="Poppins" fontSize="16px">
-          {truncateText(name)}
+          {truncateText(name, 26)}
         </Heading>
       </HStack>
       <HStack>

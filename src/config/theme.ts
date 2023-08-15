@@ -60,10 +60,16 @@ const ModalStyle: ComponentStyleConfig = {
         bgColor: "primary",
         color: "#fff",
         zIndex: 4,
-      }
-    }
-  }
-}
+        _hover: {
+          backgroundColor: "primaryLight",
+        },
+        _active: {
+          backgroundColor: "#1264CE",
+        },
+      },
+    },
+  },
+};
 
 const FormLabelStyle: ComponentStyleConfig = {
   // style object for base or default style
@@ -128,58 +134,6 @@ const ButtonStyle: ComponentStyleConfig = {
         color: "#fff",
       },
     },
-    secondary: {
-      padding: "8px 14px",
-      backgroundColor: "gray.100",
-      border: "1px solid rgba(0,0,0,0.1)",
-      borderRadius: "8px",
-      color: "#828282",
-      fontFamily: "Poppins",
-      fontSize: "sm",
-      fontWeight: "500",
-      _hover: {
-        backgroundColor: "transparent",
-        border: "1px solid #828282",
-      },
-    },
-    largeSecondary: {
-      padding: "8px 14px",
-      width: "100%",
-      backgroundColor: "gray.100",
-      border: "1px solid rgba(0,0,0,0.1)",
-      borderRadius: "8px",
-      color: "#828282",
-      fontFamily: "Poppins",
-      fontSize: "sm",
-      fontWeight: "500",
-      _hover: {
-        backgroundColor: "transparent",
-        border: "1px solid #828282",
-      },
-    },
-    largePrimary: {
-      padding: "12px 24px",
-      backgroundColor: "blue.100",
-      border: "1px solid rgba(0,0,0,0.1)",
-      display: "flex",
-      justifyContent: "space-between",
-      color: "blue.500",
-      fontFamily: "Poppins",
-      fontWeight: "500",
-      fontSize: "sm",
-      width: "260px",
-      borderRadius: "8px",
-      _hover: {
-        backgroundColor: "transparent",
-        border: "1px solid #5497f0",
-        color: "primary",
-      },
-      _active: {
-        backgroundColor: "#fff",
-        outline: "2px solid #5497f0",
-        color: "primary",
-      },
-    },
     ghost: {
       padding: "8px 14px",
       backgroundColor: "transparent",
@@ -190,45 +144,6 @@ const ButtonStyle: ComponentStyleConfig = {
       borderRadius: "8px",
       _hover: {
         backgroundColor: "gray.100",
-      },
-    },
-    green: {
-      padding: "8px 14px",
-      backgroundColor: "green.400",
-      color: "#fff",
-      fontFamily: "Poppins",
-      fontWeight: "500",
-      fontSize: "sm",
-      borderRadius: "8px",
-      _hover: {
-        backgroundColor: "green.500",
-      },
-    },
-    ghostSecondary: {
-      padding: "8px 14px",
-      backgroundColor: "transparent",
-      border: "1px solid white",
-      color: "#828282",
-      fontFamily: "Poppins",
-      fontWeight: "500",
-      fontSize: "sm",
-      borderRadius: "8px",
-      _hover: {
-        backgroundColor: "transparent",
-        border: "1px solid #828282",
-      },
-    },
-    ghostRed: {
-      padding: "8px 14px",
-      backgroundColor: "transparent",
-      border: "1px solid white",
-      color: "red",
-      fontFamily: "Poppins",
-      fontWeight: "500",
-      fontSize: "sm",
-      borderRadius: "8px",
-      _hover: {
-        border: "1px solid red",
       },
     },
     outlineRed: {
@@ -242,20 +157,6 @@ const ButtonStyle: ComponentStyleConfig = {
       border: "1px solid #dc3545",
       _hover: {
         backgroundColor: "#dc3545",
-        color: "#fff",
-      },
-    },
-    outlineSecondary: {
-      padding: "8px 14px",
-      backgroundColor: "transparent",
-      color: "#828282",
-      fontFamily: "Poppins",
-      fontWeight: "500",
-      fontSize: "sm",
-      borderRadius: "8px",
-      border: "1px solid #828282",
-      _hover: {
-        backgroundColor: "#828282",
         color: "#fff",
       },
     },
@@ -349,7 +250,7 @@ const TextStyle: ComponentStyleConfig = {
       fontSize: "16px",
       fontFamily: "Poppins",
       fontWeight: 400,
-      letterSpacing:"-0.42px",
+      letterSpacing: "-0.42px",
     },
   },
 };
@@ -387,18 +288,18 @@ const HeadingStyle: ComponentStyleConfig = {
       letterSpacing: "-0.63px",
     },
     generic: {
-      fontSize:"19px",
-      fontFamily:"Poppins",
-      fontWeight:600,
-      letterSpacing:"-0.42px",
-    }
+      fontSize: "19px",
+      fontFamily: "Poppins",
+      fontWeight: 600,
+      letterSpacing: "-0.42px",
+    },
   },
 };
 
 const AvatarStyle = defineStyleConfig({
   baseStyle: {
-    width: "42px",
-    height: "42px",
+    width: "32px",
+    height: "32px",
     borderRadius: "lg",
     fontSize: "12px",
     objectFit: "cover",
@@ -457,28 +358,6 @@ const BoxStyle = defineStyleConfig({
       position: "absolute",
       boxShadow: "0px 2px 8px rgba(220,220,220, 0.8)",
     },
-    usersList: {
-      padding: "10px",
-      paddingBottom: "0px",
-      borderRadius: "12px",
-      bgColor: "#fff",
-      border: "1px solid #E0E0E0",
-      boxShadow: "0px 2px 8px rgba(220,220,220, 0.8)",
-      overflow: "auto",
-      "&::-webkit-scrollbar": {
-        width: "8px",
-      },
-      "&::-webkit-scrollbar-thumb": {
-        backgroundColor: "#E0E0E0",
-        borderRadius: "8px",
-      },
-      "&::-webkit-scrollbar-thumb:hover": {
-        backgroundColor: "#555",
-      },
-      "&::-webkit-scrollbar-track": {
-        backgroundColor: "#f1f1f1",
-      },
-    },
     ListContainer: {
       padding: "5px",
       overflow: "auto",
@@ -502,59 +381,16 @@ const BoxStyle = defineStyleConfig({
         backgroundColor: "red",
       },
     },
-    smallSpaceBetween: {
-      display: "flex",
-      margin: "10px auto",
-      justifyContent: "space-between",
-      width: "90%",
-    },
-    mdSpaceBetween: {
-      display: "flex",
-      margin: "10px auto",
-      justifyContent: "space-between",
-      width: "96%",
-      py: "10px",
-    },
-    boardStack: {
-      width: "96%",
-      margin: "10px auto",
-      boxShadow: "sm",
-      display: "flex",
-      justifyContent: "flex-start",
-      gap: "25px",
-      alignItems: "flex-start",
-      padding: "18px 14px",
-      overflowX: "scroll",
-      bg: "#F8F9FD",
-      borderRadius: "8px",
-      maxHeight: "75vh",
-      minHeight: "75vh",
-    },
-    listStack: {
-      display: "flex",
-      flexDirection: "column",
-      justifyContent: "center",
-      alignItems: "flex-start",
-      overflowY: "scroll",
-      height: "100%",
-      maxHeight: "100%",
-      gap: "18px",
-      padding: "10px",
-    },
-    Card: {
-      width: "260px",
-      px: "5px",
-      py: "8px",
-      border: "none",
-      borderRadius: "8px",
-      minHeight: "80px",
-      boxShadow: "0px 4px 12px 0px rgba(0, 0, 0, 0.05)",
-      _hover: {
-        boxShadow: "0px 4px 12px 0px rgba(0, 0, 0, 0.1)",
-      },
-      _active: {
-        outline: "2px solid #5497f0",
-      },
+    genericCard: {
+        width: "330px",
+        padding: "10px",
+        paddingBottom: "0px",
+        borderRadius: 20,
+        bgColor: "#fff",
+        boxShadow: "0px 4px 12px 0px rgba(0, 0, 0, 0.05)",
+        _hover: {
+          cursor: 'pointer'
+        }
     },
     placeHolder: {
       width: "90%",
@@ -604,7 +440,7 @@ const theme = extendTheme({
     },
     Menu: MenuStyle,
     HStack: HStackStyle,
-    Modal: ModalStyle
+    Modal: ModalStyle,
   },
 });
 

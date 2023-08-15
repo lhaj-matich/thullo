@@ -19,9 +19,9 @@ const VisibilityMenu = () => {
   return (
     <Menu>
       <MenuButton as={Button} variant="private">
-        <HStack paddingX={2} paddingY={1}>
+        <HStack paddingX={2} >
           <Icon boxSize={5} as={visible ? IoEarth : IoMdLock} />
-          <Text width="80px" fontSize={16}>{visible ? "Public" : "Private"}</Text>
+          <Text width="70px" fontSize={16}>{visible ? "Public" : "Private"}</Text>
         </HStack>
       </MenuButton>
       <MenuList padding={4} borderRadius={18}>

@@ -146,17 +146,39 @@ const ButtonStyle: ComponentStyleConfig = {
         backgroundColor: "gray.100",
       },
     },
+    green: {
+      padding: "8px 14px",
+      backgroundColor: "#219653",
+      borderRadius: "8px",
+      color: "#fff",
+      fontFamily: "Poppins",
+      fontWeight: "500",
+      _hover: {
+        backgroundColor: "#28B867",
+      },
+
+      _active: {
+        backgroundColor: "#166438",
+        color: "#fff",
+      },
+    },
     outlineRed: {
       padding: "8px 14px",
       backgroundColor: "transparent",
-      color: "#dc3545",
+      color: "#EB5757",
       fontFamily: "Poppins",
       fontWeight: "500",
       fontSize: "sm",
       borderRadius: "8px",
-      border: "1px solid #dc3545",
+      letterSpacing: "-0.35px",
+      border: "1px solid #EB5757",
       _hover: {
-        backgroundColor: "#dc3545",
+        backgroundColor: "#EB5757",
+        color: "#fff",
+      },
+      _active: {
+        backgroundColor: "#B71515",
+        border: "1px solid #B71515",
         color: "#fff",
       },
     },
@@ -191,7 +213,8 @@ const ButtonStyle: ComponentStyleConfig = {
       borderRadius: "8px",
       color: "#fff",
       fontFamily: "Poppins",
-      fontWeight: "400",
+      fontWeight: "500",
+      letterSpacing: "-0.35px",
       marginTop: 2,
       _hover: {
         backgroundColor: "primaryLight",

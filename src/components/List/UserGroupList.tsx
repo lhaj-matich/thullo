@@ -1,18 +1,19 @@
 import { Avatar, Box, HStack, Text } from "@chakra-ui/react";
 import { User } from "../BoardSearch";
 import { createImageLink } from "../../utils/loadImage";
+import type { ComponentDefaultProps } from "@chakra-ui/react";
 
-interface userListProps {
+interface userListProps extends ComponentDefaultProps {
   max: number;
   users: User[];
   // ! Need to change the type of users to User interface
 }
 
-const UserGroupList = ({ max, users }: userListProps) => {
+const UserGroupList = ({ max, users, ...rest }: userListProps) => {
   const userExcess = users.length > max ? users.length - max : 0;
   const displayedUsers = users.length > max ? users.slice(0, max) : users;
   return (
-    <Box>
+    <Box {...rest}>
       <HStack>
         {displayedUsers.map((user, index) => (
           <Avatar

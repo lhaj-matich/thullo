@@ -190,7 +190,7 @@ const ButtonStyle: ComponentStyleConfig = {
       fontWeight: "400",
     },
     private: {
-      padding: "8px 14px",
+      padding: "10px 14px",
       backgroundColor: "#F2F2F2",
       borderRadius: "8px",
       color: "#828282",
@@ -270,7 +270,7 @@ const InputStyle: ComponentStyleConfig = {
 const TextStyle: ComponentStyleConfig = {
   variants: {
     generic: {
-      fontSize: "16px",
+      fontSize: "15px",
       fontFamily: "Poppins",
       fontWeight: 400,
       letterSpacing: "-0.42px",
@@ -380,6 +380,28 @@ const BoxStyle = defineStyleConfig({
       border: "1px solid #E0E0E0",
       position: "absolute",
       boxShadow: "0px 2px 8px rgba(220,220,220, 0.8)",
+    },
+    usersList: {
+      padding: "10px",
+      paddingBottom: "0px",
+      borderRadius: "12px",
+      bgColor: "#fff",
+      border: "1px solid #E0E0E0",
+      boxShadow: "0px 2px 8px rgba(220,220,220, 0.8)",
+      overflow: "auto",
+      "&::-webkit-scrollbar": {
+        width: "8px",
+      },
+      "&::-webkit-scrollbar-thumb": {
+        backgroundColor: "#E0E0E0",
+        borderRadius: "8px",
+      },
+      "&::-webkit-scrollbar-thumb:hover": {
+        backgroundColor: "#555",
+      },
+      "&::-webkit-scrollbar-track": {
+        backgroundColor: "#f1f1f1",
+      },
     },
     ListContainer: {
       padding: "5px",

@@ -2,6 +2,7 @@ import React from "react";
 import {  Box, Heading, useStyleConfig } from "@chakra-ui/react";
 import UserListItem from "./UserListItem";
 import { User } from "./BoardSearch";
+import { createImageLink } from "../utils/loadImage";
 
 interface userListProps {
   userId: string;
@@ -23,7 +24,7 @@ const UserList = ({ onClick, users, userId }: userListProps) => {
         <UserListItem
           id={item.id}
           name={item.fullname}
-          image={item.profileImage}
+          image={createImageLink(item.profileImage)}
           setUserId={onClick}
           active={item.id === userId}
           key={index}

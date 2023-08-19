@@ -29,8 +29,8 @@ export interface Board {
   users?: User[];
   author?: User;
   authorId?: string;
-  createAt?: Date;
-  updatedAt?: Date;
+  createdAt?: string;
+  updatedAt?: string;
 }
 
 export interface BoardsReponse {

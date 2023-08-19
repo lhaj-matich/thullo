@@ -57,7 +57,7 @@ const AssignMember = () => {
   return (
     <Menu>
       <MenuButton as={Button} paddingY={2}>
-        <Icon as={FaPlus} fontSize={15} />
+        <Icon as={FaPlus} fontSize={18} />
       </MenuButton>
       <MenuList padding={4} borderRadius={12}>
         <Heading letterSpacing="-0.42px" color="#4F4F4F" fontSize="19px" fontFamily="Poppins" fontWeight={600}>

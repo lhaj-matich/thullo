@@ -26,10 +26,10 @@ const VisibilityMenu = () => {
       </MenuButton>
       <MenuList padding={4} borderRadius={18}>
         <Box>
-          <Heading variant="generic" color="grayDark">
+          <Heading variant="generic" fontSize={18} color="grayDark" marginBottom={2}>
             Visibilty
           </Heading>
-          <Text variant="generic" color="grayLight">
+          <Text variant="generic" fontSize={16} color="grayLight">
             Choose who can see this board.
           </Text>
         </Box>

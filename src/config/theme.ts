@@ -1,9 +1,4 @@
-import {
-  extendTheme,
-  ThemeConfig,
-  ComponentStyleConfig,
-  defineStyleConfig,
-} from "@chakra-ui/react";
+import { extendTheme, ThemeConfig, ComponentStyleConfig, defineStyleConfig, Textarea } from "@chakra-ui/react";
 
 const config: ThemeConfig = {
   initialColorMode: "light",
@@ -112,6 +107,35 @@ const EditableStyle: ComponentStyleConfig = {
   },
 };
 
+const TextAreaStyle: ComponentStyleConfig = {
+  variants: {
+    generic: {
+      resize: "none",
+      padding: "5px",
+      border: "2px solid #BDBDBD",
+      borderRadius: "10px",
+      boxShadow: "none",
+      overflow: "auto",
+      "&::-webkit-scrollbar": {
+        width: "8px",
+      },
+      "&::-webkit-scrollbar-thumb": {
+        backgroundColor: "#E0E0E0",
+        borderRadius: "8px",
+      },
+      "&::-webkit-scrollbar-thumb:hover": {
+        backgroundColor: "#555",
+      },
+      "&::-webkit-scrollbar-track": {
+        backgroundColor: "#f1f1f1",
+      },
+      _focus: {
+        boxShadow: "none"
+      }
+    }
+  }
+}
+
 const ButtonStyle: ComponentStyleConfig = {
   // style object for base or default style
   // styles for different sizes ("sm", "md", "lg")
@@ -160,6 +184,21 @@ const ButtonStyle: ComponentStyleConfig = {
       _active: {
         backgroundColor: "#166438",
         color: "#fff",
+      },
+    },
+    outlinePrivate: {
+      padding: "4px 14px",
+      backgroundColor: "transparent",
+      color: "#828282",
+      border: "1px solid #828282",
+      borderRadius: "12px",
+      fontFamily: "Poppins",
+      fontStyle: "normal",
+      fontWeight: 500,
+      lineHeight: "normal",
+      letterSpacing: "-0.35px",
+      _hover: {
+        backgroundColor: "#fff",
       },
     },
     outlineRed: {
@@ -365,6 +404,27 @@ const HStackStyle = defineStyleConfig({
   },
 });
 
+const EditablePreviewStyle: ComponentStyleConfig = {
+  variants: {
+    generic: {
+      overflow: "auto",
+      "&::-webkit-scrollbar": {
+        width: "8px",
+      },
+      "&::-webkit-scrollbar-thumb": {
+        backgroundColor: "#E0E0E0",
+        borderRadius: "8px",
+      },
+      "&::-webkit-scrollbar-thumb:hover": {
+        backgroundColor: "#555",
+      },
+      "&::-webkit-scrollbar-track": {
+        backgroundColor: "#f1f1f1",
+      },
+    }
+  }
+}
+
 const BoxStyle = defineStyleConfig({
   // style object for base or default style
   baseStyle: {},
@@ -427,15 +487,15 @@ const BoxStyle = defineStyleConfig({
       },
     },
     genericCard: {
-        width: "330px",
-        padding: "10px",
-        paddingBottom: "0px",
-        borderRadius: 20,
-        bgColor: "#fff",
-        boxShadow: "0px 4px 12px 0px rgba(0, 0, 0, 0.05)",
-        _hover: {
-          cursor: 'pointer'
-        }
+      width: "330px",
+      padding: "10px",
+      paddingBottom: "0px",
+      borderRadius: 20,
+      bgColor: "#fff",
+      boxShadow: "0px 4px 12px 0px rgba(0, 0, 0, 0.05)",
+      _hover: {
+        cursor: "pointer",
+      },
     },
     placeHolder: {
       width: "90%",
@@ -456,6 +516,19 @@ const theme = extendTheme({
     global: {
       body: {
         bg: "#F8F9FD",
+        "&::-webkit-scrollbar": {
+          width: "8px",
+        },
+        "&::-webkit-scrollbar-thumb": {
+          backgroundColor: "#E0E0E0",
+          borderRadius: "8px",
+        },
+        "&::-webkit-scrollbar-thumb:hover": {
+          backgroundColor: "#555",
+        },
+        "&::-webkit-scrollbar-track": {
+          backgroundColor: "#f1f1f1",
+        },
         //#4F4F4F
       },
     },
@@ -469,7 +542,7 @@ const theme = extendTheme({
     primary: "#2F80ED",
     primaryLight: "#5497f0",
     grayDark: "#4F4F4F",
-    grayLight: "#828282"
+    grayLight: "#828282",
   },
   components: {
     Input: InputStyle,
@@ -488,6 +561,8 @@ const theme = extendTheme({
     Menu: MenuStyle,
     HStack: HStackStyle,
     Modal: ModalStyle,
+    Textarea: TextAreaStyle,
+    EditablePreview: EditablePreviewStyle
   },
 });
 

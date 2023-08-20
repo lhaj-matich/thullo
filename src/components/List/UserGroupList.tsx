@@ -21,8 +21,8 @@ const UserGroupList = ({ max, users, ...rest }: userListProps) => {
             key={index}
             color="white"
             bgColor="#BDBDBD"
-            boxSize="38px"
-            borderRadius="8px"
+            boxSize="39px"
+            borderRadius="10px"
             name={user.fullname}
             src={createImageLink(user.profileImage)}
           />

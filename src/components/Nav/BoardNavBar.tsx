@@ -8,6 +8,7 @@ import { Board, User } from "../BoardSearch";
 import AssignMember from "../AssignMember";
 import GenericButton from "../Button/GenericButton";
 import { BsThreeDots } from 'react-icons/bs'
+import BoardEditMenu from "../Menu/BoardEditMenu";
 
 const user: User = {
   id: "e038abdc-4e2f-4de0-acf3-41d966a2b657",
@@ -36,12 +37,7 @@ const BoardNavBar = () => {
         <UserGroupList marginX={3} max={5} users={[...(board?.author ? [board.author] : [])]} />
         <AssignMember />
       </HStack>
-      <GenericButton text="Show Menu" icon={BsThreeDots} />
-
-      {/* <Button variant="green">Save</Button>
-      <Button variant="outlineRed">Remove</Button>
-      <SectionTitle icon={BiSolidUserCircle} title="Made by" />
-      <UserInfo creationDate={new Date("2023-08-15T00:10:22.321Z")} image={image} name="Giovanna Bishop"/> */}
+      <BoardEditMenu />
     </HStack>
   );
 };

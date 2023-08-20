@@ -8,7 +8,7 @@ interface SectionProps {
 
 const SectionTitle = ({title, icon}: SectionProps) => {
   return (
-    <HStack>
+    <HStack marginY="15px">
       <Icon boxSize="18px" as={icon} color="#BDBDBD" />
       <Text variant="generic" fontWeight="600" fontSize="12px" color="#BDBDBD">
         {title}

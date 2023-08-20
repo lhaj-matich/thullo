@@ -11,6 +11,7 @@ import {
   Icon,
 } from "@chakra-ui/react";
 import { FaPlus } from 'react-icons/fa';
+import { BsPlusLg } from 'react-icons/bs';
 import FormSearchInput from "./FormSearchInput";
 import UserList from "./UserList";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
@@ -56,15 +57,15 @@ const AssignMember = () => {
   };
   return (
     <Menu>
-      <MenuButton as={Button} paddingY={2}>
-        <Icon as={FaPlus} fontSize={18} />
+      <MenuButton as={Button} borderRadius={12} paddingY="6px" paddingX="8px">
+        <Icon as={BsPlusLg} fontSize={24} />
       </MenuButton>
       <MenuList padding={4} borderRadius={12}>
         <Heading letterSpacing="-0.42px" color="#4F4F4F" fontSize="19px" fontFamily="Poppins" fontWeight={600}>
-          Members
+          Invite to board
         </Heading>
         <Text marginY={2} letterSpacing="-0.42px" color="#828282" fontSize="16px" fontFamily="Poppins" fontWeight={400}>
-          Assign members to this board
+          Search users you want to invite
         </Text>
         <FormSearchInput
           placeholder="User..."

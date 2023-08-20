@@ -39,7 +39,7 @@ const LoginForm = () => {
   };
   return (
     <>
-      <VStack paddingTop={30}>
+      <VStack paddingTop={55}>
         <FormContainer title="Sign in to Thullo" submitForm={handleSubmit(sendLoginData)}>
           <FormElement label="Email:" error={errors.email}>
             <Input variant="outline" type="email" placeholder="eg.johndoe@mail.com" {...register("email")} />

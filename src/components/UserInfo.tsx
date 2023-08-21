@@ -21,8 +21,8 @@ const UserInfo = ({name, image, creationDate}: userInfoProps) => {
           color="#fff"
         />
         <VStack gap={1} alignItems="flex-start">
-            <Heading variant="generic" fontSize="16px" color="#333">{name}</Heading>
-            <Text variant="generic" fontSize="14px" fontWeight={500} color="#BDBDBD">on {moment(creationDate).format('ll')}</Text>
+            <Heading variant="generic" fontWeight={600} fontSize="16px" color="#333">{name}</Heading>
+            <Text variant="generic" fontSize="13px" fontWeight={500} color="#BDBDBD">on {moment(creationDate).format('ll')}</Text>
         </VStack>
     </HStack>
   )

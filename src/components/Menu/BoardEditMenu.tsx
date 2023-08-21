@@ -16,6 +16,7 @@ import { BsThreeDots } from "react-icons/bs";
 import GenericButton from "../Button/GenericButton";
 import BoardAuthor from "../Panel/BoardAuthor";
 import EditDescription from "../Panel/EditDescription";
+import BoardCover from "../Panel/BoardCover";
 
 const BoardEditMenu = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -30,6 +31,7 @@ const BoardEditMenu = () => {
           <Divider />
           <DrawerBody>
             <BoardAuthor />
+            <BoardCover />
             <EditDescription />
           </DrawerBody>
           <DrawerFooter>

@@ -6,15 +6,19 @@ import {
   ButtonGroup,
   Button,
   Flex,
+  Text,
   Textarea,
   VStack,
   Box,
   HStack,
   useStyleConfig,
+  useEditableContext,
 } from "@chakra-ui/react";
 import SectionTitle from "./SectionTitle";
 import { IoDocumentTextSharp } from "react-icons/io5";
 import { MdEdit } from "react-icons/md";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 
 interface EditDescriptionProps {
   clickCB: (value: string) => void;
@@ -23,12 +27,10 @@ interface EditDescriptionProps {
 }
 
 const EditDescription = () => {
-
-  const previewStyles = useStyleConfig("EditablePreview", { variant: "generic" });
+  // const previewStyles = useStyleConfig("EditablePreview", { variant: "generic" });
   const SaveControls = () => {
     const { getSubmitButtonProps, getCancelButtonProps, isEditing } = useEditableControls();
-    if (!isEditing)
-      return null;
+    if (!isEditing) return null;
     return (
       <HStack marginTop={3}>
         <Button fontSize="14px" variant="green" value="Submit" {...getSubmitButtonProps()}>
@@ -47,30 +49,53 @@ const EditDescription = () => {
     return (
       <HStack>
         <SectionTitle title="Description" icon={IoDocumentTextSharp} />
-        {!isEditing ? <Button
-          {...getEditButtonProps()}
-          marginLeft="8px"
-          leftIcon={<MdEdit />}
-          fontSize="14px"
-          variant="outlinePrivate"
-        >
-          Edit
-        </Button> : ""}
+        {!isEditing ? (
+          <Button
+            {...getEditButtonProps()}
+            marginLeft="8px"
+            leftIcon={<MdEdit />}
+            fontSize="14px"
+            variant="outlinePrivate"
+          >
+            Edit
+          </Button>
+        ) : (
+          ""
+        )}
       </HStack>
     );
   };
 
+  const DescriptionPreview = () => {
+    const { value } = useEditableContext();
+    const { isEditing } = useEditableControls();
+    if (isEditing) return null;
+    return (
+      <Box className="description" paddingY={2} paddingX={8}>
+        <ReactMarkdown remarkPlugins={[remarkGfm]}>{value}</ReactMarkdown>
+      </Box>
+    );
+  };
+
+  const descriptionMarkdown = `
+  # Heading
+  ~~STring~~
+  - This is a bullet point
+  - This is another bullet point
+  \n\n
+  **This is bold text** within the description.
+`;
+
   return (
     <Editable
+      defaultValue={descriptionMarkdown}
       onSubmit={(value) => console.log(value)}
-      defaultValue="Simple board to start on a porject, each list can bee hold"
       fontSize="lg"
       isPreviewFocusable={false}
     >
       <EditControls />
-      <EditablePreview __css={previewStyles} maxHeight="300px" overflow="auto" width="100%" />
-      {/* Here is the custom input */}
-      <Textarea variant="generic" height="300px" as={EditableTextarea} placeholder="Here is a sample placeholder" />
+      <DescriptionPreview />
+      <Textarea variant="generic" height="300px" as={EditableTextarea} />
       <SaveControls />
     </Editable>
   );

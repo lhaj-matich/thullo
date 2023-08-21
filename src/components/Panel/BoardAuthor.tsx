@@ -3,12 +3,19 @@ import { BiSolidUserCircle } from "react-icons/bi";
 
 import SectionTitle from "../Panel/SectionTitle";
 import UserInfo from "../UserInfo";
+import useBoard from "../../hooks/useBoard";
+import { createImageLink } from "../../utils/loadImage";
 
 const BoardAuthor = () => {
+  const { board } = useBoard();
   return (
     <Box marginBottom={5}>
       <SectionTitle title="Made by" icon={BiSolidUserCircle} />
-      <UserInfo creationDate={new Date("2023-08-15T00:10:22.321Z")} image="" name="Daniel Jensen" />
+      <UserInfo
+        creationDate={new Date(board.createdAt || Date.now())}
+        image={createImageLink(board.author?.profileImage)}
+        name={board.author?.fullname}
+      />
     </Box>
   );
 };

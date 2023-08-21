@@ -1,10 +1,6 @@
-import React, { ReactNode, useEffect, useState } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import { AuthAction, AuthContext, UserInfo } from "../Contexts/authContext";
 import apiClient from "../../services/apiClient";
-
-interface AuthProps {
-  children: ReactNode;
-}
 
 interface AuthProps {
   children: ReactNode;

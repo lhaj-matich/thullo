@@ -1,9 +1,12 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;500;600;700&family=Poppins:wght@200;300;400;500;600;700;800&display=swap");
+
 
 .css-1ebyn6 {
   font-family: "Poppins";
   font-size: 15px !important;
   font-weight: 500;
+  color: #fff !important;
 }
 
 span::-webkit-scrollbar {
@@ -11,7 +14,7 @@ span::-webkit-scrollbar {
 }
 
 span::-webkit-scrollbar-thumb {
-  background-color: #E0E0E0 !important;
+  background-color: #e0e0e0 !important;
   border-radius: 8px !important;
 }
 
@@ -20,4 +23,30 @@ span::-webkit-scrollbar-thumb:hover {
 }
 span::-webkit-scrollbar-track {
   background-color: #f1f1f1 !important;
+}
+
+div::-webkit-scrollbar {
+  width: 8px !important;
+}
+
+div::-webkit-scrollbar-thumb {
+  background-color: #e0e0e0 !important;
+  border-radius: 8px !important;
+}
+
+div::-webkit-scrollbar-thumb:hover {
+  background-color: #555 !important;
+}
+div::-webkit-scrollbar-track {
+  background-color: #f1f1f1 !important;
+}
+
+.description {
+  color: #000;
+  font-family: Noto Sans;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  letter-spacing: -0.49px;
 }

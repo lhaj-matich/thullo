@@ -1,12 +1,15 @@
 import { Heading } from "@chakra-ui/react";
 import { PiDotsNineBold } from "react-icons/pi";
 import GenericButton from "../Button/GenericButton";
+import { useNavigate } from "react-router-dom";
 
 interface BoardHeaderProps {
   name: string;
 }
 
 const BoardHeader = ({ name }: BoardHeaderProps) => {
+  const navigate = useNavigate();
+
   return (
     <>
       <Heading
@@ -20,7 +23,7 @@ const BoardHeader = ({ name }: BoardHeaderProps) => {
       >
         {name}
       </Heading>
-      <GenericButton text="All boards" icon={PiDotsNineBold} />
+      <GenericButton onClick={() => navigate("/")} text="All boards" icon={PiDotsNineBold} />
     </>
   );
 };

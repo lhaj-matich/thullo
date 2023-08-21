@@ -5,17 +5,17 @@ import GenericCard from "../Card/GenericCard";
 import UserGroupList from "../List/UserGroupList";
 import apiClient from "../../services/apiClient";
 import { Board, BoardsReponse } from "../BoardSearch";
+import { useNavigate } from "react-router-dom";
 
 const BoardsContainer = () => {
   const boardsClient = new apiClient<BoardsReponse>("/boards");
+  const navigate = useNavigate();
 
   const { data } = useQuery<Board[]>({
     queryKey: ["boards"],
     queryFn: () => boardsClient.getData().then((res) => res.data.boards),
   });
 
-
-  console.log(data);
   // Query logic
   return (
     <Box marginTop={5} height="85vh" width="85vw">
@@ -29,7 +29,7 @@ const BoardsContainer = () => {
         {data?.map((board, index) => (
           <GenericCard
             key={index}
-            clickCB={() => console.log("Clicking card")}
+            clickCB={() => navigate(`/board/${board.id}`)}
             title={board.title}
             image={board.coverImage || ""}
           >

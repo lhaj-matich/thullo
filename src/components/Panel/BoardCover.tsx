@@ -6,6 +6,9 @@ import { useState } from "react";
 import { createUnsplashLink } from '../../utils/loadUnsplashImage'
 
 const BoardCover = () => {
+
+  // The logic for changing the board id.
+
   const [imageId, setImageId] = useState("5E5N49RWtbA");
   return (
     <Box>

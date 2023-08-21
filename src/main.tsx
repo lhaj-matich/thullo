@@ -9,6 +9,7 @@ import { RouterProvider } from "react-router-dom";
 import router from "./components/Router.tsx";
 import AuthProvider from "./components/Providers/AuthProvider.tsx";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import BoardProvider from "./components/Providers/BoardProvider.tsx";
 
 const queryClient = new QueryClient();
 
@@ -18,7 +19,9 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
       <ChakraProvider theme={theme}>
         <ColorModeScript initialColorMode={theme.config.initialColorMode} />
         <AuthProvider>
-          <RouterProvider router={router} />
+          <BoardProvider>
+            <RouterProvider router={router} />
+          </BoardProvider>
         </AuthProvider>
       </ChakraProvider>
       <ReactQueryDevtools />

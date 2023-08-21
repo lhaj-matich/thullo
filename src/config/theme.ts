@@ -202,7 +202,7 @@ const ButtonStyle: ComponentStyleConfig = {
       },
     },
     outlineRed: {
-      padding: "8px 14px",
+      padding: "6px 18px",
       backgroundColor: "transparent",
       color: "#EB5757",
       fontFamily: "Poppins",
@@ -314,6 +314,14 @@ const TextStyle: ComponentStyleConfig = {
       fontWeight: 400,
       letterSpacing: "-0.42px",
     },
+    paragraph: {
+      color: "#000",
+      fontFamily: "Noto Sans",
+      fontSize: "14px",
+      fontWeight: 400,
+      lightHeight: "normal",
+      letterSpacing: "-0.49px"
+    }
   },
 };
 
@@ -562,7 +570,7 @@ const theme = extendTheme({
     HStack: HStackStyle,
     Modal: ModalStyle,
     Textarea: TextAreaStyle,
-    EditablePreview: EditablePreviewStyle
+    EditablePreview: EditablePreviewStyle,
   },
 });
 

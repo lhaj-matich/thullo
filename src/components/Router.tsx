@@ -4,12 +4,16 @@ import LoginForm from "./LoginForm";
 import RegisterForm from "./RegisterForm";
 import ForgotPasswordForm from "./ForgotPasswordForm";
 import ResetForm from "./ResetForm";
-import Board from "../Pages/Board";
+import BoardPage from "../Pages/Board";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Board />,
+    element: <HomePage />,
+  },
+  {
+    path: "/board/:id",
+    element: <BoardPage />,
   },
   {
     path: "/login",

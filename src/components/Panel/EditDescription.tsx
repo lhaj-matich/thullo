@@ -1,17 +1,11 @@
 import {
   Editable,
   EditableTextarea,
-  EditablePreview,
   useEditableControls,
-  ButtonGroup,
   Button,
-  Flex,
-  Text,
   Textarea,
-  VStack,
   Box,
   HStack,
-  useStyleConfig,
   useEditableContext,
 } from "@chakra-ui/react";
 import SectionTitle from "./SectionTitle";

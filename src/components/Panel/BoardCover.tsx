@@ -1,15 +1,25 @@
-import { Box, Image, Skeleton } from "@chakra-ui/react";
+import { Box, Image, Skeleton, useToast } from "@chakra-ui/react";
 import SectionTitle from "./SectionTitle";
 import { PiImageFill } from "react-icons/pi";
 import PhotoSearch from "../Modal/PhotoSearch";
 import { useState } from "react";
-import { createUnsplashLink } from '../../utils/loadUnsplashImage'
+import { createUnsplashLink } from "../../utils/loadUnsplashImage";
+import useBoard from "../../hooks/useBoard";
+import apiClient from "../../services/apiClient";
 
 const BoardCover = () => {
+  const toast = useToast({ duration: 2000, position: "top-right", status: "error" });
+  const { board, setBoard } = useBoard();
+  const [imageId, setImageId] = useState(board.coverImage || "G85VuTpw6jg");
+  const boardClient = new apiClient(`boards/${board.id}`);
 
-  // The logic for changing the board id.
+  const updateBoardCover = (id: string) => {
+    boardClient
+      .updateData({ coverImage: id }, null)
+      .then(() => setBoard({ ...board, coverImage: id }))
+      .catch((e) => toast({ description: e.response.data.message }));
+  };
 
-  const [imageId, setImageId] = useState("5E5N49RWtbA");
   return (
     <Box>
       <SectionTitle title="Cover" icon={PiImageFill} />
@@ -23,7 +33,10 @@ const BoardCover = () => {
           />
         }
         id={imageId}
-        setImageId={(id) => setImageId(id)}
+        setImageId={(id) => {
+          setImageId(id);
+          updateBoardCover(id);
+        }}
       />
     </Box>
   );

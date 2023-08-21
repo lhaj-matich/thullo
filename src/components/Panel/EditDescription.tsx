@@ -15,13 +15,13 @@ import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 
 interface EditDescriptionProps {
+  value: string | undefined;
   clickCB: (value: string) => void;
-  width: string | number;
   height: string | number;
+  edit: boolean;
 }
 
-const EditDescription = () => {
-  // const previewStyles = useStyleConfig("EditablePreview", { variant: "generic" });
+const EditDescription = ({ value, clickCB, height, edit }: EditDescriptionProps) => {
   const SaveControls = () => {
     const { getSubmitButtonProps, getCancelButtonProps, isEditing } = useEditableControls();
     if (!isEditing) return null;
@@ -43,7 +43,7 @@ const EditDescription = () => {
     return (
       <HStack>
         <SectionTitle title="Description" icon={IoDocumentTextSharp} />
-        {!isEditing ? (
+        {!isEditing && edit ? (
           <Button
             {...getEditButtonProps()}
             marginLeft="8px"
@@ -65,31 +65,16 @@ const EditDescription = () => {
     const { isEditing } = useEditableControls();
     if (isEditing) return null;
     return (
-      <Box className="description" paddingY={2} paddingX={8}>
+      <Box className="description" paddingY={2} paddingX={6}>
         <ReactMarkdown remarkPlugins={[remarkGfm]}>{value}</ReactMarkdown>
       </Box>
     );
   };
-
-  const descriptionMarkdown = `
-  # Heading
-  ~~STring~~
-  - This is a bullet point
-  - This is another bullet point
-  \n\n
-  **This is bold text** within the description.
-`;
-
   return (
-    <Editable
-      defaultValue={descriptionMarkdown}
-      onSubmit={(value) => console.log(value)}
-      fontSize="lg"
-      isPreviewFocusable={false}
-    >
+    <Editable submitOnBlur={false} defaultValue={value} onSubmit={clickCB} fontSize="lg" isPreviewFocusable={false}>
       <EditControls />
       <DescriptionPreview />
-      <Textarea variant="generic" height="300px" as={EditableTextarea} />
+      <Textarea variant="generic" height={height} as={EditableTextarea} />
       <SaveControls />
     </Editable>
   );

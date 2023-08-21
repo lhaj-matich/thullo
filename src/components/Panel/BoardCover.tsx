@@ -7,7 +7,11 @@ import { createUnsplashLink } from "../../utils/loadUnsplashImage";
 import useBoard from "../../hooks/useBoard";
 import apiClient from "../../services/apiClient";
 
-const BoardCover = () => {
+interface BoardCoverProps {
+  edit: boolean;
+}
+
+const BoardCover = ({ edit }: BoardCoverProps) => {
   const toast = useToast({ duration: 2000, position: "top-right", status: "error" });
   const { board, setBoard } = useBoard();
   const [imageId, setImageId] = useState(board.coverImage || "G85VuTpw6jg");
@@ -21,23 +25,33 @@ const BoardCover = () => {
   };
 
   return (
-    <Box>
+    <Box marginBottom={2}>
       <SectionTitle title="Cover" icon={PiImageFill} />
-      <PhotoSearch
-        buttonElement={
-          <Image
-            src={createUnsplashLink(imageId, 130, 400)}
-            height="130px"
-            width="400px"
-            fallback={<Skeleton height="130px" width="370px" />}
-          />
-        }
-        id={imageId}
-        setImageId={(id) => {
-          setImageId(id);
-          updateBoardCover(id);
-        }}
-      />
+      {edit ? (
+        <PhotoSearch
+          buttonElement={
+            <Image
+              src={createUnsplashLink(imageId, 130, 400)}
+              height="130px"
+              width="400px"
+              fallback={<Skeleton height="130px" width="370px" />}
+            />
+          }
+          id={imageId}
+          setImageId={(id) => {
+            setImageId(id);
+            updateBoardCover(id);
+          }}
+        />
+      ) : (
+        <Image
+          src={createUnsplashLink(imageId, 130, 400)}
+          height="130px"
+          width="400px"
+          borderRadius="12px"
+          fallback={<Skeleton height="130px" width="370px" />}
+        />
+      )}
     </Box>
   );
 };

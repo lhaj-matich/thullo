@@ -1,4 +1,3 @@
-import React from "react";
 import {
   Button,
   HStack,
@@ -9,11 +8,13 @@ import {
   VStack,
   Avatar,
   AvatarGroup,
+  Skeleton,
 } from "@chakra-ui/react";
 import moment from 'moment';
 import { User } from "./BoardSearch";
 import { createImageLink } from "../utils/loadImage";
 import { truncateText } from "../utils/truncateText";
+import { createUnsplashLink } from "../utils/loadUnsplashImage";
 
 interface InviteItemProps {
     id: string
@@ -34,7 +35,7 @@ const InvitesListItem = ({type, author, users, boardName, boardCover, createdAt,
   const styles = useStyleConfig("HStack", { variant: "ListItemButton" });
   return (
     <HStack __css={styles} justifyContent="flex-start">
-      <Image borderRadius="12px" src={boardCover || placeHolder} height="70px" width="70px" />
+      <Image borderRadius="12px" fallback={<Skeleton height="70px" width="90px" borderRadius="12px" />} src={createUnsplashLink(boardCover || placeHolder, 70, 70)} height="70px" width="70px" />
       <VStack alignItems="flex-start" width="100%">
         <HStack justifyContent="space-between" width="100%">
           <Heading as="p" letterSpacing="-0.5px" fontWeight="500" color="#4F4F4F" fontFamily="Poppins" fontSize="16px">

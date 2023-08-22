@@ -43,7 +43,6 @@ const NewBoard = () => {
   });
 
   const sendBoardData = () => {
-    // Check if the data is valid.
     if (!imageId) toast({ description: "Cover image is selected." });
     else if (!inputRef.current?.value) toast({ description: "Board title is required." });
     else {
@@ -85,7 +84,7 @@ const NewBoard = () => {
               border="1px solid #E0E0E0"
             />
             <HStack justifyContent="space-between" marginTop={5}>
-              <VisibiltyButton onClick={(value) =>  setVisibility(!value)} />
+              <VisibiltyButton onClick={(value) => setVisibility(!value)} />
               <PhotoSearch setImageId={setImageId} id={imageId} />
             </HStack>
           </ModalBody>

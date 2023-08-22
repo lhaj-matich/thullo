@@ -1,4 +1,3 @@
-import React from "react";
 import {
   Modal,
   ModalOverlay,
@@ -6,19 +5,20 @@ import {
   ModalHeader,
   ModalBody,
   ModalCloseButton,
-  Button,
-  useDisclosure,
 } from "@chakra-ui/react";
 import { Tabs, TabList, TabPanels, Tab, TabPanel } from "@chakra-ui/react";
 import ReceivedInvitesList from "./ReceivedInvitesList";
 import SentInvitesList from "./SendInvitesList";
 
-const Invites = () => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
+interface ModalProps {
+  open: boolean;
+  onClose: () => void;
+}
+
+const Invites = ({open, onClose}: ModalProps) => {
   return (
     <>
-      <Button onClick={onOpen}>Open Modal</Button>
-      <Modal isOpen={isOpen} onClose={onClose} size="md">
+      <Modal isOpen={open} onClose={onClose} size="md" variant="primary">
         <ModalOverlay />
         <ModalContent>
           <ModalHeader color="#828282">Invites</ModalHeader>

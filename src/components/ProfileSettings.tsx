@@ -53,7 +53,7 @@ const ProfileSettings = ({ open, onClose }: ModelProps) => {
 
   return (
     <>
-      <Modal isOpen={open} onClose={() => {onClose(); setDisabled(true)}} size="xl">
+      <Modal isOpen={open} onClose={() => {onClose(); setDisabled(true)}} size="xl" variant="primary">
         <ModalOverlay />
         <ModalContent>
           <ModalHeader color="#828282">Profile settings</ModalHeader>

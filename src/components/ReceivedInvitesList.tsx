@@ -1,10 +1,10 @@
-import React from "react";
 import { Box, Text } from "@chakra-ui/react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 
 import InvitesListItem from "./InvitesListItem";
 import apiClient from "../services/apiClient";
 import { Board } from "./BoardSearch";
+import useGlobal from "../hooks/useGlobal";
 
 export interface Invite {
   id: string;
@@ -23,6 +23,7 @@ export interface InviteResponse {
 const ReceivedInvitesList = () => {
   const invitesClient = new apiClient<InviteResponse>("/invites");
   const queryClient = useQueryClient();
+  const { invites } = useGlobal();
   const { data } = useQuery<Invite[]>({
     queryKey: ["receivedInvites"],
     queryFn: () => invitesClient.getData().then((res) => res.data.invites),
@@ -30,10 +31,12 @@ const ReceivedInvitesList = () => {
   });
 
   const handleAcceptInvite = (id: string) => {
-    invitesClient.postData({ id }, "/accept").then((res) => {
+    invitesClient.postData({ id }, "/accept").then(() => {
       queryClient.setQueriesData<Invite[]>(["receivedInvites"], (invites) =>
         invites?.filter((invite) => invite.id !== id)
       );
+      queryClient.refetchQueries({ queryKey: ["boards"] });
+      invites.setInvitesNumber(invites.invitesNumber ? invites.invitesNumber - 1 : 0);
     });
   };
 
@@ -42,6 +45,7 @@ const ReceivedInvitesList = () => {
       queryClient.setQueriesData<Invite[]>(["receivedInvites"], (invites) =>
         invites?.filter((invite) => invite.id !== id)
       );
+      invites.setInvitesNumber(invites.invitesNumber ? invites.invitesNumber - 1 : 0);
     });
   };
 

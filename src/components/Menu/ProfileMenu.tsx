@@ -1,22 +1,18 @@
 import { AiFillCaretDown } from "react-icons/ai";
-import {
-  Menu,
-  MenuButton,
-  MenuList,
-  MenuItem,
-  HStack,
-  Heading,
-  Avatar,
-  Button,
-} from "@chakra-ui/react";
+import { Menu, MenuButton, MenuList, MenuItem, HStack, Heading, Avatar, Button, Badge } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import apiClient from "../../services/apiClient";
+import useGlobal from "../../hooks/useGlobal";
+import { useEffect } from "react";
+import { InviteResponse } from "../ReceivedInvitesList";
 
 const ProfileMenu = () => {
+  const { inviteModal, profileModal, invites } = useGlobal();
   const navigate = useNavigate();
   const { auth, setAuth } = useAuth();
   const usersClient = new apiClient("/users/logout");
+  const invitesClient = new apiClient<InviteResponse>("/invites");
 
   const handleLogout = () => {
     usersClient.postData({}).then(() => {
@@ -26,13 +22,13 @@ const ProfileMenu = () => {
     });
   };
 
+  useEffect(() => {
+    invitesClient.getData().then((res) => invites.setInvitesNumber(res.data.count));
+  }, []);
+
   return (
     <Menu variant="primary">
-      <MenuButton
-        variant="menuButton"
-        as={Button}
-        rightIcon={<AiFillCaretDown />}
-      >
+      <MenuButton variant="menuButton" as={Button} rightIcon={<AiFillCaretDown />}>
         <HStack>
           <Avatar
             height={9}
@@ -48,8 +44,10 @@ const ProfileMenu = () => {
         </HStack>
       </MenuButton>
       <MenuList fontFamily="Poppins">
-        <MenuItem onClick={() => console.log("Hello")}>Profile</MenuItem>
-        <MenuItem onClick={() => console.log("Hello")}>Invites</MenuItem>
+        <MenuItem onClick={profileModal.onOpen}>Profile settings</MenuItem>
+        <MenuItem justifyContent="space-between" onClick={inviteModal.onOpen}>
+          Invites {invites.invitesNumber ? <Badge colorScheme="red">{invites.invitesNumber}</Badge> : ""}
+        </MenuItem>
         <MenuItem onClick={() => navigate("/")}>Boards</MenuItem>
         <MenuItem onClick={handleLogout}>Logout</MenuItem>
       </MenuList>

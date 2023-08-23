@@ -49,7 +49,7 @@ const BoardCover = ({ edit }: BoardCoverProps) => {
           height="130px"
           width="400px"
           borderRadius="12px"
-          fallback={<Skeleton height="130px" width="370px" />}
+          fallback={<Skeleton height="130px" width="400px" borderRadius="12px" />}
         />
       )}
     </Box>

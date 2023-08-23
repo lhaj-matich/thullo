@@ -10,7 +10,7 @@ const SectionTitle = ({title, icon}: SectionProps) => {
   return (
     <HStack marginY="15px">
       <Icon boxSize="18px" as={icon} color="#BDBDBD" />
-      <Text variant="generic" fontWeight="600" fontSize="12px" color="#BDBDBD">
+      <Text variant="generic" fontWeight="600" fontSize="14px" color="#BDBDBD">
         {title}
       </Text>
     </HStack>

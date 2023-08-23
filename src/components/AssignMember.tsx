@@ -1,17 +1,6 @@
 import { useState } from "react";
-import {
-  Button,
-  Heading,
-  Menu,
-  MenuButton,
-  MenuList,
-  Text,
-  Center,
-  useToast,
-  Icon,
-} from "@chakra-ui/react";
-import { FaPlus } from 'react-icons/fa';
-import { BsPlusLg } from 'react-icons/bs';
+import { Button, Heading, Menu, MenuButton, MenuList, Text, Center, useToast, Icon } from "@chakra-ui/react";
+import { BsPlusLg } from "react-icons/bs";
 import FormSearchInput from "./FormSearchInput";
 import UserList from "./UserList";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
@@ -31,15 +20,12 @@ const AssignMember = () => {
   const [searchText, setSearchText] = useState("");
   const userClient = new apiClient<UserResponse>("/users");
   const inviteClient = new apiClient("/invites");
-  // const boardClient = new apiClient("/boards");
-  // Request all users
-  // const baord = boardClient.getData("/857cc317-88e4-45dd-ae36-0cec55ebaf28").then((res) => console.log(res.data));
   const { data, refetch } = useQuery<User[]>({
     queryKey: ["Users"],
     queryFn: () => userClient.getData(undefined, { search: searchText }).then((res) => res.data.users),
     retry: 1,
   });
-  // Handle send request
+
   const handleSendInvite = () => {
     if (id)
       inviteClient

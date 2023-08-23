@@ -4,10 +4,11 @@ import BoardNavBar from "../components/Nav/BoardNavBar";
 import BoardHeader from "../components/Nav/BoardHeader";
 import useBoard from "../hooks/useBoard";
 import { useParams } from "react-router-dom";
-import BoardProvider from "../components/Providers/BoardProvider";
 import { useEffect } from "react";
 import apiClient from "../services/apiClient";
 import { Board } from "../components/BoardSearch";
+import Labels from "../components/Labels";
+import PhotoSearch from "../components/Modal/PhotoSearch";
 
 interface BoardResponse {
   status: string;
@@ -30,7 +31,10 @@ const BoardPage = () => {
       </NavBar>
       <BoardNavBar />
       <Center paddingTop={5}>
-        <VStack></VStack>
+        <VStack>
+          <Labels />
+          <PhotoSearch />
+        </VStack>
       </Center>
     </>
   );

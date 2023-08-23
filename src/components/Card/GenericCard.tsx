@@ -1,4 +1,4 @@
-import { Box, Heading, Image, useStyleConfig } from "@chakra-ui/react";
+import { Box, Heading, Image, Skeleton, useStyleConfig } from "@chakra-ui/react";
 import { ReactNode } from "react";
 import { truncateText } from "../../utils/truncateText";
 import { createUnsplashLink } from "../../utils/loadUnsplashImage";
@@ -17,6 +17,7 @@ const GenericCard = ({ clickCB, image, title, children }: GenericCardProps) => {
       <Image
         borderRadius={20}
         src={createUnsplashLink(image, 300, 200)}
+        fallback={<Skeleton height="200px" width="300px" />}
         width="300px"
         height="200px"
         objectFit="cover"

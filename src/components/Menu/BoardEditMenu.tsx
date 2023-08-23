@@ -5,10 +5,8 @@ import {
   DrawerHeader,
   DrawerOverlay,
   DrawerContent,
-  DrawerCloseButton,
   Button,
   useDisclosure,
-  Heading,
   Checkbox,
   HStack,
   Divider,
@@ -32,7 +30,6 @@ const BoardEditMenu = () => {
   const toast = useToast({ duration: 2000, position: "top-right", status: "error" });
   const { board, setBoard } = useBoard();
   const [disable, setDisabled] = useState(true);
-  const [description, setDescription] = useState(board.description);
   
   // Logic for change the board description.
   const boardClient = new apiClient(`boards/${board.id}`);
@@ -40,7 +37,7 @@ const BoardEditMenu = () => {
   const updateBoardDescription = (value: string) => {
     boardClient
       .updateData({ description: value }, null)
-      .then(() => { setBoard({ ...board, description: value }); setDescription(value) })
+      .then(() => { setBoard({ ...board, description: value }) })
       .catch((e) => toast({ description: e.response.data.message }));
   };
 
@@ -63,8 +60,8 @@ const BoardEditMenu = () => {
           <DrawerBody>
             <BoardAuthor />
             <BoardCover edit={auth.user?.id === board.authorId} />
-            <EditDescription edit={auth.user?.id === board.authorId} value={description || board.description} clickCB={(value) => updateBoardDescription(value)} height="300px" />
-            <TeamUsers edit={true} />
+            <EditDescription edit={auth.user?.id === board.authorId} value={board.description} clickCB={(value) => updateBoardDescription(value)} height="300px" />
+            <TeamUsers edit={auth.user?.id === board.authorId} />
           </DrawerBody>
           <DrawerFooter>
             <HStack justifyContent="center">

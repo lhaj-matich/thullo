@@ -16,9 +16,10 @@ const TeamUsers = ({ edit }: TeamUsersProps) => {
   const toast = useToast({ duration: 2000, position: "top-right", status: "error" });
 
   const removeUser = (id: string) => {
+    const newBoardUsers = board.users?.filter(user => user.id !== id);
     boardClient
       .deleteData(`${id}/boards`)
-      .then(() => setBoard({ ...board, ...board.users?.filter((user) => user.id != id) }))
+      .then(() => setBoard({ ...board, users: newBoardUsers }))
       .catch((e) => toast({ description: e.response.data.message }));
   };
 

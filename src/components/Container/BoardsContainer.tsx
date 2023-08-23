@@ -33,7 +33,7 @@ const BoardsContainer = () => {
             title={board.title}
             image={board.coverImage || ""}
           >
-            <UserGroupList users={[...(board?.users || []), ...(board?.author ? [board.author] : [])]} max={3} />
+            <UserGroupList users={[...(board?.author ? [board.author] : []), ...(board?.users || [])]} max={3} />
           </GenericCard>
         ))}
       </Grid>

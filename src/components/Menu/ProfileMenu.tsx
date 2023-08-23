@@ -46,7 +46,7 @@ const ProfileMenu = () => {
       <MenuList fontFamily="Poppins">
         <MenuItem onClick={profileModal.onOpen}>Profile settings</MenuItem>
         <MenuItem justifyContent="space-between" onClick={inviteModal.onOpen}>
-          Invites {invites.invitesNumber ? <Badge colorScheme="red">{invites.invitesNumber}</Badge> : ""}
+          Invites {invites.invitesNumber ? <Badge width="25px" textAlign="center" borderRadius={15} colorScheme="red">{invites.invitesNumber}</Badge> : ""}
         </MenuItem>
         <MenuItem onClick={() => navigate("/")}>Boards</MenuItem>
         <MenuItem onClick={handleLogout}>Logout</MenuItem>

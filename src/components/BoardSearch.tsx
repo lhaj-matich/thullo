@@ -1,12 +1,6 @@
 import React, { useRef, useState } from "react";
 
-import {
-  Box,
-  Divider,
-  HStack,
-  Heading,
-  useStyleConfig,
-} from "@chakra-ui/react";
+import { Box, Divider, HStack, Heading, useStyleConfig } from "@chakra-ui/react";
 import FormSearchInput from "./FormSearchInput";
 import VisibiltyButton from "./Button/VisibilityButton";
 import { useQuery } from "@tanstack/react-query";
@@ -54,10 +48,7 @@ const BoardSearch = () => {
     if (data)
       return data.filter(
         (item) =>
-          item.title
-            .toLocaleLowerCase()
-            .includes(searchText.toLocaleLowerCase()) &&
-          item.visibility == visibility
+          item.title.toLocaleLowerCase().includes(searchText.toLocaleLowerCase()) && item.visibility == visibility
       );
     return [];
   };
@@ -70,7 +61,7 @@ const BoardSearch = () => {
     }, 200);
   };
 
-  const styles = useStyleConfig("BoxStyle", { variant: "searchContainer" });
+  const styles = useStyleConfig("BoxStyle", { variant: "cardContainer" });
   return (
     <Box position="relative" onBlur={handleBlur} ref={boxRef}>
       <FormSearchInput
@@ -83,21 +74,13 @@ const BoardSearch = () => {
       />
       <Box __css={styles} visibility={searchArea ? "visible" : "hidden"}>
         <HStack paddingBottom={2} alignItems="center" justifyContent="space-between">
-          <Heading
-            as="h6"
-            fontWeight="400"
-            color="#828282"
-            fontFamily="Poppins"
-            fontSize="19px"
-          >
+          <Heading as="h6" fontWeight="400" color="#828282" fontFamily="Poppins" fontSize="19px">
             Search in
           </Heading>
           <VisibiltyButton onClick={(visibility) => setVisibilty(!visibility)} />
         </HStack>
         <Divider />
-        <BoardList
-          data={searchText.length > 0 ? searchData(data) : []}
-        />
+        <BoardList data={searchText.length > 0 ? searchData(data) : []} />
       </Box>
     </Box>
   );

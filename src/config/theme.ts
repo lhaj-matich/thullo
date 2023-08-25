@@ -130,11 +130,11 @@ const TextAreaStyle: ComponentStyleConfig = {
         backgroundColor: "#f1f1f1",
       },
       _focus: {
-        boxShadow: "none"
-      }
-    }
-  }
-}
+        boxShadow: "none",
+      },
+    },
+  },
+};
 
 const ButtonStyle: ComponentStyleConfig = {
   // style object for base or default style
@@ -282,9 +282,10 @@ const InputStyle: ComponentStyleConfig = {
   variants: {
     outline: {
       field: {
+        fontFamily: "Poppins",
         borderColor: "blue.500",
         borderWidth: "0",
-        backgroundColor: ".100",
+        backgroundColor: "transparent",
         boxShadow: "0px 2px 8px rgba(220,220,220, 0.8)",
         padding: "8px 14px",
         marginBottom: "3px",
@@ -295,6 +296,22 @@ const InputStyle: ComponentStyleConfig = {
         },
       },
     },
+    invisible: {
+      field: {
+        fontFamily: "Noto Sans",
+        borderColor: "blue.500",
+        borderWidth: "0",
+        letterSpacing: "-0.49px",
+        backgroundColor: "#fff",
+        fontWeight: 500,
+        padding: "6px 4px",
+        borderRadius: "8px",
+        "&::placeholder": {
+          color: "#BDBDBD",
+          fontFamily: "Noto Sans",
+        },
+      },
+    }
   },
 
   // default values for 'size', 'variant' and 'colorScheme'
@@ -320,8 +337,8 @@ const TextStyle: ComponentStyleConfig = {
       fontSize: "14px",
       fontWeight: 400,
       lightHeight: "normal",
-      letterSpacing: "-0.49px"
-    }
+      letterSpacing: "-0.49px",
+    },
   },
 };
 
@@ -429,16 +446,16 @@ const EditablePreviewStyle: ComponentStyleConfig = {
       "&::-webkit-scrollbar-track": {
         backgroundColor: "#f1f1f1",
       },
-    }
-  }
-}
+    },
+  },
+};
 
 const BoxStyle = defineStyleConfig({
   // style object for base or default style
   baseStyle: {},
   sizes: {},
   variants: {
-    searchContainer: {
+    cardContainer: {
       zIndex: 4,
       padding: "10px",
       paddingBottom: "0px",

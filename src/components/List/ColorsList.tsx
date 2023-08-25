@@ -1,22 +1,14 @@
-import { Box, Grid } from '@chakra-ui/react'
+import { Box, Grid } from "@chakra-ui/react";
+import { COLORS } from "../../config/constants";
 
 const ColorsList = () => {
   return (
     <Grid templateColumns="repeat(4, 1fr)" gap={2} marginTop={4}>
-        <Box borderRadius="8px" height="40px" backgroundColor="lightblue"></Box>
-        <Box borderRadius="8px" height="40px" backgroundColor="lightblue"></Box>
-        <Box borderRadius="8px" height="40px" backgroundColor="lightblue"></Box>
-        <Box borderRadius="8px" height="40px" backgroundColor="lightblue"></Box>
-        <Box borderRadius="8px" height="40px" backgroundColor="lightblue"></Box>
-        <Box borderRadius="8px" height="40px" backgroundColor="lightblue"></Box>
-        <Box borderRadius="8px" height="40px" backgroundColor="lightblue"></Box>
-        <Box borderRadius="8px" height="40px" backgroundColor="lightblue"></Box>
-        <Box borderRadius="8px" height="40px" backgroundColor="lightblue"></Box>
-        <Box borderRadius="8px" height="40px" backgroundColor="lightblue"></Box>
-        <Box borderRadius="8px" height="40px" backgroundColor="lightblue"></Box>
-        <Box borderRadius="8px" height="40px" backgroundColor="lightblue"></Box>
+      {COLORS.map((color) => (
+        <Box _hover={{ cursor: "pointer" }} borderRadius="8px" height="40px" backgroundColor={color.primary}></Box>
+      ))}
     </Grid>
-  )
-}
+  );
+};
 
-export default ColorsList
+export default ColorsList;

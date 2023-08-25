@@ -16,6 +16,9 @@ import ColorsList from "./List/ColorsList";
 import SectionTitle from "./Panel/SectionTitle";
 import LabelsList from "./List/LabelsList";
 
+
+
+
 const Labels = () => {
   return (
     <Menu>
@@ -25,7 +28,7 @@ const Labels = () => {
             <Text>Label</Text>
           </HStack>
       </MenuButton>
-      <MenuList padding={4} borderRadius={12}>
+      <MenuList padding={4} borderRadius="12px">
         <Heading letterSpacing="-0.42px" color="#4F4F4F" fontSize="19px" fontFamily="Poppins" fontWeight={600}>
           Label
         </Heading>

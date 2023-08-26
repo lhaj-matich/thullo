@@ -6,7 +6,9 @@ import UserGroupList from "./UserGroupList";
 import useBoard from "../../hooks/useBoard";
 import InsertButton from "../Button/InsertButton";
 import NumberBadge from "../NumberBadge";
-import { MdInsertComment, MdAttachFile } from 'react-icons/md'
+import { MdInsertComment, MdAttachFile } from "react-icons/md";
+import CardItem from "../Card/CardItem";
+import BoardCard from "../Card/BoardCard";
 
 //! Should modify the generic card component to trucate text or not.
 
@@ -15,17 +17,10 @@ const CardsList = () => {
   return (
     <VStack alignItems="center" width="330px">
       <ListHeader />
-      <GenericCard marginBottom={5} image="G85VuTpw6jg" clickCB={() => console.log("Hello")} title="The weird card that">
-        <LabelsList />
-        <HStack marginTop={4} justifyContent="space-between">
-          <UserGroupList max={3} users={[...(board?.author ? [board.author] : []), ...(board?.users || [])]} />
-          <HStack>
-            <NumberBadge icon={MdInsertComment} count={3} />
-            <NumberBadge icon={MdAttachFile} count={5} />
-          </HStack>
-        </HStack>
-      </GenericCard>
-      <InsertButton />
+      <VStack>
+        <BoardCard />
+        <InsertButton />
+      </VStack>
     </VStack>
   );
 };

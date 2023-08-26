@@ -7,6 +7,7 @@ const InsertButton = () => {
       width="100%"
       display="flex"
       paddingY={3}
+      marginBottom={2}
       justifyContent="space-between"
       color="primary"
       backgroundColor="#DAE4FD"

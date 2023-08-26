@@ -39,7 +39,7 @@ const PhotoSearch = ({ setImageId, id, buttonElement }: PhotoSearchProps) => {
         {buttonElement ? (
           buttonElement
         ) : (
-          <HStack width="130px" justifyContent="center">
+          <HStack width="150px" paddingLeft={3} justifyContent="flex-start">
             <Icon as={MdInsertPhoto} fontSize={15} />
             <Text>Cover</Text>
           </HStack>

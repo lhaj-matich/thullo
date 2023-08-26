@@ -9,7 +9,7 @@ const BoardAuthor = () => {
   const { board } = useBoard();
   return (
     <Box marginBottom={5}>
-      <SectionTitle title="Made by" icon={BiSolidUserCircle} />
+      <SectionTitle title="Made by" icon={BiSolidUserCircle} marginY={3} />
       <UserInfo
         creationDate={new Date(board.createdAt || Date.now())}
         image={board.author?.profileImage}

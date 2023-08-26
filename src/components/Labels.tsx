@@ -23,9 +23,9 @@ const Labels = () => {
   return (
     <Menu>
       <MenuButton as={Button} variant="private" borderRadius="8px" paddingY="9px" paddingX="14px">
-          <HStack width="130px" justifyContent="center">
+          <HStack width="150px" paddingLeft={2} justifyContent="flex-start">
             <Icon as={MdLabel} fontSize={15} />
-            <Text>Label</Text>
+            <Text>Labels</Text>
           </HStack>
       </MenuButton>
       <MenuList padding={4} borderRadius="12px">
@@ -37,7 +37,7 @@ const Labels = () => {
         </Text>
         <Input width="300px" type="text" variant="outline" placeholder="Label..."/>
         <ColorsList />
-        <SectionTitle title="Available" icon={MdLabel} />
+        <SectionTitle marginY={3} title="Available" icon={MdLabel} />
         <LabelsList />
         <Center marginTop={4}>
           <Button variant="generic" onClick={() => console.log("Adding color")}>

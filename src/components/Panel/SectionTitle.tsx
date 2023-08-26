@@ -1,14 +1,14 @@
-import { HStack, Icon, Text } from "@chakra-ui/react";
+import { BoxProps, HStack, Icon, Text } from "@chakra-ui/react";
 
 
-interface SectionProps {
+interface SectionProps extends BoxProps {
   title: string;
   icon: any;
 }
 
-const SectionTitle = ({title, icon}: SectionProps) => {
+const SectionTitle = ({title, icon, ...rest}: SectionProps) => {
   return (
-    <HStack marginY="15px">
+    <HStack {...rest}>
       <Icon boxSize="18px" as={icon} color="#BDBDBD" />
       <Text variant="generic" fontWeight="600" fontSize="14px" color="#BDBDBD">
         {title}

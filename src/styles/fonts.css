@@ -50,3 +50,8 @@ div::-webkit-scrollbar-track {
   line-height: normal;
   letter-spacing: -0.49px;
 }
+
+.reactMarkDown ul li {
+  margin-left: 2.5rem;
+  list-style: disc outside none;
+}

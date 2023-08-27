@@ -1,6 +1,12 @@
+import { VStack } from "@chakra-ui/react"
+import AttachementListItem from "./AttachementListItem"
+
 const AttachmentsList = () => {
   return (
-    <div>AttachmentsList</div>
+    <VStack alignItems="flex-start">
+      <AttachementListItem />
+      <AttachementListItem />
+    </VStack>
   )
 }
 

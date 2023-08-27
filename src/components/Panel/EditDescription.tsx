@@ -63,10 +63,11 @@ const EditDescription = ({ value, clickCB, height, edit }: EditDescriptionProps)
   const DescriptionPreview = () => {
     const { value } = useEditableContext();
     const { isEditing } = useEditableControls();
+
     if (isEditing) return null;
     return (
-      <Box className="description" paddingY={2} paddingX={6}>
-        <ReactMarkdown remarkPlugins={[remarkGfm]}>{value}</ReactMarkdown>
+      <Box className="description" paddingY={2} paddingX={2}>
+        <ReactMarkdown className="reactMarkDown" remarkPlugins={[remarkGfm]}>{value}</ReactMarkdown>
       </Box>
     );
   };

@@ -13,7 +13,6 @@ import {
 import { Tabs, TabList, TabPanels, Tab, TabPanel } from "@chakra-ui/react";
 import { createUnsplashLink } from "../../utils/loadUnsplashImage";
 import EditDescription from "../Panel/EditDescription";
-import useBoard from "../../hooks/useBoard";
 import SectionTitle from "../Panel/SectionTitle";
 import { BiSolidUserCircle } from "react-icons/bi";
 import { MdAttachFile, MdChecklist } from "react-icons/md";
@@ -21,6 +20,9 @@ import Labels from "../Labels";
 import PhotoSearch from "./PhotoSearch";
 import ListIndicator from "../Nav/ListIndicator";
 import AttachmentsList from "../List/AttachmentsList";
+import AttachementMenu from "../Menu/AttachementMenu";
+import CheckList from "../List/CheckList";
+import CommentCard from "../Card/CommentCard";
 
 interface CardModalProps {
   opened: boolean;
@@ -39,7 +41,9 @@ After creation, you can move your card to the todo list.`
 
 
 const CardModal = ({ opened, onClose }: CardModalProps) => {
-  const { board } = useBoard();
+
+
+  
   return (
     <Modal size="3xl" variant="primary" closeOnOverlayClick={false} isOpen={opened} onClose={onClose}>
       <ModalOverlay />
@@ -79,15 +83,17 @@ const CardModal = ({ opened, onClose }: CardModalProps) => {
                     <AttachmentsList />
                   </TabPanel>
                   <TabPanel>
-                    <p>two!</p>
+                    <CheckList />
                   </TabPanel>
                 </TabPanels>
               </Tabs>
+              <CommentCard />
             </Box>
             <VStack marginTop={4} width="25%" alignItems="flex-start" gap={3}>
               <SectionTitle title="Actions" icon={BiSolidUserCircle} />
               <Labels />
               <PhotoSearch />
+              <AttachementMenu />
             </VStack>
           </HStack>
         </ModalBody>

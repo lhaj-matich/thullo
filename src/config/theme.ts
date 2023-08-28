@@ -111,6 +111,10 @@ const TextAreaStyle: ComponentStyleConfig = {
   variants: {
     generic: {
       resize: "none",
+      fontFamily: "Noto Sans",
+      fontSize: "18px",
+      fontWeight: 500,
+      letterSpacing: "-0.49px",
       padding: "5px",
       border: "2px solid #BDBDBD",
       borderRadius: "10px",
@@ -128,6 +132,13 @@ const TextAreaStyle: ComponentStyleConfig = {
       },
       "&::-webkit-scrollbar-track": {
         backgroundColor: "#f1f1f1",
+      },
+      "&::placeholder": {
+        color: "#BDBDBD",
+        fontFamily: "Noto Sans",
+        fontSize: "18px",
+        fontWeight: 500,
+        letterSpacing: "-0.49px"
       },
       _focus: {
         boxShadow: "none",

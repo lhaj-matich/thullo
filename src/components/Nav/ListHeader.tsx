@@ -1,11 +1,21 @@
-import { Text, Box, Input, HStack, IconButton, Icon } from "@chakra-ui/react";
+import { Text, Box, Input, InputGroup, HStack, Button, InputRightElement } from "@chakra-ui/react";
 import { useState } from "react";
 import ListOptionsMenu from "../Menu/ListOptionsMenu";
-import { IoCloseOutline } from 'react-icons/io5';
+import apiClient from "../../services/apiClient";
 
-const ListHeader = () => {
-  const [value, setValue] = useState("Backlog 🤔");
+interface ListHeaderProps {
+  name: string;
+  id: string;
+}
+
+const ListHeader = ({ name, id }: ListHeaderProps) => {
+  const [value, setValue] = useState(name);
   const [isEditing, setIsEditing] = useState(false);
+  const listClient = new apiClient("/lists");
+  //? Update list logic
+  const updateListName = () => {
+    
+  }
 
   //! Should handle on enter key should submit the data
 
@@ -13,7 +23,9 @@ const ListHeader = () => {
     if (isEditing) return null;
     return (
       <Box className="description" paddingY={2} paddingX={6} display="flex">
-        <Text width="250px" variant="generic" fontSize="20px">{value}</Text>
+        <Text width="250px" variant="generic" fontSize="20px">
+          {value}
+        </Text>
       </Box>
     );
   };
@@ -22,19 +34,28 @@ const ListHeader = () => {
     if (!isEditing) return null;
     return (
       <HStack className="description" justifyContent="center">
-        <Input
-          width="325px"
-          margin={0}
-          type="text"
-          border="1px solid #BDBDBD"
-          variant="outline"
-          onBlur={(e) => {
-            setValue(e.target.value);
-            setIsEditing(false);
-          }}
-          defaultValue={value}
-        />
-        {/* <IconButton padding="5px" icon={<Icon as={IoCloseOutline} boxSize="34px" color="#fff" />} onClick={() => setIsEditing(false)} aria-label={"Close rename input"} /> */}
+        <InputGroup size="md">
+          <Input
+            pr="4.5rem"
+            width="325px"
+            margin={0}
+            type="text"
+            border="none"
+            boxShadow="none"
+            variant="outline"
+            backgroundColor="#DFE4F6"
+            onBlur={(e) => {
+              setValue(e.target.value);
+              setIsEditing(false);
+            }}
+            defaultValue={value}
+          />
+          <InputRightElement width="4rem" marginRight={1}>
+            <Button h="1.75rem" size="sm" onClick={() => setIsEditing(false)}>
+              Cancel
+            </Button>
+          </InputRightElement>
+        </InputGroup>
       </HStack>
     );
   };

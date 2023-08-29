@@ -1,10 +1,15 @@
-import { Button, Icon, Text } from "@chakra-ui/react";
+import { Button, ButtonProps, Icon, Text } from "@chakra-ui/react";
 import { BsPlusLg } from "react-icons/bs";
 
-const InsertButton = () => {
+interface InsertButtonProps extends ButtonProps {
+  text: string;
+}
+
+const InsertButton = ({ text, ...rest }: InsertButtonProps) => {
   return (
     <Button
-      width="100%"
+      {...rest}
+      width="340px"
       display="flex"
       paddingY={3}
       marginBottom={2}
@@ -13,7 +18,7 @@ const InsertButton = () => {
       backgroundColor="#DAE4FD"
       _hover={{ color: "#fff", bg: "primary" }}
     >
-      <Text variant="generic">Add another card</Text>
+      <Text variant="generic">{text}</Text>
       <Icon as={BsPlusLg} boxSize="20px" />
     </Button>
   );

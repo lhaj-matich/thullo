@@ -1,11 +1,12 @@
 import { Avatar, HStack, Heading, VStack, Text } from "@chakra-ui/react";
 import moment from "moment";
 import { createImageLink } from "../utils/loadImage";
+import { ReactNode } from "react";
 
 interface userInfoProps {
   name: string | undefined;
   image: string | undefined;
-  creationDate?: Date;
+  creationDate?: ReactNode;
 }
 
 const UserInfo = ({ name, image, creationDate }: userInfoProps) => {
@@ -26,7 +27,7 @@ const UserInfo = ({ name, image, creationDate }: userInfoProps) => {
         </Heading>
         {creationDate ? (
           <Text variant="generic" fontSize="13px" fontWeight={500} color="#BDBDBD">
-            on {moment(creationDate).format("ll")}
+            {creationDate}
           </Text>
         ) : (
           ""

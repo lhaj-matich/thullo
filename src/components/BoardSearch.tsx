@@ -14,6 +14,11 @@ export interface User {
   email: string;
 }
 
+export interface List {
+  id: string;
+  name: string;
+}
+
 export interface Board {
   id?: string;
   title: string;
@@ -21,6 +26,7 @@ export interface Board {
   visibility: boolean;
   description?: string;
   users?: User[];
+  lists?: List[];
   author?: User;
   authorId?: string;
   createdAt?: string;

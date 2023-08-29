@@ -11,7 +11,7 @@ class apiClient<T> {
   }
 
   postData = (data: T | any, suffix = "") => {
-    return axiosInstance.post(this.endPoint + suffix, data, { withCredentials: true });
+    return axiosInstance.post<any>(this.endPoint + suffix, data, { withCredentials: true });
   };
 
   updateData = (data: T, headers: any | undefined) => {

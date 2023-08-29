@@ -7,7 +7,7 @@ const BoardCard = () => {
   return (
     <Box>
       <CardItem onClick={onOpen} />
-      <CardModal opened={isOpen} onClose={onClose} />
+      {isOpen && <CardModal opened={isOpen} onClose={onClose} />}
     </Box>
   );
 };

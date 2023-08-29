@@ -23,6 +23,7 @@ import AttachmentsList from "../List/AttachmentsList";
 import AttachementMenu from "../Menu/AttachementMenu";
 import CheckList from "../List/CheckList";
 import CommentCard from "../Card/CommentCard";
+import CommentsList from "../List/CommentsList";
 
 interface CardModalProps {
   opened: boolean;
@@ -87,7 +88,7 @@ const CardModal = ({ opened, onClose }: CardModalProps) => {
                   </TabPanel>
                 </TabPanels>
               </Tabs>
-              <CommentCard />
+              <CommentsList />
             </Box>
             <VStack marginTop={4} width="25%" alignItems="flex-start" gap={3}>
               <SectionTitle title="Actions" icon={BiSolidUserCircle} />

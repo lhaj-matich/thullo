@@ -4,6 +4,7 @@ import { BiSolidUserCircle } from "react-icons/bi";
 import SectionTitle from "../Panel/SectionTitle";
 import UserInfo from "../UserInfo";
 import useBoard from "../../hooks/useBoard";
+import moment from "moment";
 
 const BoardAuthor = () => {
   const { board } = useBoard();
@@ -11,7 +12,7 @@ const BoardAuthor = () => {
     <Box marginBottom={5}>
       <SectionTitle title="Made by" icon={BiSolidUserCircle} marginY={3} />
       <UserInfo
-        creationDate={new Date(board.createdAt || Date.now())}
+        creationDate={`on ${moment(board.createdAt).format("ll")}`}
         image={board.author?.profileImage}
         name={board.author?.fullname}
       />

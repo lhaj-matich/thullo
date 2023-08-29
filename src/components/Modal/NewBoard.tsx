@@ -72,7 +72,7 @@ const NewBoard = () => {
               width={350}
               height={120}
               objectFit="cover"
-              src={createUnsplashLink(imageId, 120, 360)}
+              src={createUnsplashLink(imageId, 440, 720)}
               fallback={<Skeleton height={120} width={310} borderRadius={12} />}
             />
             <Input

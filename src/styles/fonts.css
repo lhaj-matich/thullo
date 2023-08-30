@@ -14,7 +14,7 @@ span::-webkit-scrollbar {
 }
 
 span::-webkit-scrollbar-thumb {
-  background-color: #424C55 !important;
+  background-color: #E8EAED !important;
   border-radius: 8px !important;
 }
 
@@ -31,7 +31,7 @@ div::-webkit-scrollbar {
 }
 
 div::-webkit-scrollbar-thumb {
-  background-color: #AEB8C1 !important;
+  background-color: #E8EAED !important;
   border-radius: 8px !important;
 }
 

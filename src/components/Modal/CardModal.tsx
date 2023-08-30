@@ -56,7 +56,7 @@ const CardModal = ({ opened, onClose }: CardModalProps) => {
             width="100%"
             height="150px"
             borderRadius="12px"
-            src={createUnsplashLink("G85VuTpw6jg", 500, 800)}
+            src={createUnsplashLink("fbAnIjhrOL4", 500, 800)}
           />
           <HStack alignItems="flex-start" marginTop={4}>
             <Box width="75%">

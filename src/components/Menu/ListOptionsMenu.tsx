@@ -6,18 +6,16 @@ import {
   MenuDivider,
   Icon,
   IconButton,
-  useEditableControls,
-  Button,
 } from "@chakra-ui/react";
 import { BsThreeDots } from "react-icons/bs";
 
 interface ListOptionsProps {
   isEditing: boolean;
   onRename: (value: boolean) => void;
-  // onDelete: () => void;
+  onDelete: () => void;
 }
 
-const ListOptionsMenu = ({ onRename, isEditing }: ListOptionsProps) => {
+const ListOptionsMenu = ({ onDelete, onRename, isEditing }: ListOptionsProps) => {
   if (isEditing)
     return null;
   return (
@@ -28,7 +26,7 @@ const ListOptionsMenu = ({ onRename, isEditing }: ListOptionsProps) => {
           Rename
         </MenuItem>
         <MenuDivider />
-        <MenuItem borderRadius={12}>Delete this list</MenuItem>
+        <MenuItem onClick={onDelete} borderRadius={12}>Delete this list</MenuItem>
       </MenuList>
     </Menu>
   );

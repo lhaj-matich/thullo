@@ -1,14 +1,15 @@
+import { useEffect } from "react";
+import { useParams } from "react-router-dom";
 import { Box, HStack } from "@chakra-ui/react";
-import NavBar from "../components/Nav/NavBar";
+
 import BoardNavBar from "../components/Nav/BoardNavBar";
 import BoardHeader from "../components/Nav/BoardHeader";
-import useBoard from "../hooks/useBoard";
-import { useParams } from "react-router-dom";
-import { useEffect } from "react";
-import apiClient from "../services/apiClient";
-import { Board } from "../components/BoardSearch";
 import CardsList from "../components/List/CardsList";
+import { Board } from "../components/BoardSearch";
+import NavBar from "../components/Nav/NavBar";
+import apiClient from "../services/apiClient";
 import NewList from "../components/NewList";
+import useBoard from "../hooks/useBoard";
 
 interface BoardResponse {
   status: string;
@@ -20,10 +21,10 @@ const BoardPage = () => {
   const { id } = useParams();
   const { setBoard, board } = useBoard();
 
-  //! We gonna need custom scroll bars in the lists container
   useEffect(() => {
     boardClient.getData(`/${id}`).then((res) => setBoard(res.data.board));
   }, []);
+
 
   return (
     <Box backgroundColor="#fff">
@@ -33,7 +34,7 @@ const BoardPage = () => {
       <BoardNavBar />
       <Box minHeight="80vh" paddingY={3} paddingX={6}>
         <HStack
-          gap={3}
+          gap={4}
           alignItems="flex-start"
           padding={3}
           paddingX={6}

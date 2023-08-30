@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import { useRef, useState } from "react";
 
 import { Box, Divider, HStack, Heading, useStyleConfig } from "@chakra-ui/react";
 import FormSearchInput from "./FormSearchInput";
@@ -14,9 +14,13 @@ export interface User {
   email: string;
 }
 
+
 export interface List {
   id: string;
   name: string;
+  createdAt?: string;
+  updatedAt?: string;
+  boardId?: string;
 }
 
 export interface Board {

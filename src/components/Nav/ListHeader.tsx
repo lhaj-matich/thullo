@@ -1,7 +1,9 @@
+import React, { useEffect, useState } from "react";
 import { Text, Box, Input, InputGroup, HStack, Button, InputRightElement, useToast } from "@chakra-ui/react";
-import React, { useState } from "react";
+
 import ListOptionsMenu from "../Menu/ListOptionsMenu";
 import apiClient from "../../services/apiClient";
+import useBoard from "../../hooks/useBoard";
 
 interface ListHeaderProps {
   name: string;
@@ -9,10 +11,28 @@ interface ListHeaderProps {
 }
 
 const ListHeader = ({ name, id }: ListHeaderProps) => {
-  const [value, setValue] = useState(name);
+  const { board, setBoard } = useBoard();
+  const [value, setValue] = useState("");
   const [isEditing, setIsEditing] = useState(false);
   const listClient = new apiClient(`/lists/${id}`);
   const toast = useToast({ duration: 2000, position: "top-right", status: "error" });
+
+  useEffect(() => {
+    setValue(name);
+  }, [name])
+
+  //? Delete list logic
+  const DeleteListById = () => {
+    const newLists = board.lists?.filter((list) => list.id !== id);
+    listClient
+      .deleteData()
+      .then(() => {
+        setBoard({...board, lists: newLists });
+      })
+      .catch(() => {
+        toast({ description: "Could not delete list." });
+      });
+  };
 
   //? Update list logic
   const updateListName = (newListName: string) => {
@@ -39,7 +59,7 @@ const ListHeader = ({ name, id }: ListHeaderProps) => {
     return (
       <Box className="description" paddingY={2} paddingX={6} display="flex">
         <Text width="250px" variant="generic" fontSize="20px">
-          {value}
+          {value || name}
         </Text>
       </Box>
     );
@@ -60,7 +80,7 @@ const ListHeader = ({ name, id }: ListHeaderProps) => {
             variant="outline"
             backgroundColor="#DFE4F6"
             onKeyDown={HandleEnter}
-            defaultValue={value}
+            defaultValue={value || name}
           />
           <InputRightElement width="4rem" marginRight={1}>
             <Button
@@ -68,7 +88,6 @@ const ListHeader = ({ name, id }: ListHeaderProps) => {
               size="sm"
               onClick={() => {
                 setIsEditing(false);
-                setValue(name);
               }}
             >
               Cancel
@@ -80,10 +99,10 @@ const ListHeader = ({ name, id }: ListHeaderProps) => {
   };
 
   return (
-    <HStack width="350px" fontSize="20px" defaultValue="Backlog (sans)" justifyContent="center" alignItems="center">
+    <HStack width="350px" fontSize="20px" justifyContent="center" alignItems="center">
       <ListNamePreview />
       <ListNameInput />
-      <ListOptionsMenu isEditing={isEditing} onRename={setIsEditing} />
+      <ListOptionsMenu isEditing={isEditing} onDelete={DeleteListById} onRename={setIsEditing} />
     </HStack>
   );
 };

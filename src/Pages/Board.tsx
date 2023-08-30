@@ -8,7 +8,6 @@ import { useEffect } from "react";
 import apiClient from "../services/apiClient";
 import { Board } from "../components/BoardSearch";
 import CardsList from "../components/List/CardsList";
-import InsertButton from "../components/Button/InsertButton";
 import NewList from "../components/NewList";
 
 interface BoardResponse {

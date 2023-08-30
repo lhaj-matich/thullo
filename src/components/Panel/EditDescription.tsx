@@ -15,8 +15,8 @@ import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 
 interface EditDescriptionProps {
-  value: string | undefined;
   clickCB: (value: string) => void;
+  value: string | undefined;
   height: string | number;
   edit: boolean;
 }
@@ -26,7 +26,7 @@ const EditDescription = ({ value, clickCB, height, edit }: EditDescriptionProps)
     const { getSubmitButtonProps, getCancelButtonProps, isEditing } = useEditableControls();
     if (!isEditing) return null;
     return (
-      <HStack marginTop={3}>
+      <HStack marginY={3}>
         <Button fontSize="14px" variant="green" value="Submit" {...getSubmitButtonProps()}>
           Save
         </Button>

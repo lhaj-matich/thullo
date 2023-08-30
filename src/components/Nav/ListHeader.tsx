@@ -1,5 +1,5 @@
-import { Text, Box, Input, InputGroup, HStack, Button, InputRightElement } from "@chakra-ui/react";
-import { useState } from "react";
+import { Text, Box, Input, InputGroup, HStack, Button, InputRightElement, useToast } from "@chakra-ui/react";
+import React, { useState } from "react";
 import ListOptionsMenu from "../Menu/ListOptionsMenu";
 import apiClient from "../../services/apiClient";
 
@@ -11,13 +11,28 @@ interface ListHeaderProps {
 const ListHeader = ({ name, id }: ListHeaderProps) => {
   const [value, setValue] = useState(name);
   const [isEditing, setIsEditing] = useState(false);
-  const listClient = new apiClient("/lists");
-  //? Update list logic
-  const updateListName = () => {
-    
-  }
+  const listClient = new apiClient(`/lists/${id}`);
+  const toast = useToast({ duration: 2000, position: "top-right", status: "error" });
 
-  //! Should handle on enter key should submit the data
+  //? Update list logic
+  const updateListName = (newListName: string) => {
+    if (!newListName) return;
+    listClient
+      .updateData({ name: newListName }, null)
+      .then(() => {
+        setIsEditing(false);
+        setValue(newListName);
+      })
+      .catch(() => {
+        toast({ description: "Could not update list." });
+      });
+  };
+
+  const HandleEnter = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === "Enter") {
+      updateListName(event.currentTarget.value);
+    }
+  };
 
   const ListNamePreview = () => {
     if (isEditing) return null;
@@ -44,14 +59,18 @@ const ListHeader = ({ name, id }: ListHeaderProps) => {
             boxShadow="none"
             variant="outline"
             backgroundColor="#DFE4F6"
-            onBlur={(e) => {
-              setValue(e.target.value);
-              setIsEditing(false);
-            }}
+            onKeyDown={HandleEnter}
             defaultValue={value}
           />
           <InputRightElement width="4rem" marginRight={1}>
-            <Button h="1.75rem" size="sm" onClick={() => setIsEditing(false)}>
+            <Button
+              h="1.75rem"
+              size="sm"
+              onClick={() => {
+                setIsEditing(false);
+                setValue(name);
+              }}
+            >
               Cancel
             </Button>
           </InputRightElement>

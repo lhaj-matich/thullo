@@ -14,28 +14,29 @@ span::-webkit-scrollbar {
 }
 
 span::-webkit-scrollbar-thumb {
-  background-color: rgba(255, 255, 255, .5) !important;
+  background-color: #424C55 !important;
   border-radius: 8px !important;
 }
 
 span::-webkit-scrollbar-thumb:hover {
-  background-color: rgba(245, 245, 245, .5) !important;
+  background-color: #424C55 !important;
 }
 span::-webkit-scrollbar-track {
   background-color: #f1f1f1 !important;
 }
 
 div::-webkit-scrollbar {
+  height: 8px !important;
   width: 8px !important;
 }
 
 div::-webkit-scrollbar-thumb {
-  background-color: rgba(255, 255, 255, .5) !important;
+  background-color: #AEB8C1 !important;
   border-radius: 8px !important;
 }
 
 div::-webkit-scrollbar-thumb:hover {
-  background-color: rgba(245, 245, 245, .5) !important;
+  background-color: #424C55 !important;
 }
 div::-webkit-scrollbar-track {
   background-color: #F1F1F1 !important;

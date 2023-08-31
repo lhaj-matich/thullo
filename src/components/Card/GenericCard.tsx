@@ -23,7 +23,7 @@ const GenericCard = ({ clickCB, image, title, children, ...rest }: GenericCardPr
           objectFit="cover"
         />
       )}
-      <Heading marginTop={3} variant="secondary" fontSize="20px">
+      <Heading marginTop={3} variant="generic" fontWeight="500">
         {title}
       </Heading>
       <Box marginTop={4}>{children}</Box>

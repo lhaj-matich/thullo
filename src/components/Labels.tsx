@@ -68,7 +68,7 @@ const Labels = ({ cardId }: LabelsProps) => {
         <Input ref={inputRef} width="300px" type="text" variant="outline" placeholder="Label..." />
         <ColorsList colorName={color} changeColor={setColor} />
         <SectionTitle marginY={3} title="Available" icon={MdLabel} />
-        <LabelsList cardId={cardId} />
+        <LabelsList cardId={cardId} deleteEnabled={true} />
         <Center marginTop={4}>
           <Button variant="generic" onClick={insertNewLabel}>
             Add

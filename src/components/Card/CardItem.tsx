@@ -16,7 +16,7 @@ const CardItem = ({ card, onClick }: CardItemProps) => {
   const { board } = useBoard();
   return (
     <GenericCard marginBottom={5} image={card.coverImage || ""} clickCB={onClick} title={card.title}>
-      <LabelsList cardId={card.id}/>
+      <LabelsList deleteEnabled={false} cardId={card.id}/>
       <HStack marginTop={4} justifyContent="space-between">
         <UserGroupList max={3} users={[...(board?.author ? [board.author] : []), ...(board?.users || [])]} />
         <HStack>

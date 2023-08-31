@@ -31,7 +31,6 @@ const NewCard = ({ listId, first }: NewCardProps) => {
       .catch(() => toast({ description: "Could not create card" }));
   };
 
-  console.log(listId);
   return (
     <VStack>
       <InsertCard

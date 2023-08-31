@@ -11,21 +11,23 @@ import {
   Box,
 } from "@chakra-ui/react";
 import { Tabs, TabList, TabPanels, Tab, TabPanel } from "@chakra-ui/react";
+import { MdAttachFile, MdChecklist } from "react-icons/md";
+import { BiSolidUserCircle } from "react-icons/bi";
+
 import { createUnsplashLink } from "../../utils/loadUnsplashImage";
 import EditDescription from "../Panel/EditDescription";
-import SectionTitle from "../Panel/SectionTitle";
-import { BiSolidUserCircle } from "react-icons/bi";
-import { MdAttachFile, MdChecklist } from "react-icons/md";
-import Labels from "../Labels";
-import PhotoSearch from "./PhotoSearch";
-import ListIndicator from "../Nav/ListIndicator";
-import AttachmentsList from "../List/AttachmentsList";
 import AttachementMenu from "../Menu/AttachementMenu";
-import CheckList from "../List/CheckList";
-import CommentCard from "../Card/CommentCard";
+import AttachmentsList from "../List/AttachmentsList";
+import ListIndicator from "../Nav/ListIndicator";
+import SectionTitle from "../Panel/SectionTitle";
 import CommentsList from "../List/CommentsList";
+import { Card } from "../../config/entities";
+import CheckList from "../List/CheckList";
+import PhotoSearch from "./PhotoSearch";
+import Labels from "../Labels";
 
 interface CardModalProps {
+  card: Card;
   opened: boolean;
   onClose: () => void;
 }
@@ -38,13 +40,9 @@ For example you can follow three simple questions to create the card related to 
   * What ? (What it  is it, what are the goals, who is concerned)
   * How  ? (How do you think you can do it ? What are the required steps ?)
 
-After creation, you can move your card to the todo list.`
+After creation, you can move your card to the todo list.`;
 
-
-const CardModal = ({ opened, onClose }: CardModalProps) => {
-
-
-  
+const CardModal = ({ card, opened, onClose }: CardModalProps) => {
   return (
     <Modal size="3xl" variant="primary" closeOnOverlayClick={false} isOpen={opened} onClose={onClose}>
       <ModalOverlay />
@@ -92,8 +90,8 @@ const CardModal = ({ opened, onClose }: CardModalProps) => {
             </Box>
             <VStack marginTop={4} width="25%" alignItems="flex-start" gap={3}>
               <SectionTitle title="Actions" icon={BiSolidUserCircle} />
-              <Labels />
-              <PhotoSearch />
+              <Labels cardId={card.id} />
+              {/* <PhotoSearch /> */}
               <AttachementMenu />
             </VStack>
           </HStack>

@@ -4,6 +4,11 @@ export interface Attachement {
 
 export interface Label {
   id: string;
+  tag: string;
+  color: string;
+  cardId: string;
+  createdAt?: string;
+  updatedAt?: string;
 }
 
 export interface Checklist {

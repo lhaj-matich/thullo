@@ -6,6 +6,7 @@ import UserGroupList from "../List/UserGroupList";
 import apiClient from "../../services/apiClient";
 import { Board, BoardsReponse } from "../BoardSearch";
 import { useNavigate } from "react-router-dom";
+import { truncateText } from "../../utils/truncateText";
 
 const BoardsContainer = () => {
   const boardsClient = new apiClient<BoardsReponse>("/boards");
@@ -30,7 +31,7 @@ const BoardsContainer = () => {
           <GenericCard
             key={index}
             clickCB={() => navigate(`/board/${board.id}`)}
-            title={board.title}
+            title={truncateText(board.title, 24)}
             image={board.coverImage || ""}
           >
             <UserGroupList users={[...(board?.author ? [board.author] : []), ...(board?.users || [])]} max={3} />

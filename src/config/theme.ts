@@ -391,6 +391,12 @@ const HeadingStyle: ComponentStyleConfig = {
       fontWeight: 600,
       letterSpacing: "-0.42px",
     },
+    secondary: {
+      fontFamily: "Noto sans",
+      fontSize: "18px",
+      fontWeight: 500,
+      letterSpacing: "-0.56px"
+    }
   },
 };
 

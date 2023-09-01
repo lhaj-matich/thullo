@@ -26,7 +26,7 @@ const BoardsContainer = () => {
         </Heading>
         <NewBoard />
       </HStack>
-      <Grid marginTop={8} templateColumns="repeat(auto-fill, 330px)" gap={18} padding={4}>
+      <Grid justifyContent="center" marginTop={8} templateColumns="repeat(auto-fill, 330px)" gap={18} padding={4}>
         {data?.map((board, index) => (
           <GenericCard
             key={index}

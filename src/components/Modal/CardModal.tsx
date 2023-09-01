@@ -23,8 +23,8 @@ import SectionTitle from "../Panel/SectionTitle";
 import CommentsList from "../List/CommentsList";
 import { Card } from "../../config/entities";
 import CheckList from "../List/CheckList";
-import PhotoSearch from "./PhotoSearch";
 import Labels from "../Labels";
+import EditTitle from "../EditTitle";
 
 interface CardModalProps {
   card: Card;
@@ -42,6 +42,8 @@ For example you can follow three simple questions to create the card related to 
 
 After creation, you can move your card to the todo list.`;
 
+const cardTitle = '✋🏿 Move anything that is actually started here'
+
 const CardModal = ({ card, opened, onClose }: CardModalProps) => {
   return (
     <Modal size="3xl" variant="primary" closeOnOverlayClick={false} isOpen={opened} onClose={onClose}>
@@ -58,13 +60,11 @@ const CardModal = ({ card, opened, onClose }: CardModalProps) => {
           />
           <HStack alignItems="flex-start" marginTop={4}>
             <Box width="75%">
-              <Heading marginY={5} marginBottom={3} fontWeight={400} variant="generic">
-                ✋🏿 Move anything that is actually started here
-              </Heading>
+              <EditTitle marginBottom={2} title={cardTitle} edit={true} clickCB={() => console.log("console.log")} />
               <ListIndicator name="Progress" marginBottom={8} />
               <EditDescription
                 edit={true}
-                value={cardDescription}
+                description={cardDescription}
                 clickCB={(value) => console.log(value)}
                 height="300px"
               />

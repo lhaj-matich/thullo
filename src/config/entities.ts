@@ -1,3 +1,5 @@
+import { User } from "../components/BoardSearch";
+
 export interface Attachement {
   id: string;
 }
@@ -23,6 +25,7 @@ export interface Card {
   id: string;
   title: string;
   listId: string;
+  author: User;
   description?: string;
   coverImage?: string;
   createdAt?: string;

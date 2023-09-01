@@ -23,6 +23,7 @@ import { useState } from "react";
 import useBoard from "../../hooks/useBoard";
 import apiClient from "../../services/apiClient";
 import useAuth from "../../hooks/useAuth";
+import EditTitle from "../EditTitle";
 
 const BoardEditMenu = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -30,14 +31,16 @@ const BoardEditMenu = () => {
   const toast = useToast({ duration: 2000, position: "top-right", status: "error" });
   const { board, setBoard } = useBoard();
   const [disable, setDisabled] = useState(true);
-  
+
   // Logic for change the board description.
   const boardClient = new apiClient(`boards/${board.id}`);
 
   const updateBoardDescription = (value: string) => {
     boardClient
       .updateData({ description: value }, null)
-      .then(() => { setBoard({ ...board, description: value }) })
+      .then(() => {
+        setBoard({ ...board, description: value });
+      })
       .catch((e) => toast({ description: e.response.data.message }));
   };
 
@@ -55,12 +58,19 @@ const BoardEditMenu = () => {
       >
         <DrawerOverlay />
         <DrawerContent paddingX="2px">
-          <DrawerHeader>{board.title}</DrawerHeader>
+          <DrawerHeader>
+            <EditTitle title={board.title} edit={true} clickCB={() => console.log("Edit title")} />
+          </DrawerHeader>
           <Divider />
           <DrawerBody>
             <BoardAuthor />
             <BoardCover edit={auth.user?.id === board.authorId} />
-            <EditDescription edit={auth.user?.id === board.authorId} value={board.description} clickCB={(value) => updateBoardDescription(value)} height="300px" />
+            <EditDescription
+              edit={auth.user?.id === board.authorId}
+              description={board.description}
+              clickCB={(value) => updateBoardDescription(value)}
+              height="300px"
+            />
             <TeamUsers edit={auth.user?.id === board.authorId} />
           </DrawerBody>
           <DrawerFooter>

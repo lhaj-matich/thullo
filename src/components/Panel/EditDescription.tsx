@@ -16,18 +16,20 @@ import remarkGfm from "remark-gfm";
 
 interface EditDescriptionProps {
   clickCB: (value: string) => void;
-  value: string | undefined;
+  description: string | undefined;
   height: string | number;
   edit: boolean;
 }
 
-const EditDescription = ({ value, clickCB, height, edit }: EditDescriptionProps) => {
+const EditDescription = ({ description, clickCB, height, edit }: EditDescriptionProps) => {
   const SaveControls = () => {
     const { getSubmitButtonProps, getCancelButtonProps, isEditing } = useEditableControls();
+    const { isValueEmpty } = useEditableContext();
+    console.log(isValueEmpty);
     if (!isEditing) return null;
     return (
       <HStack marginY={3}>
-        <Button fontSize="14px" variant="green" value="Submit" {...getSubmitButtonProps()}>
+        <Button isDisabled={isValueEmpty} fontSize="14px" variant="green" value="Submit" {...getSubmitButtonProps()}>
           Save
         </Button>
         <Button variant="ghost" {...getCancelButtonProps()}>
@@ -72,7 +74,7 @@ const EditDescription = ({ value, clickCB, height, edit }: EditDescriptionProps)
     );
   };
   return (
-    <Editable submitOnBlur={false} defaultValue={value} onSubmit={clickCB} fontSize="lg" isPreviewFocusable={false}>
+    <Editable submitOnBlur={false} defaultValue={description} onSubmit={clickCB} fontSize="lg" isPreviewFocusable={false}>
       <EditControls />
       <DescriptionPreview />
       <Textarea variant="generic" height={height} as={EditableTextarea} />

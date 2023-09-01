@@ -10,6 +10,7 @@ import NavBar from "../components/Nav/NavBar";
 import apiClient from "../services/apiClient";
 import NewList from "../components/NewList";
 import useBoard from "../hooks/useBoard";
+import EditTitle from "../components/EditTitle";
 
 interface BoardResponse {
   status: string;
@@ -24,7 +25,6 @@ const BoardPage = () => {
   useEffect(() => {
     boardClient.getData(`/${id}`).then((res) => setBoard(res.data.board));
   }, []);
-
 
   return (
     <Box backgroundColor="#fff">
@@ -43,6 +43,7 @@ const BoardPage = () => {
           overflowX="scroll"
           height="82vh"
         >
+         
           {board.lists?.map((list, index) => (
             <CardsList key={index} list={list} />
           ))}

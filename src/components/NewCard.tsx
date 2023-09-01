@@ -24,7 +24,7 @@ const NewCard = ({ listId, first }: NewCardProps) => {
     cardClient
       .postData({ title: value, listId })
       .then((res: any) => {
-        queryClient.setQueryData<Card[]>(["cards", listId], (cards) => [res.data.card, ...(cards || [])]);
+        queryClient.setQueryData<Card[]>(["lists", listId, "cards"], (cards) => [res.data.card, ...(cards || [])]);
         setVisible(false);
         setValue("");
       })

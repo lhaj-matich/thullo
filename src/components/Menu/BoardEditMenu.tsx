@@ -44,6 +44,15 @@ const BoardEditMenu = () => {
       .catch((e) => toast({ description: e.response.data.message }));
   };
 
+  const updateBoardTitle = (value: string) => {
+    boardClient
+      .updateData({ title: value }, null)
+      .then(() => {
+        setBoard({ ...board, title: value });
+      })
+      .catch((e) => toast({ description: e.response.data.message }));
+  };
+
   return (
     <>
       <GenericButton text="Show Menu" icon={BsThreeDots} onClick={onOpen} />
@@ -59,7 +68,11 @@ const BoardEditMenu = () => {
         <DrawerOverlay />
         <DrawerContent paddingX="2px">
           <DrawerHeader>
-            <EditTitle title={board.title} edit={true} clickCB={() => console.log("Edit title")} />
+            <EditTitle
+              title={board.title}
+              edit={auth.user?.id === board.authorId}
+              clickCB={(value) => updateBoardTitle(value)}
+            />
           </DrawerHeader>
           <Divider />
           <DrawerBody>

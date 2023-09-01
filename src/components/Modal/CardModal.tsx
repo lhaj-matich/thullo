@@ -9,6 +9,7 @@ import {
   HStack,
   VStack,
   Box,
+  useToast,
 } from "@chakra-ui/react";
 import { Tabs, TabList, TabPanels, Tab, TabPanel } from "@chakra-ui/react";
 import { MdAttachFile, MdChecklist } from "react-icons/md";
@@ -25,6 +26,8 @@ import { Card } from "../../config/entities";
 import CheckList from "../List/CheckList";
 import Labels from "../Labels";
 import EditTitle from "../EditTitle";
+import { useQueryClient } from "@tanstack/react-query";
+import apiClient from "../../services/apiClient";
 
 interface CardModalProps {
   card: Card;
@@ -42,9 +45,23 @@ For example you can follow three simple questions to create the card related to 
 
 After creation, you can move your card to the todo list.`;
 
-const cardTitle = '✋🏿 Move anything that is actually started here'
+const cardTitle = "✋🏿 Move anything that is actually started here";
 
 const CardModal = ({ card, opened, onClose }: CardModalProps) => {
+  const queryClient = useQueryClient();
+  const cardClient = new apiClient(`/cards/${card.id}`);
+  const toast = useToast({duration: 2000, position: "top-right", status: "error"})
+
+  // const EditCardTitle = (value: string) => {
+  //   cardClient
+  //   .updateData({ title: value }, null)
+  //   .then(() => {
+  //       queryClient.setQueryData<Card>()
+  //   })
+  //   .catch((e) => toast({ description: e.response.data.message }));
+  // }
+
+
   return (
     <Modal size="3xl" variant="primary" closeOnOverlayClick={false} isOpen={opened} onClose={onClose}>
       <ModalOverlay />
@@ -56,7 +73,7 @@ const CardModal = ({ card, opened, onClose }: CardModalProps) => {
             width="100%"
             height="150px"
             borderRadius="12px"
-            src={createUnsplashLink("fbAnIjhrOL4", 500, 800)}
+            src={createUnsplashLink("", 500, 800)}
           />
           <HStack alignItems="flex-start" marginTop={4}>
             <Box width="75%">

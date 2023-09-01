@@ -17,7 +17,7 @@ interface CardsListProps {
 const CardsList = ({ list }: CardsListProps) => {
   const cardClient = new apiClient<Card[]>(`/lists/${list.id}/cards`);
   const { data } = useQuery<Card[]>({
-    queryKey: ["cards", list.id],
+    queryKey: ["lists", list.id, "cards"],
     queryFn: () => cardClient.getData().then((res: any) => res.data.cards),
   });
 

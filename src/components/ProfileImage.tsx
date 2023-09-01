@@ -28,7 +28,7 @@ const ProfileImage = ({ userImage, register }: ProfileImageProps) => {
 
   return (
     <FormControl position="relative" boxSize={100}>
-      <Image src={imageData || createImageLink(userImage)} boxSize={100} borderRadius={50} />
+      <Image objectFit='cover' src={imageData || createImageLink(userImage)} boxSize={100} borderRadius={50} />
       <IconButton
         size="sm"
         variant="private"

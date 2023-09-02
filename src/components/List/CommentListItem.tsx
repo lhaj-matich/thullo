@@ -1,4 +1,4 @@
-import { Button, HStack, VStack, Heading, Box, Link } from "@chakra-ui/react";
+import { HStack, VStack, Heading, Box, Link } from "@chakra-ui/react";
 import UserInfo from "../UserInfo";
 import useBoard from "../../hooks/useBoard";
 import moment from "moment";

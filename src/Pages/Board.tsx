@@ -10,7 +10,7 @@ import NavBar from "../components/Nav/NavBar";
 import apiClient from "../services/apiClient";
 import NewList from "../components/NewList";
 import useBoard from "../hooks/useBoard";
-import EditTitle from "../components/EditTitle";
+
 
 interface BoardResponse {
   status: string;

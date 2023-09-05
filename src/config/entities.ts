@@ -13,8 +13,13 @@ export interface Label {
   updatedAt?: string;
 }
 
-export interface Checklist {
+export interface Task {
   id: string;
+  content: string;
+  resolved: boolean;
+  cardId?: string;
+  createdAt?: string;
+  updatedAt?: string;
 }
 
 export interface Comment {
@@ -33,5 +38,5 @@ export interface Card {
   comments?: Comment[];
   attachments?: Attachement[];
   labels?: Label[];
-  checklists?: Checklist[];
+  checklists?: Task[];
 }

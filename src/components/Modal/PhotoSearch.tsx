@@ -26,7 +26,7 @@ const PhotoSearch = ({ setImageId, id, buttonElement }: PhotoSearchProps) => {
       .get<unsplashImageResponse>(REACT_UNSPLASH_ENDPOINT + "/search/photos/?client_id=" + REACT_APP_API_KEY, {
         params: {
           query: search,
-          page: "1",
+          page: Math.round(Math.random() * 10) + 1,
           per_page: "12",
         },
       })

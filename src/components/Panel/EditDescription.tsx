@@ -25,7 +25,6 @@ const EditDescription = ({ description, clickCB, height, edit }: EditDescription
   const SaveControls = () => {
     const { getSubmitButtonProps, getCancelButtonProps, isEditing } = useEditableControls();
     const { isValueEmpty } = useEditableContext();
-    console.log(isValueEmpty);
     if (!isEditing) return null;
     return (
       <HStack marginY={3}>

@@ -100,7 +100,7 @@ const CardModal = ({ card, opened, onClose }: CardModalProps) => {
                     <AttachmentsList />
                   </TabPanel>
                   <TabPanel>
-                    <CheckList />
+                    <CheckList cardData={card}  />
                   </TabPanel>
                 </TabPanels>
               </Tabs>

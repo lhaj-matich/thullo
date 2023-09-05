@@ -1,5 +1,5 @@
-import React from "react";
 import {  Box, Heading, useStyleConfig } from "@chakra-ui/react";
+
 import UserListItem from "./UserListItem";
 import { User } from "./BoardSearch";
 import { createImageLink } from "../utils/loadImage";

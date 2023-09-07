@@ -1,7 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;500;600;700&family=Poppins:wght@200;300;400;500;600;700;800&display=swap");
 
-
 .css-1ebyn6 {
   font-family: "Poppins";
   font-size: 15px !important;
@@ -55,4 +54,11 @@ div::-webkit-scrollbar-track {
 .reactMarkDown ul li {
   margin-left: 2.5rem;
   list-style: disc outside none;
+}
+
+.CommentEditBox {
+  font-size: 14px;
+  font-family: 'Poppins';
+  color: #828282;
+  visibility: hidden;
 }

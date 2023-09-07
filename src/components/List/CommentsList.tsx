@@ -11,7 +11,7 @@ const CommentsList = ({ cardData }: CommentsListProps) => {
   return (
     <VStack>
       <CommentCard cardId={cardData.id} listId={cardData.listId} />
-      <VStack width="100%" maxHeight="350px" overflow="auto" paddingRight={3}>
+      <VStack width="100%" maxHeight="280px" overflow="auto" paddingRight={3}>
         {cardData.comments?.map((comment, index) => (
           <CommentListItem key={index} commentData={comment} />
         ))}

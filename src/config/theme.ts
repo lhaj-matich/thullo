@@ -48,6 +48,26 @@ const MenuStyle: ComponentStyleConfig = {
   },
 };
 
+const CheckBoxStyle: ComponentStyleConfig = {
+  variants: {
+    checkList: {
+      control: {
+        padding: "10px",
+        borderRadius: 20,
+        _focus: {
+          boxShadow: "none",
+        },
+        _active: {
+          boxShadow: "none",
+        },
+      },
+      icon: {
+        fontSize: 13,
+      },
+    },
+  },
+};
+
 const ModalStyle: ComponentStyleConfig = {
   variants: {
     primary: {
@@ -138,7 +158,7 @@ const TextAreaStyle: ComponentStyleConfig = {
         fontFamily: "Noto Sans",
         fontSize: "18px",
         fontWeight: 500,
-        letterSpacing: "-0.49px"
+        letterSpacing: "-0.49px",
       },
       _focus: {
         boxShadow: "none",
@@ -322,7 +342,7 @@ const InputStyle: ComponentStyleConfig = {
           fontFamily: "Noto Sans",
         },
       },
-    }
+    },
   },
 
   // default values for 'size', 'variant' and 'colorScheme'
@@ -395,8 +415,8 @@ const HeadingStyle: ComponentStyleConfig = {
       fontFamily: "Noto sans",
       fontSize: "18px",
       fontWeight: 500,
-      letterSpacing: "-0.56px"
-    }
+      letterSpacing: "-0.56px",
+    },
   },
 };
 
@@ -610,6 +630,7 @@ const theme = extendTheme({
     Modal: ModalStyle,
     Textarea: TextAreaStyle,
     EditablePreview: EditablePreviewStyle,
+    Checkbox: CheckBoxStyle,
   },
 });
 

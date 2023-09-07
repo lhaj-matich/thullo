@@ -25,7 +25,7 @@ const BoardCover = ({ edit }: BoardCoverProps) => {
   };
 
   return (
-    <Box marginBottom={2}>
+    <Box marginBottom={5}>
       <SectionTitle title="Cover" icon={PiImageFill} marginBottom={2} />
       {edit ? (
         <PhotoSearch

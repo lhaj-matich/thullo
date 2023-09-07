@@ -58,7 +58,7 @@ const CheckListItem = ({ task, listId }: TaskItemProps) => {
   return (
     <HStack justifyContent="space-between" padding={1} borderBottom="1px solid #F1F1F1" width="100%">
       <HStack>
-        <Checkbox isChecked={checked} onChange={ToggleTaskStatus} />
+        <Checkbox size="lg" colorScheme="gray" isChecked={checked} onChange={ToggleTaskStatus} />
         <Heading variant="generic" color="#000" fontWeight={500} fontSize="16px">
           {task.content}
         </Heading>

@@ -41,7 +41,7 @@ const EditTitle = ({ edit, title, clickCB, ...rest }: EditTitleProps) => {
       {edit ? (
         <Editable defaultValue={title} onSubmit={clickCB} fontSize="lg" selectAllOnFocus={true}>
             <TitlePreview />
-          <Input borderRadius={8} marginY={2} fontWeight={400} fontSize="19px" variant="generic" as={EditableInput} paddingX={3} />
+          <Input borderRadius={8} marginBottom={2} fontWeight={400} fontSize="19px" variant="generic" as={EditableInput} paddingX={1} />
         </Editable>
       ) : (
         <Heading fontWeight={400} paddingX={1} variant="generic" fontSize="19px">

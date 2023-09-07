@@ -1,13 +1,21 @@
 import { VStack } from "@chakra-ui/react";
 import CommentListItem from "./CommentListItem";
 import CommentCard from "../Card/CommentCard";
+import { Card } from "../../config/entities";
 
-const CommentsList = () => {
+interface CommentsListProps {
+  cardData: Card;
+}
+
+const CommentsList = ({ cardData }: CommentsListProps) => {
   return (
     <VStack>
-      <CommentCard />
-      <CommentListItem />
-      <CommentListItem />
+      <CommentCard cardId={cardData.id} listId={cardData.listId} />
+      <VStack width="100%" maxHeight="350px" overflow="auto" paddingRight={3}>
+        {cardData.comments?.map((comment, index) => (
+          <CommentListItem key={index} commentData={comment} />
+        ))}
+      </VStack>
     </VStack>
   );
 };

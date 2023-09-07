@@ -1,4 +1,4 @@
-import { extendTheme, ThemeConfig, ComponentStyleConfig, defineStyleConfig, Textarea } from "@chakra-ui/react";
+import { extendTheme, ThemeConfig, ComponentStyleConfig, defineStyleConfig } from "@chakra-ui/react";
 
 const config: ThemeConfig = {
   initialColorMode: "light",
@@ -577,7 +577,12 @@ const theme = extendTheme({
   },
   colors: {
     gray: {
+      50: "#FDFFFC",
       100: "#F2F2F2",
+      200: "#E2DFE2",
+      300: "#D8D4D8",
+      400: "#CFC9CF",
+      500: "#B8B8B8",
       700: "#828282",
       600: "#4F4F4F",
     },

@@ -37,8 +37,8 @@ const NewBoard = () => {
     onSuccess: (savedBoard) => {
       queryClient.setQueriesData<Board[]>(["boards"], (boards) => [...(boards || []), savedBoard])
     },
-    onError: () => {
-      toast({ description: "Could not create board." });
+    onError: (error) => {
+      toast({ description: error.message });
     }
   });
 

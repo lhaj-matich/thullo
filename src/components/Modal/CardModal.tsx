@@ -104,7 +104,7 @@ const CardModal = ({ card, opened, onClose }: CardModalProps) => {
                   </TabPanel>
                 </TabPanels>
               </Tabs>
-              <CommentsList />
+              <CommentsList cardData={card} />
             </Box>
             <VStack marginTop={4} width="25%" alignItems="flex-start" gap={3}>
               <SectionTitle title="Actions" icon={BiSolidUserCircle} />

@@ -24,7 +24,7 @@ const TeamUsers = ({ edit }: TeamUsersProps) => {
   };
 
   return (
-    <Box>
+    <Box marginTop={2}>
       <SectionTitle title="Team" icon={RiTeamFill} />
       <HStack justifyContent="space-between" marginY={3}>
         <UserInfo name={board.author?.fullname} image={board.author?.profileImage} />

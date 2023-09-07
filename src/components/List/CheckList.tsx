@@ -10,6 +10,7 @@ import {
   Icon,
   Text,
   useToast,
+  Button,
 } from "@chakra-ui/react";
 import CheckListItem from "./CheckListItem";
 import { BsPlusLg } from "react-icons/bs";
@@ -64,16 +65,18 @@ const CheckList = ({ cardData }: CheckListProps) => {
       <VStack border="1px solid #E0E0E0" padding={4} borderRadius={12} boxShadow="0px 2px 4px 0px rgba(0, 0, 0, 0.05)">
         <HStack borderRadius={12} backgroundColor="#fff">
           <InputGroup size="md">
-            <Input onKeyDown={handleEnter} ref={inputRef} variant="outline" pr="4rem" type="text" placeholder="Task, eg: Taking out the trash" />
-            <InputRightElement width="3rem">
-              <IconButton
-                variant="primary"
-                h="1.75rem"
+            <Input onKeyDown={handleEnter} ref={inputRef} variant="outline" pr="5rem" type="text" placeholder="Task, eg: Take out the trash" />
+            <InputRightElement width="5rem">
+              <Button
+                variant="green"
+                h="1.90rem"
                 size="md"
                 aria-label="Add task"
                 onClick={addNewTask}
-                icon={<Icon color="#fff" boxSize="18px" as={BsPlusLg} />}
-              />
+              >
+                Insert
+                </Button>
+
             </InputRightElement>
           </InputGroup>
         </HStack>
@@ -81,7 +84,7 @@ const CheckList = ({ cardData }: CheckListProps) => {
           <Text variant="generic" color="#828282" marginBottom={1} fontSize="14px" fontWeight={500}>
             Completed: {calculatePercentage()}%
           </Text>
-          <Progress color="blue" size="md" value={calculatePercentage()} borderRadius={12} />
+          <Progress colorScheme="gray" size="md" value={calculatePercentage()} borderRadius={12} />
         </Box>
       </VStack>
       {cardData.checklists?.map((taskData, index) => (

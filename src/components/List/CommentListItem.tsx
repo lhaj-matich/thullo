@@ -1,15 +1,37 @@
-import { HStack, VStack, Heading, Box, Link } from "@chakra-ui/react";
+import { HStack, VStack, Box, Link } from "@chakra-ui/react";
 import UserInfo from "../UserInfo";
 import moment from "moment";
-import { Comment } from "../../config/entities";
+import { Card, Comment } from "../../config/entities";
 import useAuth from "../../hooks/useAuth";
+import apiClient from "../../services/apiClient";
+import { useQueryClient } from "@tanstack/react-query";
+import { useState } from "react";
+import CommentContent from "./CommentContent";
 
 interface CommentItemProps {
   commentData: Comment;
+  listId: string;
 }
 
-const CommentListItem = ({ commentData: comment }: CommentItemProps) => {
+const CommentListItem = ({ commentData: comment, listId }: CommentItemProps) => {
   const { auth } = useAuth();
+  const commentsClient = new apiClient("comments");
+  const queryClient = useQueryClient();
+  const [edit, setEdit] = useState(false);
+
+  const handleDeleteComment = (commentId: string) => {
+    commentsClient.deleteData(`/${commentId}`).then(() => {
+      queryClient.setQueryData<Card[]>(["lists", listId, "cards"], (cards) =>
+        cards?.map((card) => {
+          if (card.id === comment.cardId) {
+            return { ...card, comments: card.comments?.filter((comment) => comment.id !== commentId) };
+          }
+          return card;
+        })
+      );
+    });
+  };
+
   return (
     <VStack
       width="100%"
@@ -31,15 +53,19 @@ const CommentListItem = ({ commentData: comment }: CommentItemProps) => {
         />
         {auth.user?.id === comment.userId ? (
           <Box className="CommentEditBox">
-            <Link margin={1}>Edit</Link>-<Link margin={1}>Delete</Link>
+            <Link margin={1} onClick={() => setEdit(true)}>
+              Edit
+            </Link>
+            -
+            <Link margin={1} onClick={() => handleDeleteComment(comment.id)}>
+              Delete
+            </Link>
           </Box>
         ) : (
           ""
         )}
       </HStack>
-      <Heading marginTop={2} variant="generic" fontWeight={400} fontSize="16px">
-        {comment.content}
-      </Heading>
+      <CommentContent listId={listId} commentData={comment} mode={edit ? "EDIT" : "DISPLAY"} setMode={setEdit} />
     </VStack>
   );
 };

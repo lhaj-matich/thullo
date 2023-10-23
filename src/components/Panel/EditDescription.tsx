@@ -73,7 +73,7 @@ const EditDescription = ({ description, clickCB, height, edit }: EditDescription
     );
   };
   return (
-    <Editable submitOnBlur={false} defaultValue={description} onSubmit={clickCB} fontSize="lg" isPreviewFocusable={false}>
+    <Editable submitOnBlur={false} defaultValue={description} onSubmit={clickCB} fontSize="md" isPreviewFocusable={false}>
       <EditControls />
       <DescriptionPreview />
       <Textarea variant="generic" height={height} as={EditableTextarea} />

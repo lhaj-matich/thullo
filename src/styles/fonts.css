@@ -52,8 +52,8 @@ div::-webkit-scrollbar-track {
 }
 
 .reactMarkDown ul li {
-  margin-left: 2.5rem;
-  list-style: disc outside none;
+  margin-left: 1rem;
+  list-style: none;
 }
 
 .CommentEditBox {

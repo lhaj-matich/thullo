@@ -1,0 +1,134 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Board {
+  id          String  @id @default(uuid())
+  title       String  @unique
+  coverImage  String
+  description String  @default("")
+  visibility  Boolean
+  author      User    @relation("authoredBoards", fields: [authorId], references: [id])
+  authorId    String
+  users       User[]  @relation("Members")
+  lists       List[]  @relation("lists")
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  Invites   Invite[]
+}
+
+model User {
+  id                   String    @id @default(uuid())
+  fullname             String    @unique
+  email                String    @unique
+  profileImage         String?
+  password             String
+  passwordChangedAt    DateTime?
+  passwordResetToken   String?
+  passwordResetExpires DateTime?
+  contriBoards         Board[]   @relation("Members")
+  invites              Invite[]
+  cards                Card[]
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  myBoards  Board[]   @relation("authoredBoards")
+  comments  Comment[]
+}
+
+model List {
+  id   String @id @default(uuid())
+  name String
+  card Card[] @relation("cards")
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  Board     Board?   @relation("lists", fields: [boardId], references: [id], onDelete: SetNull)
+  boardId   String?
+}
+
+model Card {
+  id     String @id @default(uuid())
+  title  String
+  author User   @relation(fields: [userId], references: [id])
+  userId String
+
+  list        List?        @relation("cards", fields: [listId], references: [id], onDelete: SetNull)
+  listId      String?
+  description String?
+  coverImage  String?
+  comments    Comment[]    @relation("comments")
+  attachments Attachment[] @relation("attachements")
+  labels      Label[]
+  checklists  Task[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Attachment {
+  id    String @id @default(uuid())
+  title String
+  path  String @unique
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  card      Card?    @relation("attachements", fields: [cardId], references: [id], onDelete: SetNull)
+  cardId    String?
+}
+
+model Comment {
+  id      String  @id @default(uuid())
+  user    User    @relation(fields: [userId], references: [id])
+  card    Card?   @relation("comments", fields: [cardId], references: [id], onDelete: SetNull)
+  cardId  String?
+  userId  String
+  content String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Invite {
+  id String @id @default(uuid())
+
+  board   Board  @relation(fields: [boardId], references: [id])
+  boardId String
+  ownerId String
+  user    User   @relation(fields: [userId], references: [id])
+  userId  String
+
+  createdAt DateTime @default(now())
+  cardId    String?
+}
+
+model Label {
+  id    String @id @default(uuid())
+  tag   String
+  color String
+
+  card   Card?   @relation(fields: [cardId], references: [id], onDelete: SetNull)
+  cardId String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Task {
+  id        String   @id @default(uuid())
+  content   String
+  resolved  Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  card      Card     @relation(fields: [cardId], references: [id])
+  cardId    String
+}

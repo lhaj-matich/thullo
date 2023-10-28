@@ -1,0 +1,4 @@
+{
+  "ignore": ["src/**/*.spec.ts"],
+  "exec": "ts-node --files --project tsconfig.json"
+}

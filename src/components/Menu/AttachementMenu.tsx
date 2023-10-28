@@ -19,15 +19,19 @@ const AttachementMenu = () => {
         </Text>
         <Input width="300px" type="text" variant="outline" placeholder="Display text" />
         <Button
+          as="label"
           marginTop={4}
           width="100%"
           display="block"
+          textAlign="center"
           leftIcon={<Icon as={MdAttachFile} />}
           variant="outlinePrivate"
           onClick={() => console.log("Adding color")}
+          htmlFor="file"
         >
           Choose a file
         </Button>
+        <Input id="file" type="file" display="none" />
         <HStack justifyContent="flex-end" marginTop={4}>
           <Button variant="ghost" paddingY={2} onClick={() => console.log("Adding color")}>
             Cancel

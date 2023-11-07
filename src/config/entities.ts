@@ -2,6 +2,9 @@ import { User } from "../components/BoardSearch";
 
 export interface Attachement {
   id: string;
+  title: string;
+  path: string;
+  createdAt: string;
 }
 
 export interface Label {

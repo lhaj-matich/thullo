@@ -25,7 +25,7 @@ const upload = multer({
   fileFilter: multerFilter,
 });
 
-export const uploadCardAttachement = upload.single("attachement");
+export const  uploadCardAttachement = upload.single("attachement");
 
 export const processAttachement = (req: Request, res: Response, next: NextFunction) => {
   if (!req.file) return next();

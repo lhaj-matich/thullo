@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import z from "zod";
 import { Button, Box, Center, Input, HStack, useToast } from "@chakra-ui/react";
 import ProfileImage from "./ProfileImage";
@@ -34,8 +33,14 @@ const ProfileInfo = () => {
         description: `Profile updated succesfully.`,
         status: "success",
       });
-    });
-    //! I should handle the case of error
+    }).catch(() => {
+      toast({
+        position: "top-right",
+        duration: 1000,
+        description: `Error updating profile.`,
+        status: "error",
+      });
+    })
   };
 
   return (

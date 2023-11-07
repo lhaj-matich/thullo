@@ -52,8 +52,15 @@ div::-webkit-scrollbar-track {
 }
 
 .reactMarkDown ul li {
-  margin-left: 1rem;
+  margin-left: .7rem;
   list-style: none;
+}
+
+.reactMarkDown h1 {
+  margin-bottom: .5rem;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 1.3rem;
 }
 
 .CommentEditBox {

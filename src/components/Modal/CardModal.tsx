@@ -88,19 +88,23 @@ const CardModal = ({ card, opened, onClose }: CardModalProps) => {
               />
               <Tabs variant="soft-rounded" colorScheme="gray" marginTop={3}>
                 <TabList>
-                  <Tab>
-                    <SectionTitle title="Attachements" icon={MdAttachFile} />
-                  </Tab>
+                  {card?.attachments && card.attachments?.length > 0 && (
+                    <Tab>
+                      <SectionTitle title="Attachements" icon={MdAttachFile} />
+                    </Tab>
+                  )}
                   <Tab>
                     <SectionTitle title="Checklist" icon={MdChecklist} />
                   </Tab>
                 </TabList>
                 <TabPanels>
+                  {card?.attachments && card.attachments?.length > 0 && (
+                    <TabPanel>
+                      <AttachmentsList cardId={card.id} listId={card.listId} />
+                    </TabPanel>
+                  )}
                   <TabPanel>
-                    <AttachmentsList />
-                  </TabPanel>
-                  <TabPanel>
-                    <CheckList cardData={card}  />
+                    <CheckList cardData={card} />
                   </TabPanel>
                 </TabPanels>
               </Tabs>
@@ -110,7 +114,7 @@ const CardModal = ({ card, opened, onClose }: CardModalProps) => {
               <SectionTitle title="Actions" icon={BiSolidUserCircle} />
               <Labels cardId={card.id} />
               <PhotoSearch id={card.coverImage || ""} setImageId={(id) => EditCardClient(id, "coverImage")} />
-              <AttachementMenu />
+              <AttachementMenu cardId={card.id} listId={card.listId} />
             </VStack>
           </HStack>
         </ModalBody>

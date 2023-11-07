@@ -3,6 +3,7 @@ import { z } from "zod";
 const NAME_MESSAGE_FORMAT = "Name should be at least 4 characters long";
 const EMAIL_MESSAGE_FORMAT = "Email format is invalid";
 const PASSWORD_MESSAGE_FORMAT = "Password should be at least 6 characters long";
+const ACCEPTED_FILE_TYPES = ["image/jpeg", "image/jpg", "image/png", "application/pdf"];
 
 export const profileSchema = z.object({
   fullname: z.string().min(4, { message: NAME_MESSAGE_FORMAT }),
@@ -20,14 +21,15 @@ export const updatePasswordSchema = z
     password: z.string().min(6, { message: PASSWORD_MESSAGE_FORMAT }).max(50),
     newPassword: z.string().min(6, { message: PASSWORD_MESSAGE_FORMAT }).max(50),
     confirmPassword: z.string().min(6, { message: PASSWORD_MESSAGE_FORMAT }).max(50),
-  }).refine((data) => data.password !== data.newPassword, {
+  })
+  .refine((data) => data.password !== data.newPassword, {
     message: "You should not use your old password",
     path: ["newPassword"],
   })
   .refine((data) => data.newPassword === data.confirmPassword, {
     message: "Passwords don't match",
     path: ["confirmPassword"],
-  })
+  });
 
 export const forgotPasswordSchema = z.object({
   email: z.string().email({ message: EMAIL_MESSAGE_FORMAT }),
@@ -54,3 +56,14 @@ export const signupSchema = z
     message: "Passwords don't match",
     path: ["confirmPassword"],
   });
+
+export const newAttachementSchema = z.object({
+  title: z.string().min(6, { message: "Display name must be over 6 characters long" }).max(50),
+  attachement: z
+    .any()
+    .refine((files) => files?.length == 1, "Image is required.")
+    .refine(
+      (files) => ACCEPTED_FILE_TYPES.includes(files?.[0]?.type),
+      ".jpeg, .png and .pdf files are accepted."
+    ),
+});

@@ -6,3 +6,8 @@ export const createImageLink = (userImage: string | undefined) => {
   if (!userImage) return placeHolder;
   return "http://localhost:5002/img/users/" + userImage;
 };
+
+export const createAttachementLink = (userImage: string | undefined) => {
+  if (!userImage) return null;
+  return "http://localhost:5002/attachement/" + userImage;
+};

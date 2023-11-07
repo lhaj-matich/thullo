@@ -1,5 +1,23 @@
-import React, { useEffect, useState } from "react";
-import { Text, Box, Input, InputGroup, HStack, Button, InputRightElement, useToast } from "@chakra-ui/react";
+import React, { useEffect, useRef, useState } from "react";
+import {
+  Text,
+  Box,
+  Input,
+  InputGroup,
+  HStack,
+  Button,
+  InputRightElement,
+  useToast,
+  useDisclosure,
+} from "@chakra-ui/react";
+import {
+  AlertDialog,
+  AlertDialogBody,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogContent,
+  AlertDialogOverlay,
+} from "@chakra-ui/react";
 
 import ListOptionsMenu from "../Menu/ListOptionsMenu";
 import apiClient from "../../services/apiClient";
@@ -16,10 +34,12 @@ const ListHeader = ({ name, id }: ListHeaderProps) => {
   const [isEditing, setIsEditing] = useState(false);
   const listClient = new apiClient(`/lists/${id}`);
   const toast = useToast({ duration: 2000, position: "top-right", status: "error" });
+  const { isOpen, onClose, onOpen } = useDisclosure();
+  const cancelRef = useRef(null);
 
   useEffect(() => {
     setValue(name);
-  }, [name])
+  }, [name]);
 
   //? Delete list logic
   const DeleteListById = () => {
@@ -27,7 +47,8 @@ const ListHeader = ({ name, id }: ListHeaderProps) => {
     listClient
       .deleteData()
       .then(() => {
-        setBoard({...board, lists: newLists });
+        setBoard({ ...board, lists: newLists });
+        onClose();
       })
       .catch(() => {
         toast({ description: "Could not delete list." });
@@ -62,6 +83,34 @@ const ListHeader = ({ name, id }: ListHeaderProps) => {
           {value || name}
         </Text>
       </Box>
+    );
+  };
+
+  const DeleteListConfirm = () => {
+    return (
+      <AlertDialog colorScheme="red" isOpen={isOpen} leastDestructiveRef={cancelRef} onClose={onClose} isCentered>
+        <AlertDialogOverlay>
+          <AlertDialogContent>
+            <AlertDialogHeader fontSize="lg" fontWeight="bold">
+              Delete List
+            </AlertDialogHeader>
+            <AlertDialogBody>Are you sure? All cards whithin this list will be deleted forever.</AlertDialogBody>
+            <AlertDialogFooter>
+              <Button ref={cancelRef} onClick={onClose} variant="ghost">
+                Cancel
+              </Button>
+              <Button
+                colorScheme="red"
+                onClick={DeleteListById}
+                ml={3}
+                variant="outlineRed"
+              >
+                Delete
+              </Button>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialogOverlay>
+      </AlertDialog>
     );
   };
 
@@ -100,9 +149,10 @@ const ListHeader = ({ name, id }: ListHeaderProps) => {
 
   return (
     <HStack width="350px" fontSize="20px" justifyContent="center" alignItems="center">
+      <DeleteListConfirm />
       <ListNamePreview />
       <ListNameInput />
-      <ListOptionsMenu isEditing={isEditing} onDelete={DeleteListById} onRename={setIsEditing} />
+      <ListOptionsMenu isEditing={isEditing} onDelete={onOpen} onRename={setIsEditing} />
     </HStack>
   );
 };

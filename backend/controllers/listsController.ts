@@ -82,8 +82,7 @@ export const deleteListById = catchAsync(async (req: Request, res: Response, nex
       id: list.id,
     },
   });
-  await UtilsCtrl.deleteNullComments();
-  await UtilsCtrl.deleteNullCards();
+  await UtilsCtrl.deleteNullLists();
   res.status(204).json({
     status: "success",
     list,

@@ -1,5 +1,5 @@
-import { useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Navigate, useParams } from "react-router-dom";
 import { Box, HStack } from "@chakra-ui/react";
 
 import BoardNavBar from "../components/Nav/BoardNavBar";
@@ -10,7 +10,8 @@ import NavBar from "../components/Nav/NavBar";
 import apiClient from "../services/apiClient";
 import NewList from "../components/NewList";
 import useBoard from "../hooks/useBoard";
-
+import useAuth from "../hooks/useAuth";
+import Loading from "../components/Loader/Loading";
 
 interface BoardResponse {
   status: string;
@@ -19,13 +20,20 @@ interface BoardResponse {
 
 const BoardPage = () => {
   const boardClient = new apiClient<BoardResponse>("boards");
+  const [loading, setLoading] = useState(true);
   const { id } = useParams();
   const { setBoard, board } = useBoard();
+  const { auth } = useAuth();
 
   useEffect(() => {
     boardClient.getData(`/${id}`).then((res) => setBoard(res.data.board));
+    setTimeout(() => {
+      setLoading(false);
+    }, 1000);
   }, []);
 
+  if (loading) return <Loading />;
+  if (!auth.loggedIn) return <Navigate to="/login" />;
   return (
     <Box backgroundColor="#fff">
       <NavBar>
@@ -43,7 +51,6 @@ const BoardPage = () => {
           overflowX="scroll"
           height="82vh"
         >
-         
           {board.lists?.map((list, index) => (
             <CardsList key={index} list={list} />
           ))}

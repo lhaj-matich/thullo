@@ -6,14 +6,11 @@ import {
   Box,
   InputGroup,
   InputRightElement,
-  IconButton,
-  Icon,
   Text,
   useToast,
   Button,
 } from "@chakra-ui/react";
 import CheckListItem from "./CheckListItem";
-import { BsPlusLg } from "react-icons/bs";
 import { useRef } from "react";
 import apiClient from "../../services/apiClient";
 import { useQueryClient } from "@tanstack/react-query";

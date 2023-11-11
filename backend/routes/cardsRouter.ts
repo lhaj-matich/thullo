@@ -11,6 +11,8 @@ const Router = express.Router({ mergeParams: true });
 
 Router.use(authController.authorizeRoute);
 
+Router.use(authController.preventUnauthorized("user"));
+
 Router.use("/:cardId/tasks", tasksRouter);
 Router.use("/:cardId/labels", labelsRouter);
 Router.use("/:cardId/comments", commentsRouter);

@@ -1,4 +1,4 @@
-import { VStack } from "@chakra-ui/react";
+import { VStack, useToast } from "@chakra-ui/react";
 import { useState } from "react";
 
 import InsertButton from "./Button/InsertButton";
@@ -14,6 +14,7 @@ interface NewListProps {
 const NewList = ({ id, first }: NewListProps) => {
   const { setBoard, board } = useBoard();
   const listClient = new apiClient("/lists");
+  const toast = useToast();
   const [visible, setVisible] = useState(false);
   const [value, setValue] = useState("");
 
@@ -23,7 +24,14 @@ const NewList = ({ id, first }: NewListProps) => {
       setBoard({ ...board, lists: [...(board.lists || []), res.data.list] });
       setVisible(false);
       setValue("");
-    });
+    }).then(() => {
+      toast({
+        description: "Could not add list. Please reload your page.",
+        duration: 2000,
+        status: 'error',
+        position: 'top-right'
+      })
+    })
   };
 
   return (

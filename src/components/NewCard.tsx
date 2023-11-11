@@ -28,7 +28,7 @@ const NewCard = ({ listId, first }: NewCardProps) => {
         setVisible(false);
         setValue("");
       })
-      .catch(() => toast({ description: "Could not create card" }));
+      .catch(() => toast({ description: "Could not create card, please reload your page." }));
   };
 
   return (

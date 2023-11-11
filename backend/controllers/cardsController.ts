@@ -72,6 +72,9 @@ export const getAllCards = catchAsync(async (req: Request, res: Response, next: 
     where: {
       listId: req.params.listId ?? undefined,
     },
+    orderBy: {
+      createdAt: 'desc'
+    },
     include: {
       author: {
         select: {

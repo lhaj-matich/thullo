@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import apiClient from "../../services/apiClient";
 import useGlobal from "../../hooks/useGlobal";
-import { useEffect } from "react";
+
 import { InviteResponse } from "../ReceivedInvitesList";
 
 const ProfileMenu = () => {
@@ -22,13 +22,13 @@ const ProfileMenu = () => {
     });
   };
 
-  useEffect(() => {
+  const handleRefetch = () => {
     invitesClient.getData().then((res) => invites.setInvitesNumber(res.data.count));
-  }, []);
+  }
 
   return (
     <Menu variant="primary">
-      <MenuButton variant="menuButton" as={Button} rightIcon={<AiFillCaretDown />}>
+      <MenuButton variant="menuButton" as={Button} rightIcon={<AiFillCaretDown />} onClick={handleRefetch}>
         <HStack>
           <Avatar
             height={9}

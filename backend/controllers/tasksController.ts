@@ -17,9 +17,9 @@ export const createTask = catchAsync(async (req: Request, res: Response, next: N
       content: value.content,
       card: {
         connect: {
-          id: value.cardId
-        }
-      }
+          id: value.cardId,
+        },
+      },
     },
   });
   if (!task) return next(new AppError("Could not create task", 400));
@@ -34,6 +34,9 @@ export const getAllTasks = catchAsync(async (req: Request, res: Response, next: 
   const tasks = await prisma.task.findMany({
     where: {
       cardId: req.params.cardId ?? undefined,
+    },
+    orderBy: {
+      createdAt: "desc",
     },
   });
   res.status(200).json({

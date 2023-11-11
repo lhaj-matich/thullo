@@ -36,6 +36,7 @@ const SentInvitesList = () => {
         invites?.filter((invite) => invite.id !== id)
       );
     });
+    queryClient.invalidateQueries(['sentInvites']);
   };
 
   if (data?.length == 0)

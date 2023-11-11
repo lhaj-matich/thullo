@@ -86,16 +86,18 @@ const BoardEditMenu = () => {
             />
             <TeamUsers edit={auth.user?.id === board.authorId} />
           </DrawerBody>
-          <DrawerFooter>
-            <HStack justifyContent="space-between" width="100%">
-              <Checkbox colorScheme="gray" onChange={(e) => setDisabled(!e.target.checked)} color="#828282">
-                I confirm to delete this board
-              </Checkbox>
-              <Button isDisabled={disable} float="left" variant="outlineRed">
-                Delete Board
-              </Button>
-            </HStack>
-          </DrawerFooter>
+          {auth.user?.id === board.authorId && (
+            <DrawerFooter>
+              <HStack justifyContent="space-between" width="100%">
+                <Checkbox colorScheme="gray" onChange={(e) => setDisabled(!e.target.checked)} color="#828282">
+                  I confirm to delete this board
+                </Checkbox>
+                <Button isDisabled={disable} float="left" variant="outlineRed">
+                  Delete Board
+                </Button>
+              </HStack>
+            </DrawerFooter>
+          )}
         </DrawerContent>
       </Drawer>
     </>

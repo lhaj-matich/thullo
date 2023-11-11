@@ -52,8 +52,12 @@ div::-webkit-scrollbar-track {
 }
 
 .reactMarkDown ul li {
-  margin-left: .7rem;
-  list-style: none;
+  margin-left: 2rem;
+  font-size: 16px;
+}
+
+.reactMarkDown p {
+  font-size: 16px;
 }
 
 .reactMarkDown h1 {

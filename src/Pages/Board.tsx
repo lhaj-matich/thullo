@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { Navigate, useParams } from "react-router-dom";
-import { Box, HStack } from "@chakra-ui/react";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
+import { Box, HStack, useToast } from "@chakra-ui/react";
 
 import BoardNavBar from "../components/Nav/BoardNavBar";
 import BoardHeader from "../components/Nav/BoardHeader";
@@ -21,15 +21,25 @@ interface BoardResponse {
 const BoardPage = () => {
   const boardClient = new apiClient<BoardResponse>("boards");
   const [loading, setLoading] = useState(true);
+  const toast = useToast();
+  const navigate = useNavigate();
   const { id } = useParams();
   const { setBoard, board } = useBoard();
   const { auth } = useAuth();
 
   useEffect(() => {
-    boardClient.getData(`/${id}`).then((res) => setBoard(res.data.board));
+    boardClient.getData(`/${id}`).then((res) => setBoard(res.data.board)).catch(() => {
+      navigate("/");
+      toast({
+        position: 'top-right',
+        description: "You don't have enough permissions or board was deleted.",
+        status: 'error',
+        duration: 2000,
+      })
+    });
     setTimeout(() => {
       setLoading(false);
-    }, 1000);
+    }, 1500);
   }, []);
 
   if (loading) return <Loading />;

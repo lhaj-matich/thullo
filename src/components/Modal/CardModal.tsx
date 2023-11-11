@@ -29,6 +29,8 @@ import EditTitle from "../EditTitle";
 import { useQueryClient } from "@tanstack/react-query";
 import apiClient from "../../services/apiClient";
 import PhotoSearch from "./PhotoSearch";
+import useBoard from "../../hooks/useBoard";
+import { Board } from "../BoardSearch";
 
 interface CardModalProps {
   card: Card;
@@ -36,10 +38,21 @@ interface CardModalProps {
   onClose: () => void;
 }
 
+interface BoardResponse {
+  status: string;
+  board: Board;
+}
+
 const CardModal = ({ card, opened, onClose }: CardModalProps) => {
   const queryClient = useQueryClient();
+  const boardClient = new apiClient<BoardResponse>("boards");
+  const { setBoard, board } = useBoard();
   const cardClient = new apiClient(`/cards/${card.id}`);
   const toast = useToast({ duration: 2000, position: "top-right", status: "error" });
+
+  const refetchBoard = () => {
+    boardClient.getData(`/${board.id}`).then((res) => setBoard(res.data.board))
+  }
 
   const EditCardClient = (value: string, field: string) => {
     cardClient
@@ -61,7 +74,7 @@ const CardModal = ({ card, opened, onClose }: CardModalProps) => {
     <Modal size="3xl" variant="primary" closeOnOverlayClick={false} isOpen={opened} onClose={onClose}>
       <ModalOverlay />
       <ModalContent borderRadius="12px">
-        <ModalCloseButton />
+        <ModalCloseButton onClick={refetchBoard} />
         <ModalBody padding={5}>
           <Image
             fallback={<Skeleton width="100%" height="150px" borderRadius="12px" />}
@@ -115,6 +128,9 @@ const CardModal = ({ card, opened, onClose }: CardModalProps) => {
               <Labels cardId={card.id} />
               <PhotoSearch id={card.coverImage || ""} setImageId={(id) => EditCardClient(id, "coverImage")} />
               <AttachementMenu cardId={card.id} listId={card.listId} />
+              {/* <Button width="100%" justifyContent="flex-start" paddingX={6} paddingY={2} leftIcon={<MdDelete />} variant="outlineRed">
+                Delete card
+              </Button> */}
             </VStack>
           </HStack>
         </ModalBody>

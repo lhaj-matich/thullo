@@ -98,7 +98,22 @@ export const getBoardById = catchAsync(async (req: Request, res: Response, next:
   if (!board) return next(new AppError(`Could not find board: ${id}`, 404));
   const boardUsers = board.users.map((user) => user.id);
   if (board.author.id !== req.currentUser && !boardUsers.includes(req.currentUser))
-    return next(new AppError(`You don't have permissions to access board: ${id}`, 401));
+  {
+    if (!board.visibility)
+      return next(new AppError(`You don't have permissions to access board: ${id}`, 401));
+    await prisma.board.update({
+      where: {
+        id: board.id
+      },
+      data: {
+        users: {
+          connect: {
+            id: req.currentUser
+          }
+        }
+      }
+    })
+  }
   sendBoardId(board.id, res);
   res.status(200).json({
     status: "success",

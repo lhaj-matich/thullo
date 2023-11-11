@@ -168,6 +168,12 @@ export const getAllInvites = catchAsync(async (req: Request, res: Response, next
 
 export const deleteInviteById = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
   const id = req.params.id;
+  const invite = await prisma.invite.findUnique({
+    where: {
+      id
+    }
+  })
+  if (!invite) return next(new AppError("Could not find invite.", 401));
   await prisma.invite.delete({
     where: {
       id,

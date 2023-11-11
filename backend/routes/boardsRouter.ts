@@ -8,8 +8,8 @@ const Router = express.Router({mergeParams: true});
 Router.use(authController.authorizeRoute);
 
 Router.use("/:boardId/lists", listsRouter)
-Router.route("/").get(boardsController.getAllBoards).post(boardsController.createBoard).delete(boardsController.removeUserFromBoard);
-
+Router.route("/").get(boardsController.getMyboards).post(boardsController.createBoard).delete(boardsController.removeUserFromBoard);
+Router.route("/search").get(boardsController.getAllBoards);
 
 Router.route("/:id")
   .get(boardsController.getBoardById)

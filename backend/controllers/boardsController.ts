@@ -49,7 +49,7 @@ export const createBoard = catchAsync(async (req: Request, res: Response, next: 
   });
 });
 
-export const getAllBoards = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+export const getMyboards = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
   const boards = await prisma.board.findMany({
     where: {
       OR: [
@@ -118,6 +118,54 @@ export const getBoardById = catchAsync(async (req: Request, res: Response, next:
   res.status(200).json({
     status: "success",
     board,
+  });
+});
+
+export const getAllBoards = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+  const privateBoards = await prisma.board.findMany({
+    where: {
+      OR: [
+        {
+          authorId: req.currentUser,
+        },
+        {
+          users: { some: { id: req.currentUser } },
+        },
+      ],
+      AND: {
+        visibility: false
+      }
+    },
+    include: {
+      author: {
+        select: { id: true, fullname: true, email: true, profileImage: true },
+      },
+      users: {
+        select: { id: true, fullname: true, email: true, profileImage: true },
+      },
+    },
+  });
+
+  const publicBoards = await prisma.board.findMany({
+    where: {
+      visibility: true
+    },
+    include: {
+      author: {
+        select: { id: true, fullname: true, email: true, profileImage: true },
+      },
+      users: {
+        select: { id: true, fullname: true },
+      },
+    },
+  })
+  
+  const boards = [...privateBoards, ...publicBoards];
+
+  res.status(200).json({
+    status: "success",
+    boards,
+    count: boards.length,
   });
 });
 

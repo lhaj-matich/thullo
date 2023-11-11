@@ -44,13 +44,13 @@ export interface BoardsReponse {
 }
 
 const BoardSearch = () => {
-  const boardsClient = new apiClient<BoardsReponse>("/boards");
+  const boardsClient = new apiClient<BoardsReponse>("/boards/search");
   const boxRef = useRef<HTMLDivElement>(null);
   const [visibility, setVisibilty] = useState(false);
   const [searchArea, setSearchArea] = useState(false);
   const [searchText, setsearchText] = useState("");
   const { data, refetch } = useQuery<Board[]>({
-    queryKey: ["boards"],
+    queryKey: ["boardsSearch"],
     queryFn: () => boardsClient.getData().then((res) => res.data.boards),
   });
 

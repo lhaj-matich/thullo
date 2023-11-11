@@ -2,7 +2,7 @@ import { Box } from "@chakra-ui/react";
 import { BiSolidUserCircle } from "react-icons/bi";
 
 import SectionTitle from "../Panel/SectionTitle";
-import UserInfo from "../UserInfo";
+import UserInfo from "../List/UserInfo";
 import useBoard from "../../hooks/useBoard";
 import moment from "moment";
 

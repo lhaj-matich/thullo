@@ -1,6 +1,6 @@
 import { ReactNode, useState } from "react";
 import { BoardContext } from "../Contexts/boardContext";
-import { Board } from "../BoardSearch";
+import { Board } from "../Nav/BoardSearch";
 
 interface BoardProps {
   children: ReactNode;

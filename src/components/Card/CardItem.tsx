@@ -2,7 +2,7 @@ import { HStack } from "@chakra-ui/react";
 import GenericCard from "./GenericCard";
 import LabelsList from "../List/LabelsList";
 import UserGroupList from "../List/UserGroupList";
-import NumberBadge from "../NumberBadge";
+import NumberBadge from "../Nav/NumberBadge";
 import { MdInsertComment, MdAttachFile } from "react-icons/md";
 import { Card } from "../../config/entities";
 

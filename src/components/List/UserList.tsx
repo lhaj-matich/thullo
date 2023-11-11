@@ -1,8 +1,8 @@
-import {  Box, Heading, useStyleConfig } from "@chakra-ui/react";
+import { Box, Heading, useStyleConfig } from "@chakra-ui/react";
 
 import UserListItem from "./UserListItem";
-import { User } from "./BoardSearch";
-import { createImageLink } from "../utils/loadImage";
+import { User } from "../Nav/BoardSearch";
+import { createImageLink } from "../../utils/loadImage";
 
 interface userListProps {
   userId: string;
@@ -14,7 +14,15 @@ const UserList = ({ onClick, users, userId }: userListProps) => {
   const styles = useStyleConfig("BoxStyle", { variant: "usersList" });
   if (users?.length == 0)
     return (
-      <Heading textAlign="center" paddingY={5} letterSpacing="-0.42px" color="#BDBDBD" fontSize="20px" fontFamily="Poppins" fontWeight={400}>
+      <Heading
+        textAlign="center"
+        paddingY={5}
+        letterSpacing="-0.42px"
+        color="#BDBDBD"
+        fontSize="20px"
+        fontFamily="Poppins"
+        fontWeight={400}
+      >
         No available users.
       </Heading>
     );

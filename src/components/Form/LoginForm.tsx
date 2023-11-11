@@ -1,12 +1,12 @@
 import { Input, Button, VStack, useToast } from "@chakra-ui/react";
 import { Navigate, useNavigate, Link } from "react-router-dom";
-import apiClient from "../services/apiClient";
-import useLogin, { loginData } from "../hooks/useLogin";
+import apiClient from "../../services/apiClient";
+import useLogin, { loginData } from "../../hooks/useLogin";
 import FormContainer from "./FormContainer";
 import FormElement from "./FormElement";
 import FormReminder from "./FormReminder";
 import PasswordInput from "./PasswordInput";
-import useAuth from "../hooks/useAuth";
+import useAuth from "../../hooks/useAuth";
 
 const LoginForm = () => {
   const loginClient = new apiClient<loginData>("/users/login");

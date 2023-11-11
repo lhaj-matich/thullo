@@ -1,4 +1,4 @@
-import {  Box, Grid, Heading, HStack } from "@chakra-ui/react";
+import { Box, Grid, Heading, HStack } from "@chakra-ui/react";
 import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 
@@ -6,7 +6,7 @@ import NewBoard from "../Modal/NewBoard";
 import GenericCard from "../Card/GenericCard";
 import apiClient from "../../services/apiClient";
 import UserGroupList from "../List/UserGroupList";
-import { Board, BoardsReponse } from "../BoardSearch";
+import { Board, BoardsReponse } from "../Nav/BoardSearch";
 import { truncateText } from "../../utils/truncateText";
 
 const BoardsContainer = () => {

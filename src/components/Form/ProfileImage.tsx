@@ -1,8 +1,8 @@
-import React, { useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { Image, IconButton, Input, FormControl, FormLabel } from "@chakra-ui/react";
 import { MdAddAPhoto } from "react-icons/md";
 import { UseFormRegisterReturn } from "react-hook-form";
-import { createImageLink } from "../utils/loadImage";
+import { createImageLink } from "../../utils/loadImage";
 
 interface ProfileImageProps {
   userImage: string | undefined;
@@ -10,7 +10,6 @@ interface ProfileImageProps {
 }
 
 const ProfileImage = ({ userImage, register }: ProfileImageProps) => {
-
   const fileInputRef = useRef<HTMLLabelElement | null>(null);
   const [imageData, setImageData] = useState("");
 
@@ -28,7 +27,7 @@ const ProfileImage = ({ userImage, register }: ProfileImageProps) => {
 
   return (
     <FormControl position="relative" boxSize={100}>
-      <Image objectFit='cover' src={imageData || createImageLink(userImage)} boxSize={100} borderRadius={50} />
+      <Image objectFit="cover" src={imageData || createImageLink(userImage)} boxSize={100} borderRadius={50} />
       <IconButton
         size="sm"
         variant="private"

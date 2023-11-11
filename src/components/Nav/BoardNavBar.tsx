@@ -2,10 +2,9 @@ import { HStack } from "@chakra-ui/react";
 
 import VisibilityMenu from "../Menu/VisibilityMenu";
 import UserGroupList from "../List/UserGroupList";
-import AssignMember from "../AssignMember";
+import AssignMember from "./AssignMember";
 import BoardEditMenu from "../Menu/BoardEditMenu";
 import useBoard from "../../hooks/useBoard";
-
 
 const BoardNavBar = () => {
   const { board } = useBoard();

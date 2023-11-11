@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { Button, Heading, Menu, MenuButton, MenuList, Text, Center, useToast, Icon } from "@chakra-ui/react";
 import { BsPlusLg } from "react-icons/bs";
-import FormSearchInput from "./FormSearchInput";
-import UserList from "./UserList";
+import FormSearchInput from "../Form/FormSearchInput";
+import UserList from "../List/UserList";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import apiClient from "../services/apiClient";
+import apiClient from "../../services/apiClient";
 import { User } from "./BoardSearch";
 
 export interface UserResponse {

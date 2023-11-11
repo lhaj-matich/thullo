@@ -5,10 +5,10 @@ import { Box, HStack, useToast } from "@chakra-ui/react";
 import BoardNavBar from "../components/Nav/BoardNavBar";
 import BoardHeader from "../components/Nav/BoardHeader";
 import CardsList from "../components/List/CardsList";
-import { Board } from "../components/BoardSearch";
+import { Board } from "../components/Nav/BoardSearch";
 import NavBar from "../components/Nav/NavBar";
 import apiClient from "../services/apiClient";
-import NewList from "../components/NewList";
+import NewList from "../components/Card/NewList";
 import useBoard from "../hooks/useBoard";
 import useAuth from "../hooks/useAuth";
 import Loading from "../components/Loader/Loading";
@@ -28,15 +28,18 @@ const BoardPage = () => {
   const { auth } = useAuth();
 
   useEffect(() => {
-    boardClient.getData(`/${id}`).then((res) => setBoard(res.data.board)).catch(() => {
-      navigate("/");
-      toast({
-        position: 'top-right',
-        description: "You don't have enough permissions or board was deleted.",
-        status: 'error',
-        duration: 2000,
-      })
-    });
+    boardClient
+      .getData(`/${id}`)
+      .then((res) => setBoard(res.data.board))
+      .catch(() => {
+        navigate("/");
+        toast({
+          position: "top-right",
+          description: "You don't have enough permissions or board was deleted.",
+          status: "error",
+          duration: 2000,
+        });
+      });
     setTimeout(() => {
       setLoading(false);
     }, 1500);

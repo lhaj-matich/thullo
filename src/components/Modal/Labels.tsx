@@ -13,13 +13,13 @@ import {
 } from "@chakra-ui/react";
 import { MdLabel } from "react-icons/md";
 
-import SectionTitle from "./Panel/SectionTitle";
-import ColorsList from "./List/ColorsList";
-import LabelsList from "./List/LabelsList";
+import SectionTitle from "../Panel/SectionTitle";
+import ColorsList from "../List/ColorsList";
+import LabelsList from "../List/LabelsList";
 import { useRef, useState } from "react";
-import apiClient from "../services/apiClient";
+import apiClient from "../../services/apiClient";
 import { useQueryClient } from "@tanstack/react-query";
-import { Label } from "../config/entities";
+import { Label } from "../../config/entities";
 
 interface LabelsProps {
   cardId: string;

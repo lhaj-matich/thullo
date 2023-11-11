@@ -23,7 +23,7 @@ import { useState } from "react";
 import useBoard from "../../hooks/useBoard";
 import apiClient from "../../services/apiClient";
 import useAuth from "../../hooks/useAuth";
-import EditTitle from "../EditTitle";
+import EditTitle from "../Form/EditTitle";
 
 const BoardEditMenu = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();

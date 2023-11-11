@@ -2,11 +2,11 @@ import z from "zod";
 import { Button, Box, Center, Input, HStack, useToast } from "@chakra-ui/react";
 import ProfileImage from "./ProfileImage";
 import FormElement from "./FormElement";
-import useAuth from "../hooks/useAuth";
+import useAuth from "../../hooks/useAuth";
 import { useForm } from "react-hook-form";
-import { profileSchema } from "../utils/authSchema";
+import { profileSchema } from "../../utils/authSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import apiClient from "../services/apiClient";
+import apiClient from "../../services/apiClient";
 
 type ProfileData = z.infer<typeof profileSchema>;
 
@@ -25,22 +25,24 @@ const ProfileInfo = () => {
     formData.append("fullname", data.fullname);
     formData.append("email", data.email);
     formData.append("profileImage", data.profileImage[0]);
-    ProfileAPI.updateData(formData, { "Content-Type": "multipart/form-data" }).then((res) => {
-      setAuth({ ...auth, user: res.data.user });
-      toast({
-        position: "top-right",
-        duration: 1000,
-        description: `Profile updated succesfully.`,
-        status: "success",
+    ProfileAPI.updateData(formData, { "Content-Type": "multipart/form-data" })
+      .then((res) => {
+        setAuth({ ...auth, user: res.data.user });
+        toast({
+          position: "top-right",
+          duration: 1000,
+          description: `Profile updated succesfully.`,
+          status: "success",
+        });
+      })
+      .catch(() => {
+        toast({
+          position: "top-right",
+          duration: 1000,
+          description: `Error updating profile.`,
+          status: "error",
+        });
       });
-    }).catch(() => {
-      toast({
-        position: "top-right",
-        duration: 1000,
-        description: `Error updating profile.`,
-        status: "error",
-      });
-    })
   };
 
   return (

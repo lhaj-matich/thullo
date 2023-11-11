@@ -2,8 +2,8 @@ import { IoMdLock } from "react-icons/io";
 import { HStack, Image, Icon, Text, Heading, useStyleConfig, Skeleton } from "@chakra-ui/react";
 import { HiUserGroup } from "react-icons/hi";
 import { useNavigate } from "react-router-dom";
-import { truncateText } from "../utils/truncateText";
-import { createUnsplashLink } from "../utils/loadUnsplashImage";
+import { truncateText } from "../../utils/truncateText";
+import { createUnsplashLink } from "../../utils/loadUnsplashImage";
 
 interface BoardListItemProps {
   visibility: boolean;

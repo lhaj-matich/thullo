@@ -2,9 +2,9 @@ import { Box, Text } from "@chakra-ui/react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 
 import InvitesListItem from "./InvitesListItem";
-import apiClient from "../services/apiClient";
-import { Board } from "./BoardSearch";
-import useGlobal from "../hooks/useGlobal";
+import apiClient from "../../services/apiClient";
+import { Board } from "../Nav/BoardSearch";
+import useGlobal from "../../hooks/useGlobal";
 
 export interface Invite {
   id: string;

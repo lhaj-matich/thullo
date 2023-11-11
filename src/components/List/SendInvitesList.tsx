@@ -2,8 +2,8 @@ import { Box, Text } from "@chakra-ui/react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 
 import InvitesListItem from "./InvitesListItem";
-import apiClient from "../services/apiClient";
-import { Board, User } from "./BoardSearch";
+import apiClient from "../../services/apiClient";
+import { Board, User } from "../Nav/BoardSearch";
 
 export interface Invite {
   id: string;
@@ -32,19 +32,17 @@ const SentInvitesList = () => {
 
   const handleCancelInvite = (id: string) => {
     invitesClient.deleteData(`/${id}`).then(() => {
-      queryClient.setQueriesData<Invite[]>(["sentInvites"], (invites) =>
-        invites?.filter((invite) => invite.id !== id)
-      );
+      queryClient.setQueriesData<Invite[]>(["sentInvites"], (invites) => invites?.filter((invite) => invite.id !== id));
     });
-    queryClient.invalidateQueries(['sentInvites']);
+    queryClient.invalidateQueries(["sentInvites"]);
   };
 
   if (data?.length == 0)
-  return (
-    <Text align="center" color="#BDBDBD" fontWeight="500" fontSize="20px">
-      You have not sent any invites.
-    </Text>
-  );
+    return (
+      <Text align="center" color="#BDBDBD" fontWeight="500" fontSize="20px">
+        You have not sent any invites.
+      </Text>
+    );
   return (
     <Box>
       {data?.map((invite, index) => (

@@ -1,11 +1,11 @@
 import { useRef, useState } from "react";
 
 import { Box, Divider, HStack, Heading, useStyleConfig } from "@chakra-ui/react";
-import FormSearchInput from "./FormSearchInput";
-import VisibiltyButton from "./Button/VisibilityButton";
+import FormSearchInput from "../Form/FormSearchInput";
+import VisibiltyButton from "../Button/VisibilityButton";
 import { useQuery } from "@tanstack/react-query";
-import apiClient from "../services/apiClient";
-import BoardList from "./BoardList";
+import apiClient from "../../services/apiClient";
+import BoardList from "../List/BoardList";
 
 export interface User {
   id: string;
@@ -13,7 +13,6 @@ export interface User {
   profileImage: string;
   email: string;
 }
-
 
 export interface List {
   id: string;

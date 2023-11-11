@@ -1,21 +1,14 @@
-import {
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalBody,
-  ModalCloseButton,
-} from "@chakra-ui/react";
+import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalBody, ModalCloseButton } from "@chakra-ui/react";
 import { Tabs, TabList, TabPanels, Tab, TabPanel } from "@chakra-ui/react";
-import ReceivedInvitesList from "./ReceivedInvitesList";
-import SentInvitesList from "./SendInvitesList";
+import ReceivedInvitesList from "../List/ReceivedInvitesList";
+import SentInvitesList from "../List/SendInvitesList";
 
 interface ModalProps {
   open: boolean;
   onClose: () => void;
 }
 
-const Invites = ({open, onClose}: ModalProps) => {
+const Invites = ({ open, onClose }: ModalProps) => {
   return (
     <>
       <Modal isOpen={open} onClose={onClose} size="md" variant="primary">

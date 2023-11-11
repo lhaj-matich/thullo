@@ -1,5 +1,5 @@
 import { HStack, VStack, Box, Link } from "@chakra-ui/react";
-import UserInfo from "../UserInfo";
+import UserInfo from "./UserInfo";
 import moment from "moment";
 import { Card, Comment } from "../../config/entities";
 import useAuth from "../../hooks/useAuth";

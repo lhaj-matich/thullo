@@ -1,10 +1,10 @@
 import z from "zod";
 import { Button, Box, Center, useToast } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
-import { updatePasswordSchema } from "../utils/authSchema";
+import { updatePasswordSchema } from "../../utils/authSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-import apiClient from "../services/apiClient";
+import apiClient from "../../services/apiClient";
 import FormElement from "./FormElement";
 import PasswordInput from "./PasswordInput";
 
@@ -17,21 +17,23 @@ const ProfilePassword = () => {
     formState: { errors },
     handleSubmit,
     register,
-    reset
+    reset,
   } = useForm<updatePasswordData>({ resolver: zodResolver(updatePasswordSchema) });
 
   const sendUpdateData = (data: updatePasswordData) => {
-    ProfileAPI.updateData(data, {}).then(() => {
-      toast({
-        description: `Password updated succesfully.`,
-        status: "success",
-      })
-    }).catch((err) => {
+    ProfileAPI.updateData(data, {})
+      .then(() => {
         toast({
-            description: err.response?.data?.message || err.message,
-            status: "error",
-        })
-    })
+          description: `Password updated succesfully.`,
+          status: "success",
+        });
+      })
+      .catch((err) => {
+        toast({
+          description: err.response?.data?.message || err.message,
+          status: "error",
+        });
+      });
     reset();
   };
 

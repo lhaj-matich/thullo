@@ -1,10 +1,10 @@
 import { VStack, useToast } from "@chakra-ui/react";
 import { useState } from "react";
 
-import InsertButton from "./Button/InsertButton";
-import InsertCard from "./Card/InsertCard";
-import apiClient from "../services/apiClient";
-import useBoard from "../hooks/useBoard";
+import InsertButton from "../Button/InsertButton";
+import InsertCard from "./InsertCard";
+import apiClient from "../../services/apiClient";
+import useBoard from "../../hooks/useBoard";
 
 interface NewListProps {
   id: string | undefined;
@@ -20,18 +20,21 @@ const NewList = ({ id, first }: NewListProps) => {
 
   const addListItem = () => {
     if (!value) return;
-    listClient.postData({ name: value, boardId: id }).then((res) => {
-      setBoard({ ...board, lists: [...(board.lists || []), res.data.list] });
-      setVisible(false);
-      setValue("");
-    }).then(() => {
-      toast({
-        description: "Could not add list. Please reload your page.",
-        duration: 2000,
-        status: 'error',
-        position: 'top-right'
+    listClient
+      .postData({ name: value, boardId: id })
+      .then((res) => {
+        setBoard({ ...board, lists: [...(board.lists || []), res.data.list] });
+        setVisible(false);
+        setValue("");
       })
-    })
+      .then(() => {
+        toast({
+          description: "Could not add list. Please reload your page.",
+          duration: 2000,
+          status: "error",
+          position: "top-right",
+        });
+      });
   };
 
   return (

@@ -24,13 +24,13 @@ import SectionTitle from "../Panel/SectionTitle";
 import CommentsList from "../List/CommentsList";
 import { Card } from "../../config/entities";
 import CheckList from "../List/CheckList";
-import Labels from "../Labels";
-import EditTitle from "../EditTitle";
+import Labels from "./Labels";
+import EditTitle from "../Form/EditTitle";
 import { useQueryClient } from "@tanstack/react-query";
 import apiClient from "../../services/apiClient";
 import PhotoSearch from "./PhotoSearch";
 import useBoard from "../../hooks/useBoard";
-import { Board } from "../BoardSearch";
+import { Board } from "../Nav/BoardSearch";
 
 interface CardModalProps {
   card: Card;
@@ -51,8 +51,8 @@ const CardModal = ({ card, opened, onClose }: CardModalProps) => {
   const toast = useToast({ duration: 2000, position: "top-right", status: "error" });
 
   const refetchBoard = () => {
-    boardClient.getData(`/${board.id}`).then((res) => setBoard(res.data.board))
-  }
+    boardClient.getData(`/${board.id}`).then((res) => setBoard(res.data.board));
+  };
 
   const EditCardClient = (value: string, field: string) => {
     cardClient

@@ -3,9 +3,9 @@ import { Input, Button, VStack, useToast } from "@chakra-ui/react";
 import FormContainer from "./FormContainer";
 import FormElement from "./FormElement";
 import { Navigate, useNavigate } from "react-router-dom";
-import useAuth from "../hooks/useAuth";
-import useForgotPassword, { forgotPasswordData } from "../hooks/useForgotPassword";
-import apiClient from "../services/apiClient";
+import useAuth from "../../hooks/useAuth";
+import useForgotPassword, { forgotPasswordData } from "../../hooks/useForgotPassword";
+import apiClient from "../../services/apiClient";
 
 const ForgotPasswordForm = () => {
   const loginClient = new apiClient<forgotPasswordData>("/users/forgotPassword");
@@ -38,7 +38,7 @@ const ForgotPasswordForm = () => {
     <VStack paddingTop={30}>
       <FormContainer title="Thullo reset password" submitForm={handleSubmit(sendForgotPasswordData)}>
         <FormElement label="Email:" error={errors.email}>
-          <Input variant="outline" type="email" placeholder="eg.johndoe@mail.com" {...register('email')} />
+          <Input variant="outline" type="email" placeholder="eg.johndoe@mail.com" {...register("email")} />
         </FormElement>
         <Button type="submit" variant="primary" width="100%" paddingY={3} marginTop={3}>
           Reset password

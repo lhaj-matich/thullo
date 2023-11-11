@@ -1,7 +1,7 @@
 import { Box, HStack, Text, Button, useToast } from "@chakra-ui/react";
 import { RiTeamFill } from "react-icons/ri";
 
-import UserInfo from "../UserInfo";
+import UserInfo from "../List/UserInfo";
 import SectionTitle from "./SectionTitle";
 import useBoard from "../../hooks/useBoard";
 import apiClient from "../../services/apiClient";
@@ -12,11 +12,11 @@ interface TeamUsersProps {
 
 const TeamUsers = ({ edit }: TeamUsersProps) => {
   const { board, setBoard } = useBoard();
-  const boardClient = new apiClient('/users/');
+  const boardClient = new apiClient("/users/");
   const toast = useToast({ duration: 2000, position: "top-right", status: "error" });
 
   const removeUser = (id: string) => {
-    const newBoardUsers = board.users?.filter(user => user.id !== id);
+    const newBoardUsers = board.users?.filter((user) => user.id !== id);
     boardClient
       .deleteData(`${id}/boards`)
       .then(() => setBoard({ ...board, users: newBoardUsers }))
@@ -36,7 +36,9 @@ const TeamUsers = ({ edit }: TeamUsersProps) => {
         <HStack justifyContent="space-between" marginY={3} key={index}>
           <UserInfo name={user.fullname} image={user.profileImage} />
           {edit ? (
-            <Button variant="outlineRed" onClick={() => removeUser(user.id)}>Remove</Button>
+            <Button variant="outlineRed" onClick={() => removeUser(user.id)}>
+              Remove
+            </Button>
           ) : (
             <Text textAlign="center" variant="generic" fontSize="14px" color="#828282" width="100px">
               Member

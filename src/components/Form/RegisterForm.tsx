@@ -1,11 +1,10 @@
-import React from 'react'
 import { Input, Button, VStack, useToast } from "@chakra-ui/react";
 
 import FormContainer from "./FormContainer";
 import FormElement from "./FormElement";
 import FormReminder from "./FormReminder";
-import apiClient from "../services/apiClient";
-import useSignup, { signUpData } from "../hooks/useSignup";
+import apiClient from "../../services/apiClient";
+import useSignup, { signUpData } from "../../hooks/useSignup";
 import { Navigate, useNavigate } from "react-router-dom";
 import PasswordInput from "./PasswordInput";
 
@@ -51,7 +50,11 @@ const RegisterForm = () => {
             <PasswordInput variant="outline" placeholder="Minimum of 6 characters" register={register("password")} />
           </FormElement>
           <FormElement label="Confirm password:" error={errors.confirmPassword}>
-            <PasswordInput variant="outline" placeholder="Confirm your password" register={register('confirmPassword')} />
+            <PasswordInput
+              variant="outline"
+              placeholder="Confirm your password"
+              register={register("confirmPassword")}
+            />
           </FormElement>
           <Button type="submit" variant="primary" width="100%" marginTop={15}>
             Sign up

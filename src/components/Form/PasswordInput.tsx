@@ -1,4 +1,3 @@
-import React from 'react'
 import { MdOutlineVisibilityOff, MdOutlineVisibility } from "react-icons/md";
 import { Button, Input, InputGroup, InputRightElement } from "@chakra-ui/react";
 import { useState } from "react";

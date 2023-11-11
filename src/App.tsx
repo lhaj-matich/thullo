@@ -1,4 +1,4 @@
-import LoginForm from "./components/LoginForm";
+import LoginForm from "./components/Form/LoginForm";
 import AuthProvider from "./components/Providers/AuthProvider";
 // import RegisterForm from "./components/RegisterForm";
 // import ResetForm from "./components/ResetForm";

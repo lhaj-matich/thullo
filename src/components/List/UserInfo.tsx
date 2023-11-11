@@ -1,6 +1,6 @@
 import { Avatar, HStack, Heading, VStack, Text } from "@chakra-ui/react";
 import moment from "moment";
-import { createImageLink } from "../utils/loadImage";
+import { createImageLink } from "../../utils/loadImage";
 import { ReactNode } from "react";
 
 interface userInfoProps {

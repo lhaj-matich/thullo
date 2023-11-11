@@ -5,8 +5,8 @@ import apiClient from "../../services/apiClient";
 import { Card } from "../../config/entities";
 import ListHeader from "../Nav/ListHeader";
 import BoardCard from "../Card/BoardCard";
-import { List } from "../BoardSearch";
-import NewCard from "../NewCard";
+import { List } from "../Nav/BoardSearch";
+import NewCard from "../Card/NewCard";
 
 interface CardsListProps {
   list: List;
@@ -19,14 +19,16 @@ const CardsList = ({ list }: CardsListProps) => {
   const { data } = useQuery<Card[]>({
     queryKey: ["lists", list.id, "cards"],
     queryFn: () => cardClient.getData().then((res: any) => res.data.cards),
-    refetchOnWindowFocus: true
+    refetchOnWindowFocus: true,
   });
 
   return (
     <VStack alignItems="center" borderRadius={12} width="380px" padding={2}>
       <ListHeader name={list.name} id={list.id} />
       <VStack maxHeight="67vh" overflow="auto" paddingX={3}>
-        {data?.map((card) => <BoardCard key={card.id} data={card} />)}
+        {data?.map((card) => (
+          <BoardCard key={card.id} data={card} />
+        ))}
       </VStack>
       <NewCard listId={list.id} first={true} />
     </VStack>

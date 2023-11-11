@@ -1,11 +1,11 @@
 import { VStack, useToast } from "@chakra-ui/react";
 import { useState } from "react";
 
-import InsertButton from "./Button/InsertButton";
-import InsertCard from "./Card/InsertCard";
-import apiClient from "../services/apiClient";
+import InsertButton from "../Button/InsertButton";
+import InsertCard from "./InsertCard";
+import apiClient from "../../services/apiClient";
 import { useQueryClient } from "@tanstack/react-query";
-import { Card } from "../config/entities";
+import { Card } from "../../config/entities";
 
 interface NewCardProps {
   listId: string | undefined;

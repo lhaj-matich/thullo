@@ -1,5 +1,5 @@
-import { createContext } from 'react';
-import { Board } from '../BoardSearch';
+import { createContext } from "react";
+import { Board } from "../Nav/BoardSearch";
 
 type DispatchBoard = React.Dispatch<React.SetStateAction<Board>>;
 

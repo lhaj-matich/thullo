@@ -1,6 +1,6 @@
 import { Box, Text, useStyleConfig } from "@chakra-ui/react";
 
-import { Board } from "./BoardSearch";
+import { Board } from "../Nav/BoardSearch";
 import BoardListItem from "./BoardListItem";
 
 interface BoardListProps {

@@ -14,8 +14,8 @@ import {
 } from "@chakra-ui/react";
 import ProfileInfo from "./ProfileInfo";
 import ProfilePassword from "./ProfilePassword";
-import apiClient from "../services/apiClient";
-import useAuth from "../hooks/useAuth";
+import apiClient from "../../services/apiClient";
+import useAuth from "../../hooks/useAuth";
 import { useNavigate } from "react-router-dom";
 
 interface ModelProps {
@@ -53,7 +53,15 @@ const ProfileSettings = ({ open, onClose }: ModelProps) => {
 
   return (
     <>
-      <Modal isOpen={open} onClose={() => {onClose(); setDisabled(true)}} size="xl" variant="primary">
+      <Modal
+        isOpen={open}
+        onClose={() => {
+          onClose();
+          setDisabled(true);
+        }}
+        size="xl"
+        variant="primary"
+      >
         <ModalOverlay />
         <ModalContent>
           <ModalHeader color="#828282">Profile settings</ModalHeader>

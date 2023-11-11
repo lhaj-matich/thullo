@@ -19,7 +19,7 @@ import VisibiltyButton from "../Button/VisibilityButton";
 import PhotoSearch from "./PhotoSearch";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import apiClient from "../../services/apiClient";
-import { Board } from "../BoardSearch";
+import { Board } from "../Nav/BoardSearch";
 import { useRef, useState } from "react";
 import { createUnsplashLink } from "../../utils/loadUnsplashImage";
 
@@ -35,11 +35,11 @@ const NewBoard = () => {
   const { mutate } = useMutation<Board, Error, Board>({
     mutationFn: (board: Board) => boardsClient.postData(board).then((res) => res.data.board),
     onSuccess: (savedBoard) => {
-      queryClient.setQueriesData<Board[]>(["boards"], (boards) => [...(boards || []), savedBoard])
+      queryClient.setQueriesData<Board[]>(["boards"], (boards) => [...(boards || []), savedBoard]);
     },
     onError: (error) => {
       toast({ description: error.message });
-    }
+    },
   });
 
   const sendBoardData = () => {

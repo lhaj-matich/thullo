@@ -5,7 +5,7 @@ import useAuth from "../../hooks/useAuth";
 import apiClient from "../../services/apiClient";
 import useGlobal from "../../hooks/useGlobal";
 
-import { InviteResponse } from "../ReceivedInvitesList";
+import { InviteResponse } from "../List/ReceivedInvitesList";
 
 const ProfileMenu = () => {
   const { inviteModal, profileModal, invites } = useGlobal();
@@ -24,7 +24,7 @@ const ProfileMenu = () => {
 
   const handleRefetch = () => {
     invitesClient.getData().then((res) => invites.setInvitesNumber(res.data.count));
-  }
+  };
 
   return (
     <Menu variant="primary">
@@ -46,7 +46,14 @@ const ProfileMenu = () => {
       <MenuList fontFamily="Poppins">
         <MenuItem onClick={profileModal.onOpen}>Profile settings</MenuItem>
         <MenuItem justifyContent="space-between" onClick={inviteModal.onOpen}>
-          Invites {invites.invitesNumber ? <Badge width="25px" textAlign="center" borderRadius={15} colorScheme="red">{invites.invitesNumber}</Badge> : ""}
+          Invites{" "}
+          {invites.invitesNumber ? (
+            <Badge width="25px" textAlign="center" borderRadius={15} colorScheme="red">
+              {invites.invitesNumber}
+            </Badge>
+          ) : (
+            ""
+          )}
         </MenuItem>
         <MenuItem onClick={() => navigate("/")}>Boards</MenuItem>
         <MenuItem onClick={handleLogout}>Logout</MenuItem>

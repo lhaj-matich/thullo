@@ -1,11 +1,11 @@
 import { Divider, HStack } from "@chakra-ui/react";
-import Logo from "../Logo";
-import BoardSearch from "../BoardSearch";
+import Logo from "./Logo";
+import BoardSearch from "./BoardSearch";
 import ProfileMenu from "../Menu/ProfileMenu";
 import { ReactNode } from "react";
 import useGlobal from "../../hooks/useGlobal";
-import ProfileSettings from "../ProfileSettings";
-import Invites from "../Invites";
+import ProfileSettings from "../Form/ProfileSettings";
+import Invites from "../Panel/Invites";
 
 interface NavbarProps {
   children?: ReactNode;

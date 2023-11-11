@@ -3,10 +3,10 @@ import { Button, VStack, useToast } from "@chakra-ui/react";
 import FormContainer from "./FormContainer";
 import FormElement from "./FormElement";
 import PasswordInput from "./PasswordInput";
-import apiClient from "../services/apiClient";
+import apiClient from "../../services/apiClient";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
-import useAuth from "../hooks/useAuth";
-import useResetPassword, { resetPasswordData } from "../hooks/useResetPassword";
+import useAuth from "../../hooks/useAuth";
+import useResetPassword, { resetPasswordData } from "../../hooks/useResetPassword";
 
 const ResetForm = () => {
   const { token } = useParams();
@@ -41,7 +41,11 @@ const ResetForm = () => {
       <VStack paddingTop={30}>
         <FormContainer title="Thullo reset password" submitForm={handleSubmit(sendResetData)}>
           <FormElement label="Password:" error={errors.newPassword}>
-            <PasswordInput variant="outline" placeholder="At least 6 characters long" register={register("newPassword")} />
+            <PasswordInput
+              variant="outline"
+              placeholder="At least 6 characters long"
+              register={register("newPassword")}
+            />
           </FormElement>
           <FormElement label="Confirm Password:" error={errors.confirmPassword}>
             <PasswordInput

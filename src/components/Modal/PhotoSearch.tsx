@@ -10,7 +10,7 @@ import {
   REACT_UNSPLASH_ENDPOINT,
   unsplashImageResponse,
 } from "../../config/constants";
-import FormSearchInput from "../FormSearchInput";
+import FormSearchInput from "../Form/FormSearchInput";
 
 interface PhotoSearchProps {
   buttonElement?: any;

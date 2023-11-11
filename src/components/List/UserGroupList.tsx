@@ -1,5 +1,5 @@
 import { Avatar, Box, HStack, Text } from "@chakra-ui/react";
-import { User } from "../BoardSearch";
+import { User } from "../Nav/BoardSearch";
 import { createImageLink } from "../../utils/loadImage";
 import type { ComponentDefaultProps } from "@chakra-ui/react";
 
@@ -27,7 +27,13 @@ const UserGroupList = ({ max, users, ...rest }: userListProps) => {
             src={createImageLink(user.profileImage)}
           />
         ))}
-        {userExcess ? <Text variant="generic" color="#BDBDBD">+ {userExcess} others</Text> : ""}
+        {userExcess ? (
+          <Text variant="generic" color="#BDBDBD">
+            + {userExcess} others
+          </Text>
+        ) : (
+          ""
+        )}
       </HStack>
     </Box>
   );

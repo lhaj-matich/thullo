@@ -1,4 +1,3 @@
-import React from 'react'
 import { Card, Link, Text, HStack } from "@chakra-ui/react";
 
 interface FormReminderProps {

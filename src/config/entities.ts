@@ -1,4 +1,4 @@
-import { User } from "../components/BoardSearch";
+import { User } from "../components/Nav/BoardSearch";
 
 export interface Attachement {
   id: string;

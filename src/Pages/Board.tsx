@@ -12,6 +12,9 @@ import NewList from "../components/Card/NewList";
 import useBoard from "../hooks/useBoard";
 import useAuth from "../hooks/useAuth";
 import Loading from "../components/Loader/Loading";
+import { DragDropContext } from "react-beautiful-dnd";
+import { useQueryClient } from "@tanstack/react-query";
+import { Card } from "../config/entities";
 
 interface BoardResponse {
   status: string;
@@ -20,12 +23,33 @@ interface BoardResponse {
 
 const BoardPage = () => {
   const boardClient = new apiClient<BoardResponse>("boards");
-  const [loading, setLoading] = useState(true);
   const toast = useToast();
   const navigate = useNavigate();
   const { id } = useParams();
   const { setBoard, board } = useBoard();
   const { auth } = useAuth();
+  const [loading, setLoading] = useState(true);
+  const queryClient = useQueryClient();
+
+  const onDragEnd = (result: any) => {
+    const { destination, source, draggableId } = result;
+    if (!destination) return;
+    let destinationList = queryClient.getQueryData<Card[]>(["lists", destination.droppableId, "cards"]);
+    let sourceList = queryClient.getQueryData<Card[]>(["lists", source.droppableId, "cards"]);
+    // console.log(source.draggableId as string == destination.droppableId as string);
+    if (source.droppableId == destination.droppableId)
+      return destinationList?.splice(destination.index, 0, sourceList?.splice(source.index, 1)[0] as Card);
+    const cardElement = sourceList?.find((card) => card.id === draggableId);
+    queryClient.setQueryData<Card[]>(["lists", destination.droppableId, "cards"], (cards) => {
+      console.log(cards);
+      return cards?.splice(destination.index, 0, cardElement as Card)
+    }
+      
+    );
+    queryClient.setQueryData<Card[]>(["lists", source.droppableId, "cards"], (cards) =>
+      cards?.filter((card) => card.id !== draggableId)
+    );
+  };
 
   useEffect(() => {
     boardClient
@@ -64,10 +88,16 @@ const BoardPage = () => {
           overflowX="scroll"
           height="82vh"
         >
-          {board.lists?.map((list, index) => (
-            <CardsList key={index} list={list} />
-          ))}
-          {board.lists?.length === 0 ? <NewList id={board.id} first={false} /> : <NewList id={board.id} first={true} />}
+          <DragDropContext onDragEnd={onDragEnd}>
+            {board.lists?.map((list, index) => (
+              <CardsList key={index} list={list} />
+            ))}
+            {board.lists?.length === 0 ? (
+              <NewList id={board.id} first={false} />
+            ) : (
+              <NewList id={board.id} first={true} />
+            )}
+          </DragDropContext>
         </HStack>
       </Box>
     </Box>

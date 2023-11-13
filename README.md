@@ -1,5 +1,7 @@
 # Thullo
 ![enter image description here](https://res.cloudinary.com/duzjfddgp/image/upload/v1699887343/projects/thullo/e3znfgm6jnlrulsfcoxa.png)
+
+
 Thullo is project management tool, it is cloned from the trello platform, and it  offers a user friendly experience, faciliting effective project management and collaboration between teams
 
 **Key Features:**

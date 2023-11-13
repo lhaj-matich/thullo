@@ -1,5 +1,5 @@
-import { Input, Button, VStack, useToast } from "@chakra-ui/react";
-import { Navigate, useNavigate, Link } from "react-router-dom";
+import { Input, Button, VStack, useToast, Link, Box } from "@chakra-ui/react";
+import { Navigate, useNavigate } from "react-router-dom";
 import apiClient from "../../services/apiClient";
 import useLogin, { loginData } from "../../hooks/useLogin";
 import FormContainer from "./FormContainer";
@@ -39,16 +39,16 @@ const LoginForm = () => {
   };
   return (
     <>
-      <VStack paddingTop={55}>
+      <VStack paddingTop={75}>
         <FormContainer title="Sign in to Thullo" submitForm={handleSubmit(sendLoginData)}>
           <FormElement label="Email:" error={errors.email}>
             <Input variant="outline" type="email" placeholder="eg.johndoe@mail.com" {...register("email")} />
           </FormElement>
           <FormElement label="Password:" error={errors.password}>
             <PasswordInput variant="outline" placeholder="Minimum of 6 characters." register={register("password")} />
-            <Link to="/forgotpassword" className="link link--right">
-              Forgot password ?
-            </Link>
+            <Box width="100%">
+              <Link href="/forgotpassword" float="right" color="primary">Forgot password ?</Link>
+            </Box>
           </FormElement>
           <Button type="submit" variant="primary" width="100%">
             Sign in

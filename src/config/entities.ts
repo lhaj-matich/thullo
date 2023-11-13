@@ -40,6 +40,7 @@ export interface Card {
   title: string;
   listId: string;
   author: User;
+  order: number;
   description?: string;
   coverImage?: string;
   createdAt?: string;

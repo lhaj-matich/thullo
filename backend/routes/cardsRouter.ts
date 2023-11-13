@@ -25,4 +25,6 @@ Router.route("/:id")
   .put(cardsController.updateCardById)
   .delete(cardsController.deleteCardById);
 
+Router.route("/order").post(cardsController.orderCards);
+
 export default Router;

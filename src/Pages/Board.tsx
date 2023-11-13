@@ -23,6 +23,7 @@ interface BoardResponse {
 
 const BoardPage = () => {
   const boardClient = new apiClient<BoardResponse>("boards");
+  const cardsClient = new apiClient("cards");
   const toast = useToast();
   const navigate = useNavigate();
   const { id } = useParams();
@@ -36,18 +37,16 @@ const BoardPage = () => {
     if (!destination) return;
     let destinationList = queryClient.getQueryData<Card[]>(["lists", destination.droppableId, "cards"]);
     let sourceList = queryClient.getQueryData<Card[]>(["lists", source.droppableId, "cards"]);
-    // console.log(source.draggableId as string == destination.droppableId as string);
-    if (source.droppableId == destination.droppableId)
-      return destinationList?.splice(destination.index, 0, sourceList?.splice(source.index, 1)[0] as Card);
-    const cardElement = sourceList?.find((card) => card.id === draggableId);
-    queryClient.setQueryData<Card[]>(["lists", destination.droppableId, "cards"], (cards) => {
-      console.log(cards);
-      return cards?.splice(destination.index, 0, cardElement as Card)
-    }
-      
-    );
-    queryClient.setQueryData<Card[]>(["lists", source.droppableId, "cards"], (cards) =>
-      cards?.filter((card) => card.id !== draggableId)
+    destinationList?.splice(destination.index, 0, sourceList?.splice(source.index, 1)[0] as Card);
+    cardsClient.postData(
+      {
+        cardId: draggableId,
+        src: source.droppableId,
+        dest: destination.droppableId,
+        srcIndex: source.index,
+        destIndex: destination.index,
+      },
+      "/order"
     );
   };
 

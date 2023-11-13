@@ -12,9 +12,15 @@ const prisma = new PrismaClient();
 export const createCard = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
   const { error, value } = cardValidator(req.body);
   if (error) return next(new AppError(error.message, 400));
+  const count = await prisma.card.count({
+    where: {
+      listId: value.listId,
+    },
+  });
   const card = await prisma.card.create({
     data: {
       title: value.title,
+      order: count + 1,
       author: {
         connect: { id: req.currentUser },
       },
@@ -67,13 +73,82 @@ export const getCardById = catchAsync(async (req: Request, res: Response, next: 
   });
 });
 
+export const orderCards = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+  // Source list: reorder the cards after the draggable card
+  // Destination list: reorder the cards using the index
+  // Body content: src, dest, srcIndex, destIndex
+  const { src, dest, srcIndex, destIndex, cardId } = req.body;
+  const sourceCards = await prisma.card.findMany({
+    where: {
+      listId: src,
+      order: {
+        gt: srcIndex + 1,
+      },
+    },
+    orderBy: {
+      order: "asc",
+    },
+  });
+
+  sourceCards.forEach(async (card) => {
+    console.log("Updating card source")
+    await prisma.card.update({
+      where: {
+        id: card.id,
+      },
+      data: {
+        order: card.order - 1,
+      },
+    });
+  });
+
+  
+  const destCards = await prisma.card.findMany({
+    where: {
+      listId: dest,
+      order: {
+        gte: destIndex + 1
+      }
+    },
+    orderBy: {
+      order: "asc"
+    }
+  });
+
+  destCards.forEach(async (card) => {
+    await prisma.card.update({
+      where: {
+        id: card.id,
+      },
+      data: {
+        order: card.order + 1,
+      },
+    });
+  })
+
+  await prisma.card.update({
+    where: {
+      id: cardId
+    },
+    data: {
+      listId: dest,
+      order: destIndex + 1
+    }
+  })
+
+  res.status(200).json({
+    status: "success",
+    message: "cards reordered successfully"
+  })
+});
+
 export const getAllCards = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
   const cards = await prisma.card.findMany({
     where: {
       listId: req.params.listId ?? undefined,
     },
     orderBy: {
-      createdAt: 'desc'
+      order: "asc",
     },
     include: {
       author: {

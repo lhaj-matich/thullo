@@ -22,7 +22,7 @@ const PasswordInput = ({ variant, placeholder, register }: PasswordInputProps) =
       />
       <InputRightElement width="4.5rem">
         <Button colorScheme="gray" variant="ghost" h="1.75rem" fontSize={20} onClick={() => setVisible(!visibile)}>
-          {visibile ? <MdOutlineVisibilityOff /> : <MdOutlineVisibility />}
+          {visibile ? <MdOutlineVisibility /> : <MdOutlineVisibilityOff />}
         </Button>
       </InputRightElement>
     </InputGroup>

@@ -71,6 +71,7 @@ model Card {
   labels      Label[]
   checklists  Task[]
 
+  order Int
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }

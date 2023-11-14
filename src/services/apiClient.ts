@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const axiosInstance = axios.create({
-  baseURL: "http://localhost:5002/api/v1/",
+  baseURL: "https://thullo-server.onrender.com/api/v1/",
 });
 
 class apiClient<T> {

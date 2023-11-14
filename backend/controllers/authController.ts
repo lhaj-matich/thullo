@@ -47,10 +47,10 @@ export const formatSecureUserResponse = (user: any) => {
 
 const sendAuthToken = async (res: Response, next: NextFunction, userId: string) => {
   const token = await generateToken(userId);
-  const cookieOptions = {
+  const cookieOptions: any = {
     expires: new Date(Date.now() + parseInt(process.env.JWT_EXPIRES_IN || "90") * 24 * 3600000),
     secure: true,
-    sameSite: false,
+    sameSite: 'none',
     httpOnly: false
   };
   if (!token) return next(new AppError("Internal Error: auth module error", 500));

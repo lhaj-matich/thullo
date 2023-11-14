@@ -1,7 +1,7 @@
 import { Box, Image, Skeleton, useToast } from "@chakra-ui/react";
 import SectionTitle from "./SectionTitle";
 import { PiImageFill } from "react-icons/pi";
-import PhotoSearch from "../Modal/PhotoSearch";
+import PhotoSearch from "../Menu/PhotoSearch";
 import { useState } from "react";
 import { createUnsplashLink } from "../../utils/loadUnsplashImage";
 import useBoard from "../../hooks/useBoard";

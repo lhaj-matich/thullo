@@ -1,11 +1,5 @@
 import {
-  Menu,
-  MenuButton,
-  MenuList,
   MenuItem,
-  Button,
-  Box,
-  Heading,
   HStack,
   Text,
   Icon,

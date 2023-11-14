@@ -16,7 +16,7 @@ import {
 } from "@chakra-ui/react";
 import { AiOutlinePlus } from "react-icons/ai";
 import VisibiltyButton from "../Button/VisibilityButton";
-import PhotoSearch from "./PhotoSearch";
+import PhotoSearch from "../Menu/PhotoSearch";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import apiClient from "../../services/apiClient";
 import { Board } from "../Nav/BoardSearch";

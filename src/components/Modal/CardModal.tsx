@@ -28,7 +28,7 @@ import Labels from "./Labels";
 import EditTitle from "../Form/EditTitle";
 import { useQueryClient } from "@tanstack/react-query";
 import apiClient from "../../services/apiClient";
-import PhotoSearch from "./PhotoSearch";
+import PhotoSearch from "../Menu/PhotoSearch";
 import useBoard from "../../hooks/useBoard";
 import { Board } from "../Nav/BoardSearch";
 

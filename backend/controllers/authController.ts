@@ -256,9 +256,11 @@ export const login = catchAsync(async (req: Request, res: Response, next: NextFu
 });
 
 export const logout = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
-  const cookieOptions = {
-    httpOnly: true,
+  const cookieOptions: any = {
     expires: new Date(Date.now() + 4 * 1000),
+    secure: true,
+    sameSite: 'none',
+    httpOnly: false
   };
 
   res.cookie("boardId", "", cookieOptions);

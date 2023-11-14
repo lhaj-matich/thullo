@@ -5,7 +5,7 @@
   "main": "app.js",
   "scripts": {
     "start": "nodemon server.ts",
-    "build": "tsc"
+    "build": "npm install && tsc"
   },
   "author": "lhaj-matich",
   "license": "ISC",

@@ -29,7 +29,7 @@ const CardsList = ({ list }: CardsListProps) => {
         {(provided) => (
           <VStack ref={provided.innerRef} {...provided.droppableProps} maxHeight="67vh" overflow="auto" paddingX={3}>
             {data?.map((card, index) => (
-              <BoardCard key={card.id} data={card} index={index} />
+              <BoardCard list={list.name} key={card.id} data={card} index={index} />
             ))}
             {provided.placeholder}
             <Box height="5px"></Box>

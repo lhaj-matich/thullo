@@ -33,6 +33,7 @@ import useBoard from "../../hooks/useBoard";
 import { Board } from "../Nav/BoardSearch";
 
 interface CardModalProps {
+  list: string;
   card: Card;
   opened: boolean;
   onClose: () => void;
@@ -43,7 +44,7 @@ interface BoardResponse {
   board: Board;
 }
 
-const CardModal = ({ card, opened, onClose }: CardModalProps) => {
+const CardModal = ({ list, card, opened, onClose }: CardModalProps) => {
   const queryClient = useQueryClient();
   const boardClient = new apiClient<BoardResponse>("boards");
   const { setBoard, board } = useBoard();
@@ -92,7 +93,7 @@ const CardModal = ({ card, opened, onClose }: CardModalProps) => {
                 edit={true}
                 clickCB={(value) => EditCardClient(value, "title")}
               />
-              <ListIndicator name="Progress" marginBottom={3} />
+              <ListIndicator name={list} marginBottom={3} />
               <EditDescription
                 edit={true}
                 description={card.description}

@@ -14,17 +14,17 @@ import GlobalProvider from "./components/Providers/GlobalProvider.tsx";
 const queryClient = new QueryClient();
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
-    <QueryClientProvider client={queryClient}>
-      <ChakraProvider theme={theme}>
-        <ColorModeScript initialColorMode={theme.config.initialColorMode} />
-        <AuthProvider>
-          <GlobalProvider>
-            <BoardProvider>
-              <RouterProvider router={router} />
-            </BoardProvider>
-          </GlobalProvider>
-        </AuthProvider>
-      </ChakraProvider>
-      <ReactQueryDevtools />
-    </QueryClientProvider>
+  <QueryClientProvider client={queryClient}>
+    <ChakraProvider theme={theme}>
+      <ColorModeScript initialColorMode={theme.config.initialColorMode} />
+      <AuthProvider>
+        <GlobalProvider>
+          <BoardProvider>
+            <RouterProvider router={router} />
+          </BoardProvider>
+        </GlobalProvider>
+      </AuthProvider>
+    </ChakraProvider>
+    <ReactQueryDevtools />
+  </QueryClientProvider>
 );

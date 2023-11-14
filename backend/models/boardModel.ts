@@ -21,12 +21,12 @@ export const sendBoardId = async (boardId: string, res: Response) => {
   // Set the board id
   const encryptedBoardId = new EncryptText(boardId).encrypt();
 
-  const cookieOptions = {
-    httpOnly: true,
+  const cookieOptions: any = {
+    httpOnly: false,
     secure: true,
+    sameSite: 'none',
     expires: new Date(Date.now() + 2160 * 60 * 601000),
   };
-
   res.cookie("boardId", encryptedBoardId, cookieOptions);
 };
 

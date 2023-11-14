@@ -3,7 +3,6 @@ import path from "path";
 import morgan from "morgan";
 import cors, { CorsOptions } from "cors";
 import cookieParser from "cookie-parser";
-import { rateLimit } from "express-rate-limit";
 import express, { Express, Request, Response, NextFunction } from "express";
 
 // Routers
@@ -40,12 +39,6 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(cookieParser());
 
 // The rate limiter is configured to serve 5000Req/Hour
-app.use(
-  rateLimit({
-    windowMs: 60 * 60 * 1000,
-    max: 5000,
-  })
-);
 
 // app.use(cookieParser());
 app.use(express.json({ limit: "10kb" }));

@@ -26,7 +26,7 @@ const app: Express = express();
 if (process.env.DEV_MODE == "dev") app.use(morgan("dev"));
 
 const corsOptions: CorsOptions = {
-  origin: ["http://localhost:5173", "http://localhost:3030"],
+  origin: ["http://localhost:5173", "http://localhost:3030", "http://localhost:8080"],
   optionsSuccessStatus: 200,
   credentials: true,
 };

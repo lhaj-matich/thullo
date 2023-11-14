@@ -27,7 +27,7 @@ const NewList = ({ id, first }: NewListProps) => {
         setVisible(false);
         setValue("");
       })
-      .then(() => {
+      .catch(() => {
         toast({
           description: "Could not add list. Please reload your page.",
           duration: 2000,

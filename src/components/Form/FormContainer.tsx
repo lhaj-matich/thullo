@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react";
+import { ReactNode } from "react";
 import { Card, CardBody, CardHeader, Heading, Flex, VStack } from "@chakra-ui/react";
 import Logo from "../Nav/Logo";
 

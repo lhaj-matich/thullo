@@ -1,4 +1,3 @@
-import React from "react";
 import { Box, Avatar, Heading, HStack, useStyleConfig } from "@chakra-ui/react";
 
 interface UserItemProps {

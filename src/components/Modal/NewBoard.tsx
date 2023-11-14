@@ -83,9 +83,9 @@ const NewBoard = () => {
               placeholder="Add board title"
               border="1px solid #E0E0E0"
             />
-            <HStack justifyContent="space-between" marginTop={5}>
+            <HStack justifyContent="space-between" marginTop={4}>
               <VisibiltyButton onClick={(value) => setVisibility(!value)} />
-              <PhotoSearch setImageId={setImageId} id={imageId} />
+              <PhotoSearch setImageId={setImageId} id={imageId} alignContent="center" paddingLeft="25" width="120px" />
             </HStack>
           </ModalBody>
           <ModalFooter>

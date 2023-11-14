@@ -1,4 +1,4 @@
-import { Button, HStack } from "@chakra-ui/react";
+import { BoxProps, Button, HStack } from "@chakra-ui/react";
 import axios from "axios";
 import ImagesList from "../List/ImagesList";
 import { MdInsertPhoto } from "react-icons/md";
@@ -12,13 +12,13 @@ import {
 } from "../../config/constants";
 import FormSearchInput from "../Form/FormSearchInput";
 
-interface PhotoSearchProps {
+interface PhotoSearchProps extends BoxProps {
   buttonElement?: any;
   setImageId: (id: string) => void;
   id: string;
 }
 
-const PhotoSearch = ({ setImageId, id, buttonElement }: PhotoSearchProps) => {
+const PhotoSearch = ({ setImageId, id, buttonElement, ...rest}: PhotoSearchProps) => {
   const [search, setSearch] = useState("");
   const [images, setImages] = useState<string[]>(RANDOM_IMAGES);
   const getImages = (search: string) => {
@@ -39,7 +39,7 @@ const PhotoSearch = ({ setImageId, id, buttonElement }: PhotoSearchProps) => {
         {buttonElement ? (
           buttonElement
         ) : (
-          <HStack width="150px" paddingLeft={3} justifyContent="flex-start">
+          <HStack width="150px" paddingLeft={3} justifyContent="flex-start" {...rest}>
             <Icon as={MdInsertPhoto} fontSize={15} />
             <Text>Cover</Text>
           </HStack>

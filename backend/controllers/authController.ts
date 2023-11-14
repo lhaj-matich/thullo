@@ -49,6 +49,8 @@ const sendAuthToken = async (res: Response, next: NextFunction, userId: string) 
   const token = await generateToken(userId);
   const cookieOptions = {
     expires: new Date(Date.now() + parseInt(process.env.JWT_EXPIRES_IN || "90") * 24 * 3600000),
+    secure: true,
+    sameSite: false,
   };
   if (!token) return next(new AppError("Internal Error: auth module error", 500));
   res.cookie("jwt", token, cookieOptions);

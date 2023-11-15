@@ -48,10 +48,10 @@ export const formatSecureUserResponse = (user: any) => {
 const sendAuthToken = async (res: Response, next: NextFunction, userId: string) => {
   const token = await generateToken(userId);
   const cookieOptions: any = {
+    httpOnly: process.env.DEV_MODE === "dev" ? true : false,
+    secure: process.env.DEV_MODE === "dev" ? false : true,
+    sameSite: process.env.DEV_MODE === "dev" ? 'lax' : 'none',
     expires: new Date(Date.now() + parseInt(process.env.JWT_EXPIRES_IN || "90") * 24 * 3600000),
-    secure: true,
-    sameSite: 'none',
-    httpOnly: false
   };
   if (!token) return next(new AppError("Internal Error: auth module error", 500));
   res.cookie("jwt", token, cookieOptions);
@@ -257,10 +257,10 @@ export const login = catchAsync(async (req: Request, res: Response, next: NextFu
 
 export const logout = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
   const cookieOptions: any = {
-    httpOnly: true,
-    secure: true,
+    httpOnly: process.env.DEV_MODE === "dev" ? true : false,
+    secure: process.env.DEV_MODE === "dev" ? false : true,
+    sameSite: process.env.DEV_MODE === "dev" ? 'lax' : 'none',
     expires: new Date(Date.now() + 4 * 1000),
-    sameSite: 'none',
   };
 
   res.cookie("boardId", "", cookieOptions);

@@ -25,7 +25,7 @@ const app: Express = express();
 if (process.env.DEV_MODE == "dev") app.use(morgan("dev"));
 
 const corsOptions: CorsOptions = {
-  origin: ["https://thullo-wmc6.onrender.com"],
+  origin: process.env.DEV_MODE == "dev" ? process.env.CLIENT_LOCAL : process.env.CLIENT_REMOTE,
   optionsSuccessStatus: 200,
   credentials: true,
 };

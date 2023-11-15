@@ -22,9 +22,9 @@ export const sendBoardId = async (boardId: string, res: Response) => {
   const encryptedBoardId = new EncryptText(boardId).encrypt();
 
   const cookieOptions: any = {
-    httpOnly: false,
-    secure: true,
-    sameSite: 'none',
+    httpOnly: process.env.DEV_MODE === "dev" ? true : false,
+    secure: process.env.DEV_MODE === "dev" ? false : true,
+    sameSite: process.env.DEV_MODE === "dev" ? 'lax' : 'none',
     expires: new Date(Date.now() + 2160 * 60 * 601000),
   };
   res.cookie("boardId", encryptedBoardId, cookieOptions);

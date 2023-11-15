@@ -1,8 +1,12 @@
 import axios from "axios";
 
+console.log(import.meta.env.VITE_BACKEND_ENDPOINT_DEV)
+
 const axiosInstance = axios.create({
-  baseURL: "https://thullo-server.onrender.com/api/v1/",
+  baseURL:
+    import.meta.env.VITE_MODE === "dev" ? import.meta.env.VITE_BACKEND_ENDPOINT_DEV : import.meta.env.VITE_BACKEND_ENDPOINT_PROD,
 });
+
 
 class apiClient<T> {
   endPoint: string;

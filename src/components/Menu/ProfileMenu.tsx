@@ -36,7 +36,7 @@ const ProfileMenu = () => {
             borderRadius={9}
             bg="#BDBDBD"
             name={auth.user?.fullname}
-            src={"http://localhost:5002/img/users/" + auth.user?.profileImage}
+            src={auth.user?.profileImage}
           />
           <Heading fontFamily="Poppins" fontSize={14}>
             {auth.user?.fullname}

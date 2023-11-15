@@ -1,7 +1,7 @@
 import express from "express";
 import * as usersController from "../controllers/usersController";
 import * as authController from "../controllers/authController";
-import boardsRouter from './boardsRouter';
+import boardsRouter from "./boardsRouter";
 
 const Router = express.Router();
 
@@ -20,7 +20,11 @@ Router.route("/logout").post(authController.logout);
 
 Router.route("/")
   .get(usersController.getAllUsers)
-  .put(usersController.uploadUserPhoto, usersController.processUserPhoto, usersController.updateCurrentUser)
+  .put(
+    usersController.uploadUserPhoto,
+    process.env.ASSETS === "local" ? usersController.processUserPhoto : usersController.FirebaseUploadUsers,
+    usersController.updateCurrentUser
+  )
   .delete(usersController.deleteCurrentUser);
 Router.route("/:id").get(usersController.getUserById);
 

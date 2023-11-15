@@ -8,7 +8,13 @@ Router.use(authCtrl.authorizeRoute);
 
 Router.use(authCtrl.preventUnauthorized("user"));
 
-Router.route("/").get(attachementsCtrl.getAllAttachements).post(attachementsCtrl.uploadCardAttachement, attachementsCtrl.processAttachement,attachementsCtrl.createAttachement);
+Router.route("/")
+  .get(attachementsCtrl.getAllAttachements)
+  .post(
+    attachementsCtrl.uploadCardAttachement,
+    process.env.ASSETS === "local" ? attachementsCtrl.processAttachement : attachementsCtrl.FirebaseUploadAttachements,
+    attachementsCtrl.createAttachement
+  );
 
 Router.route("/:id").get(attachementsCtrl.getAttachementById).delete(attachementsCtrl.deleteAttachementById);
 

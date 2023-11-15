@@ -5,12 +5,20 @@ import { NextFunction, Request, Response } from "express";
 import AppError from "../utils/AppError";
 import catchAsync from "../utils/catchAsync";
 import sharp from "sharp";
+import { initializeApp } from "firebase/app";
+import { getStorage, ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
+import firebaseConfig from "../utils/firebaseConfig";
+
+initializeApp(firebaseConfig);
 
 const prisma = new PrismaClient();
 
 const multerStorage = multer.memoryStorage();
 
+const storage = getStorage();
+
 const multerFilter = (req: Request, file: Express.Multer.File, cb: any) => {
+  if (file.size > 100 * 1024) cb(new AppError("File is large than 100kb.", 400), false);
   if (file.mimetype.startsWith("image")) cb(null, true);
   else cb(new AppError("Invalid file please upload a valid picture", 400), false);
 };
@@ -18,9 +26,27 @@ const multerFilter = (req: Request, file: Express.Multer.File, cb: any) => {
 const upload = multer({
   storage: multerStorage,
   fileFilter: multerFilter,
+  limits: {
+    fileSize: 100 * 1024, // 100kb
+  },
 });
 
 export const uploadUserPhoto = upload.single("profileImage");
+
+export const FirebaseUploadUsers = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+  const storageRef = ref(storage, `users/${req.currentUser + Date.now()}`);
+
+  const metaData = {
+    contentType: req.file?.mimetype,
+  };
+
+  if (!req.file?.buffer) return next(new AppError("File Error: invalid file buffer", 400));
+
+  const snapShot = await uploadBytesResumable(storageRef, req.file?.buffer, metaData);
+  const publicURL = await getDownloadURL(snapShot.ref);
+  req.file.filename = publicURL;
+  next();
+});
 
 export const processUserPhoto = (req: Request, res: Response, next: NextFunction) => {
   if (!req.file) return next();
@@ -58,12 +84,12 @@ export const getAllUsers = catchAsync(async (req: Request, res: Response, next: 
   const boardInvites = await prisma.invite.findMany({
     where: {
       ownerId: req.currentUser,
-      boardId: req.boardId
-    }
-  })
+      boardId: req.boardId,
+    },
+  });
   const boardInviteUsers = boardInvites.map((invite) => invite.userId);
   const boardUsers = board?.users.map((user) => user.id) || [];
-  const combinedUsers = [...boardUsers, ...boardInviteUsers ,board?.author.id];
+  const combinedUsers = [...boardUsers, ...boardInviteUsers, board?.author.id];
   const users = await prisma.user.findMany({
     select: { id: true, fullname: true, email: true, profileImage: true },
     where: {
@@ -72,11 +98,10 @@ export const getAllUsers = catchAsync(async (req: Request, res: Response, next: 
         mode: "insensitive",
       },
     },
-    take: 10
+    take: 10,
   });
   let result = users.filter((item) => !combinedUsers.includes(item.id));
-  if (!search)
-    result = result.slice(0, 10);
+  if (!search) result = result.slice(0, 10);
   res.status(200).json({
     status: "success",
     users: result,

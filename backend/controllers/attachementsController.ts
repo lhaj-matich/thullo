@@ -8,14 +8,23 @@ import catchAsync from "../utils/catchAsync";
 import AppError from "../utils/AppError";
 import multer from "multer";
 import sharp from "sharp";
+import { initializeApp } from "firebase/app";
+import { getStorage, ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
+import firebaseConfig from "../utils/firebaseConfig";
+
+initializeApp(firebaseConfig);
 
 const prisma = new PrismaClient();
 
 const multerStorage = multer.memoryStorage();
 
+const storage = getStorage();
+
 const multerFilter = (req: Request, file: Express.Multer.File, cb: any) => {
   const allowedFiles = ["image/png", "image/jpeg", "application/pdf"];
 
+  if (file.size > 100 * 1024)
+    cb(new AppError("File is large than 100kb.", 400), false);
   if (allowedFiles.includes(file.mimetype)) cb(null, true);
   else cb(new AppError("Unsupported file type.", 400), false);
 };
@@ -23,9 +32,28 @@ const multerFilter = (req: Request, file: Express.Multer.File, cb: any) => {
 const upload = multer({
   storage: multerStorage,
   fileFilter: multerFilter,
+  limits: {
+    fileSize: 100 * 1024, // 100kb
+  },
 });
 
 export const  uploadCardAttachement = upload.single("attachement");
+
+export const FirebaseUploadAttachements = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+
+  const storageRef = ref(storage, `attachements/${req.currentUser + Date.now()}`);
+
+  const metaData = {
+    contentType: req.file?.mimetype,
+  };
+
+  if (!req.file?.buffer) return next(new AppError("File Error: invalid file buffer", 400));
+
+  const snapShot = await uploadBytesResumable(storageRef, req.file?.buffer, metaData);
+  const publicURL = await getDownloadURL(snapShot.ref);
+  req.file.filename = publicURL;
+  next();
+});
 
 export const processAttachement = (req: Request, res: Response, next: NextFunction) => {
   if (!req.file) return next();

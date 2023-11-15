@@ -22,7 +22,7 @@ import handleErrors from "./controllers/errorController";
 
 const app: Express = express();
 
-if (process.env.DEV_MODE == "dev") app.use(morgan("dev"));
+process.env.DEV_MODE == "dev" ? app.use(morgan("dev")) : app.use(morgan("short"));
 
 const corsOptions: CorsOptions = {
   origin: process.env.DEV_MODE == "dev" ? process.env.CLIENT_LOCAL : process.env.CLIENT_REMOTE,

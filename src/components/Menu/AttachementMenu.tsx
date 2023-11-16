@@ -11,6 +11,7 @@ import {
   useToast,
   FormControl,
   FormErrorMessage,
+  Spinner,
 } from "@chakra-ui/react";
 import { MdAttachFile } from "react-icons/md";
 import useCreateAttachement from "../../hooks/useCreateAttachement";
@@ -19,6 +20,7 @@ import { z } from "zod";
 import { newAttachementSchema } from "../../utils/authSchema";
 import { useQueryClient } from "@tanstack/react-query";
 import { Attachement, Card } from "../../config/entities";
+import { useState } from "react";
 
 type AttachementType = z.infer<typeof newAttachementSchema>;
 
@@ -31,6 +33,7 @@ const AttachementMenu = ({ cardId, listId }: AttachementProps) => {
   const queryClient = useQueryClient();
   const attachementClient = new apiClient("/attachements");
   const { handleSubmit, reset, register, errors } = useCreateAttachement();
+  const [loading, setLoading] = useState(false);
   const toast = useToast();
 
   const SendFormData = (data: AttachementType) => {
@@ -38,6 +41,7 @@ const AttachementMenu = ({ cardId, listId }: AttachementProps) => {
     formData.append("cardId", cardId);
     formData.append("title", data.title);
     formData.append("attachement", data.attachement[0]);
+    setLoading(true);
     attachementClient
       .postFormData(formData, { "Content-Type": "multipart/form-data" })
       .then((res) => {
@@ -48,15 +52,17 @@ const AttachementMenu = ({ cardId, listId }: AttachementProps) => {
           status: "success",
         });
         queryClient.setQueryData<Card[]>(["lists", listId, "cards"], (cards) =>
-            cards?.map((item) => {
-              if (item.id === cardId) return { ...item, attachments: [...(item.attachments || []), res.data.attachement] };
-              return item;
-            })
+          cards?.map((item) => {
+            if (item.id === cardId)
+              return { ...item, attachments: [...(item.attachments || []), res.data.attachement] };
+            return item;
+          })
         );
         queryClient.setQueryData<Attachement[]>(["attachements", cardId], (oldAttachement) => [
           ...(oldAttachement || []),
           res.data.attachement,
         ]);
+        setLoading(false);
         reset();
       })
       .catch(() => {
@@ -80,9 +86,12 @@ const AttachementMenu = ({ cardId, listId }: AttachementProps) => {
             </HStack>
           </MenuButton>
           <MenuList padding={4} borderRadius="12px">
-            <Heading letterSpacing="-0.42px" color="#4F4F4F" fontSize="19px" fontFamily="Poppins" fontWeight={600}>
-              Attachements
-            </Heading>
+            <HStack justifyContent="space-between">
+              <Heading letterSpacing="-0.42px" color="#4F4F4F" fontSize="19px" fontFamily="Poppins" fontWeight={600}>
+                Attachements
+              </Heading>
+              {loading && <Spinner color='primary' />}
+            </HStack>
             <Text
               marginY={3}
               letterSpacing="-0.42px"

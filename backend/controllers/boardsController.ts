@@ -11,6 +11,13 @@ import { checkExistance } from "./factoryController";
 
 const prisma = new PrismaClient();
 
+prisma.$use(async (param, next) => {
+  const startTime = Date.now();
+  const result = await next(param);
+  console.log('Query Took: ', Date.now() - startTime, ' ms');
+  return result;
+})
+
 export const createBoard = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
   const { error, value } = boardValidator(req.body);
   if (error) return next(new AppError(error.message, 400));
@@ -50,6 +57,7 @@ export const createBoard = catchAsync(async (req: Request, res: Response, next: 
 });
 
 export const getMyboards = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+  const startTime = Date.now();
   const boards = await prisma.board.findMany({
     where: {
       OR: [
@@ -68,10 +76,9 @@ export const getMyboards = catchAsync(async (req: Request, res: Response, next: 
       users: {
         select: { id: true, fullname: true, email: true, profileImage: true },
       },
-      lists: true,
     },
   });
-
+  console.log('Find unique took: ', Date.now() - startTime + ' ms');
   res.status(200).json({
     status: "success",
     boards,

@@ -12,6 +12,13 @@ import Email from "../utils/Email";
 
 const prisma = new PrismaClient();
 
+prisma.$use(async (param, next) => {
+  const startTime = Date.now();
+  const result = await next(param);
+  console.log('Query Took: ', Date.now() - startTime, ' ms');
+  return result;
+})
+
 const generateToken = async (id: string | undefined) => {
   if (!process.env.JWT_SECRET) return null;
   return jwt.sign({ id }, process.env.JWT_SECRET, {
@@ -139,6 +146,7 @@ export const authorizeRoute = catchAsync(async (req: Request, res: Response, nex
   if (req.headers.authorization) token = req.headers.authorization.split(" ")[1];
   else token = req.cookies.jwt;
   decodedToken = (await jwt.verify(token, process.env.JWT_SECRET)) as JwtPayload;
+  const startTime = Date.now();
   const user = await prisma.user.findUnique({
     where: {
       id: decodedToken.id,
@@ -148,6 +156,7 @@ export const authorizeRoute = catchAsync(async (req: Request, res: Response, nex
       passwordChangedAt: true,
     },
   });
+  console.log('Find unique took: ', Date.now() - startTime + ' ms');
   if (!user) return next(new AppError("The user associated with this token has been deleted.", 401));
   if (decodedToken.iat && user.passwordChangedAt && checkPasswordChanged(decodedToken.iat, user.passwordChangedAt))
     return next(new AppError("User password has been changed, please login with the new password", 401));
@@ -244,7 +253,6 @@ export const login = catchAsync(async (req: Request, res: Response, next: NextFu
       email,
     },
   });
-
   if (!user || !(await checkPassword(password, user.password)))
     return next(new AppError("Incorrect email or password", 401));
   const token = await sendAuthToken(res, next, user.id);

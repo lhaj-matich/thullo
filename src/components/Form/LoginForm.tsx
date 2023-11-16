@@ -27,8 +27,8 @@ const LoginForm = () => {
           status: "success",
           onCloseComplete() {
             redirect("/");
-            localStorage.setItem("jwtToken", res.data.token);
-            setAuth({ loggedIn: true, token: res.data.token, user: res.data.user });
+            localStorage.setItem("user", JSON.stringify(res.data.user))
+            setAuth({ loggedIn: true, user: res.data.user });
           },
         });
       })

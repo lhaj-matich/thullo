@@ -7,12 +7,14 @@ import { useForm } from "react-hook-form";
 import { profileSchema } from "../../utils/authSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import apiClient from "../../services/apiClient";
+import { useState } from "react";
 
 type ProfileData = z.infer<typeof profileSchema>;
 
 const ProfileInfo = () => {
   const ProfileAPI = new apiClient("/users");
   const toast = useToast();
+  const [loading, setLoading] = useState(false);
   const { auth, setAuth } = useAuth();
   const {
     handleSubmit,
@@ -25,6 +27,7 @@ const ProfileInfo = () => {
     formData.append("fullname", data.fullname);
     formData.append("email", data.email);
     formData.append("profileImage", data.profileImage[0]);
+    setLoading(true);
     ProfileAPI.updateData(formData, { "Content-Type": "multipart/form-data" })
       .then((res) => {
         setAuth({ ...auth, user: res.data.user });
@@ -34,6 +37,7 @@ const ProfileInfo = () => {
           description: `Profile updated succesfully.`,
           status: "success",
         });
+        setLoading(false);
       })
       .catch(() => {
         toast({
@@ -42,6 +46,7 @@ const ProfileInfo = () => {
           description: `Error updating profile.`,
           status: "error",
         });
+        setLoading(false);
       });
   };
 
@@ -75,8 +80,8 @@ const ProfileInfo = () => {
             </Box>
           </HStack>
         </Center>
-        <Button type="submit" fontWeight="400" float="right" marginBottom={5}>
-          Update Profile
+        <Button isDisabled={loading} type="submit" fontWeight="400" float="right" marginBottom={5}>
+          {loading ? "Updating..." : "Update profile"}
         </Button>
       </form>
     </>

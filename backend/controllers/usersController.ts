@@ -157,6 +157,12 @@ export const deleteCurrentUser = catchAsync(async (req: Request, res: Response, 
   const userComments = await prisma.comment.findMany({
     where: { user: { id } },
   });
+  
+  const userCards = await prisma.card.findMany({
+    where: {
+      author: { id },
+    },
+  });
 
   const disconnectUser = contriBoards.map((board) =>
     prisma.board.update({
@@ -164,11 +170,21 @@ export const deleteCurrentUser = catchAsync(async (req: Request, res: Response, 
       data: { users: { disconnect: { id } } },
     })
   );
-  const deleteAuthor = myBoards.map((board) =>
+
+  const deleteAuthorBoards = myBoards.map((board) =>
     prisma.board.delete({
       where: { id: board.id },
     })
   );
+
+  const deleteCards = userCards.map((card) => {
+    prisma.card.delete({
+      where: {
+        id: card.id,
+      },
+    });
+  });
+
   const deleteComments = userComments.map((comment) =>
     prisma.comment.delete({
       where: {
@@ -176,9 +192,9 @@ export const deleteCurrentUser = catchAsync(async (req: Request, res: Response, 
       },
     })
   );
-
   await Promise.all(disconnectUser);
-  await Promise.all(deleteAuthor);
+  await Promise.all(deleteAuthorBoards);
+  await Promise.all(deleteCards)
   await Promise.all(deleteComments);
   await prisma.user.delete({
     where: {

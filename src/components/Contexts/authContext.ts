@@ -9,7 +9,6 @@ export interface UserInfo {
 
 export interface AuthAction {
   loggedIn: boolean;
-  token: string | null;
   user: UserInfo | null;
 }
 

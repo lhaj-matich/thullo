@@ -8,16 +8,23 @@ interface AuthProps {
 
 interface UserResponse {
   status: string;
-  user: UserInfo
+  user: UserInfo;
 }
 
 const AuthProvider = ({ children }: AuthProps) => {
-  const [auth, setAuth] = useState<AuthAction>({ loggedIn: false, token: null, user: null });
+  const user = localStorage.getItem("user");
+  const userData: UserInfo = user ? JSON.parse(user) : null;
+  const [auth, setAuth] = useState<AuthAction>({ loggedIn: userData ? true : false, user: userData || null });
+
+  console.log(userData);
+
   useEffect(() => {
-    const token = localStorage.getItem("jwtToken");
-    if (!auth.loggedIn)
     new apiClient<UserResponse>("/users/me").getData().then((res) => {
-      if (token) setAuth({ loggedIn: true, token, user: res.data.user });
+      setAuth({ loggedIn: true, user: res.data.user });
+      localStorage.setItem("user", JSON.stringify(res.data.user));
+    }).catch(() => {
+      setAuth({ loggedIn: false, user: null });
+      localStorage.removeItem("user")
     });
   }, []);
   return <AuthContext.Provider value={{ auth, setAuth }}>{children}</AuthContext.Provider>;

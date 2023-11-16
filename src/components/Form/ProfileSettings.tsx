@@ -37,8 +37,8 @@ const ProfileSettings = ({ open, onClose }: ModelProps) => {
           description: `Account deleted succesfully.`,
           status: "success",
           onCloseComplete() {
-            setAuth({ loggedIn: false, token: null, user: null });
-            localStorage.removeItem("jwtToken");
+            setAuth({ loggedIn: false, user: null });
+            localStorage.removeItem("user");
             navigate("/login");
           },
         });

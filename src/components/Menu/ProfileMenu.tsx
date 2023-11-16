@@ -16,8 +16,8 @@ const ProfileMenu = () => {
 
   const handleLogout = () => {
     usersClient.postData({}).then(() => {
-      setAuth({ loggedIn: false, token: null, user: null });
-      localStorage.removeItem("jwtToken");
+      setAuth({ loggedIn: false, user: null });
+      localStorage.removeItem("user");
       navigate("/login");
     });
   };
@@ -46,7 +46,7 @@ const ProfileMenu = () => {
       <MenuList fontFamily="Poppins">
         <MenuItem onClick={profileModal.onOpen}>Profile settings</MenuItem>
         <MenuItem justifyContent="space-between" onClick={inviteModal.onOpen}>
-          Invites{" "}
+          Invites
           {invites.invitesNumber ? (
             <Badge width="25px" textAlign="center" borderRadius={15} colorScheme="red">
               {invites.invitesNumber}

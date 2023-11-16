@@ -22,10 +22,11 @@ const NewCard = ({ listId, first }: NewCardProps) => {
 
   const addListItem = () => {
     if (!value) return;
+    setLoading(true);
     cardClient
       .postData({ title: value, listId })
       .then((res: any) => {
-        setLoading(true);
+        setLoading(false);
         queryClient.setQueryData<Card[]>(["lists", listId, "cards"], (cards) => [...(cards || []), res.data.card]);
         setVisible(false);
         setValue("");

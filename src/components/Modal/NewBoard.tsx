@@ -32,13 +32,16 @@ const NewBoard = () => {
   const queryClient = useQueryClient();
 
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { mutate } = useMutation<Board, Error, Board>({
+  const { mutate, isLoading } = useMutation<Board, Error, Board>({
     mutationFn: (board: Board) => boardsClient.postData(board).then((res) => res.data.board),
     onSuccess: (savedBoard) => {
       queryClient.setQueriesData<Board[]>(["boards"], (boards) => [...(boards || []), savedBoard]);
+      if (inputRef.current) inputRef.current.value = "";
+      onClose();
     },
     onError: (error) => {
       toast({ description: error.message });
+      onClose();
     },
   });
 
@@ -51,8 +54,6 @@ const NewBoard = () => {
         title: inputRef.current?.value,
         coverImage: imageId,
       });
-      inputRef.current.value = "";
-      onClose();
     }
   };
 
@@ -92,8 +93,8 @@ const NewBoard = () => {
             <Button marginRight={3} variant="ghost" onClick={onClose}>
               Cancel
             </Button>
-            <Button onClick={sendBoardData} leftIcon={<Icon as={AiOutlinePlus} />}>
-              Create
+            <Button width={120} onClick={sendBoardData} leftIcon={<Icon as={AiOutlinePlus} />} isDisabled={isLoading}>
+              {isLoading ? "Creating.." : "Create"}
             </Button>
           </ModalFooter>
         </ModalContent>

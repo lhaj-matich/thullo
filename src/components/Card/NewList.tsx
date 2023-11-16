@@ -21,12 +21,13 @@ const NewList = ({ id, first }: NewListProps) => {
 
   const addListItem = () => {
     if (!value) return;
+    setLoading(true);
     listClient
       .postData({ name: value, boardId: id })
       .then((res) => {
-        setLoading(true);
         setBoard({ ...board, lists: [...(board.lists || []), res.data.list] });
         setVisible(false);
+        setLoading(false);
         setValue("");
       })
       .catch(() => {

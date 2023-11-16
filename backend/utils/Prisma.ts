@@ -22,7 +22,7 @@ const cacheMiddleware: Prisma.Middleware = createPrismaRedisCache({
     { model: "Invite" },
     { model: "Label" },
   ],
-  storage: { type: "redis", options: { client: redis, invalidation: { referencesTTL: 500 }, log: console } },
+  storage: { type: "redis", options: { client: redis, invalidation: { referencesTTL: 500 } } },
   cacheTime: 500,
 });
 

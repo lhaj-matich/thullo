@@ -18,22 +18,28 @@ const NewCard = ({ listId, first }: NewCardProps) => {
   const queryClient = useQueryClient();
   const [visible, setVisible] = useState(false);
   const [value, setValue] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const addListItem = () => {
     if (!value) return;
     cardClient
       .postData({ title: value, listId })
       .then((res: any) => {
+        setLoading(true);
         queryClient.setQueryData<Card[]>(["lists", listId, "cards"], (cards) => [...(cards || []), res.data.card]);
         setVisible(false);
         setValue("");
       })
-      .catch(() => toast({ description: "Could not create card, please reload your page." }));
+      .catch(() => {
+        setLoading(false);
+        toast({ description: "Could not create card, please reload your page." })
+      });
   };
 
   return (
     <VStack>
       <InsertCard
+        loading={loading}
         value={value}
         onInsert={setValue}
         onSave={addListItem}

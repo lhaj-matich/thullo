@@ -17,17 +17,20 @@ const NewList = ({ id, first }: NewListProps) => {
   const toast = useToast();
   const [visible, setVisible] = useState(false);
   const [value, setValue] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const addListItem = () => {
     if (!value) return;
     listClient
       .postData({ name: value, boardId: id })
       .then((res) => {
+        setLoading(true);
         setBoard({ ...board, lists: [...(board.lists || []), res.data.list] });
         setVisible(false);
         setValue("");
       })
       .catch(() => {
+        setLoading(false);
         toast({
           description: "Could not add list. Please reload your page.",
           duration: 2000,
@@ -40,6 +43,7 @@ const NewList = ({ id, first }: NewListProps) => {
   return (
     <VStack marginTop={5}>
       <InsertCard
+        loading={loading}
         value={value}
         onInsert={setValue}
         onSave={addListItem}

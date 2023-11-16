@@ -1,13 +1,12 @@
-import { Card, PrismaClient } from "@prisma/client";
+import { Card } from "@prisma/client";
 import { NextFunction, Request, Response } from "express";
 
 import { cardUpdateValidator, cardValidator } from "../utils/validator";
 import catchAsync from "../utils/catchAsync";
 import AppError from "../utils/AppError";
+import prisma from '../utils/Prisma';
 
 import * as UtilsCtrl from "./factoryController";
-
-const prisma = new PrismaClient();
 
 export const createCard = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
   const { error, value } = cardValidator(req.body);

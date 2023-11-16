@@ -8,15 +8,7 @@ import catchAsync from "../utils/catchAsync";
 import { boardUpdateValidator, boardValidator } from "../utils/validator";
 import { sendBoardId } from "../models/boardModel";
 import { checkExistance } from "./factoryController";
-
-const prisma = new PrismaClient();
-
-prisma.$use(async (param, next) => {
-  const startTime = Date.now();
-  const result = await next(param);
-  console.log('Query Took: ', Date.now() - startTime, ' ms');
-  return result;
-})
+import prisma from '../utils/Prisma';
 
 export const createBoard = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
   const { error, value } = boardValidator(req.body);

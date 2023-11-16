@@ -6,8 +6,8 @@ import catchAsync from "../utils/catchAsync";
 import AppError from "../utils/AppError";
 
 import * as UtilsCtrl from "./factoryController";
+import prisma from '../utils/Prisma';
 
-const prisma = new PrismaClient();
 
 export const createList = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
   const { error, value } = listValidator(req.body);

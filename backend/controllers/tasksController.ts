@@ -6,8 +6,7 @@ import catchAsync from "../utils/catchAsync";
 import AppError from "../utils/AppError";
 
 import * as UtilsCtrl from "./factoryController";
-
-const prisma = new PrismaClient();
+import prisma from '../utils/Prisma';
 
 export const createTask = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
   const { error, value } = taskValidator(req.body);

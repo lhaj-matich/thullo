@@ -1,8 +1,8 @@
 import bcrypt from "bcryptjs";
 import crypto from "crypto";
 import jwt, { JwtPayload } from "jsonwebtoken";
-import { PrismaClient } from "@prisma/client";
 import { NextFunction, Request, Response } from "express";
+
 
 import AppError from "../utils/AppError";
 import catchAsync from "../utils/catchAsync";
@@ -10,14 +10,10 @@ import { userValidator } from "../utils/validator";
 import EncryptText from "../utils/Encyption";
 import Email from "../utils/Email";
 
-const prisma = new PrismaClient();
+import prisma from '../utils/Prisma';
 
-prisma.$use(async (param, next) => {
-  const startTime = Date.now();
-  const result = await next(param);
-  console.log('Query Took: ', Date.now() - startTime, ' ms');
-  return result;
-})
+
+
 
 const generateToken = async (id: string | undefined) => {
   if (!process.env.JWT_SECRET) return null;

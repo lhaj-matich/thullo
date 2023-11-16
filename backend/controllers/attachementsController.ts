@@ -1,4 +1,3 @@
-import { PrismaClient } from "@prisma/client";
 import { NextFunction, Request, Response } from "express";
 import fs from "fs";
 import path from "path";
@@ -11,10 +10,9 @@ import sharp from "sharp";
 import { initializeApp } from "firebase/app";
 import { getStorage, ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
 import firebaseConfig from "../utils/firebaseConfig";
+import prisma from '../utils/Prisma';
 
 initializeApp(firebaseConfig);
-
-const prisma = new PrismaClient();
 
 const multerStorage = multer.memoryStorage();
 

@@ -8,10 +8,9 @@ import sharp from "sharp";
 import { initializeApp } from "firebase/app";
 import { getStorage, ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
 import firebaseConfig from "../utils/firebaseConfig";
+import prisma from '../utils/Prisma';
 
 initializeApp(firebaseConfig);
-
-const prisma = new PrismaClient();
 
 const multerStorage = multer.memoryStorage();
 
@@ -157,7 +156,7 @@ export const deleteCurrentUser = catchAsync(async (req: Request, res: Response, 
   const userComments = await prisma.comment.findMany({
     where: { user: { id } },
   });
-  
+
   const userCards = await prisma.card.findMany({
     where: {
       author: { id },

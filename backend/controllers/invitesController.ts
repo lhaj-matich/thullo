@@ -1,11 +1,10 @@
-import { PrismaClient } from "@prisma/client";
 import { NextFunction, Request, Response } from "express";
 
 import { inviteValidator } from "../utils/validator";
 import catchAsync from "../utils/catchAsync";
 import AppError from "../utils/AppError";
+import prisma from '../utils/Prisma';
 
-const prisma = new PrismaClient();
 
 export const createInvite = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
   //! Validate the duplication of invite

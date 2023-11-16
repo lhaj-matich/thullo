@@ -1,12 +1,12 @@
-import { PrismaClient, Comment } from "@prisma/client";
+import { Comment } from "@prisma/client";
 import { NextFunction, Request, Response } from "express";
 
 import { commentUpdateValidator, commentValidator } from "../utils/validator";
 import AppError from "../utils/AppError";
 import catchAsync from "../utils/catchAsync";
 import { checkExistance } from "./factoryController";
+import prisma from '../utils/Prisma';
 
-const prisma = new PrismaClient();
 
 export const createComment = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
   const { error, value } = commentValidator(req.body);

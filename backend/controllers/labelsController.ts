@@ -4,8 +4,8 @@ import { NextFunction, Request, Response } from "express";
 import { labelValidator } from "../utils/validator";
 import catchAsync from "../utils/catchAsync";
 import AppError from "../utils/AppError";
+import prisma from '../utils/Prisma';
 
-const prisma = new PrismaClient();
 
 export const createLabel = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
   const { error, value } = labelValidator(req.body);

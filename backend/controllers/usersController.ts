@@ -1,5 +1,4 @@
 import multer from "multer";
-import { PrismaClient } from "@prisma/client";
 import { NextFunction, Request, Response } from "express";
 
 import AppError from "../utils/AppError";
@@ -7,8 +6,9 @@ import catchAsync from "../utils/catchAsync";
 import sharp from "sharp";
 import { initializeApp } from "firebase/app";
 import { getStorage, ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
-import firebaseConfig from "../utils/firebaseConfig";
 import prisma from '../utils/Prisma';
+import firebaseConfig from "../utils/firebaseConfig";
+
 
 initializeApp(firebaseConfig);
 

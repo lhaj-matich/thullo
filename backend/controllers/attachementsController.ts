@@ -9,8 +9,8 @@ import multer from "multer";
 import sharp from "sharp";
 import { initializeApp } from "firebase/app";
 import { getStorage, ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
-import firebaseConfig from "../utils/firebaseConfig";
 import prisma from '../utils/Prisma';
+import firebaseConfig from "../utils/firebaseConfig";
 
 initializeApp(firebaseConfig);
 

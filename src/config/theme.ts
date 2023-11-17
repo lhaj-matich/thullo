@@ -171,6 +171,14 @@ const TextAreaStyle: ComponentStyleConfig = {
 const ButtonStyle: ComponentStyleConfig = {
   // style object for base or default style
   // styles for different sizes ("sm", "md", "lg")
+  baseStyle: {
+   _disabled: {
+    _hover: {
+      color: '#000',
+      backgroundColor: '#f1f1f1'
+    }
+   }
+  },
   sizes: {},
   // styles for different visual variants ("outline", "solid")
   variants: {

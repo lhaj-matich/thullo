@@ -66,6 +66,7 @@ const AttachementMenu = ({ cardId, listId }: AttachementProps) => {
         reset();
       })
       .catch(() => {
+        setLoading(false);
         toast({
           position: "top-right",
           duration: 1000,

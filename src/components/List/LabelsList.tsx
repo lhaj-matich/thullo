@@ -20,6 +20,7 @@ const LabelsList = ({ cardId, deleteEnabled }: LabelsListProps) => {
   const { data } = useQuery<Label[]>({
     queryKey: ["cards", cardId, "labels"],
     queryFn: () => cardsClient.getData().then((res: any) => res.data.labels),
+    refetchOnWindowFocus: false
   });
 
   const handleDeleteLabel = (id: string) => {

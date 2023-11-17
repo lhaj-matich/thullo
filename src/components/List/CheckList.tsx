@@ -11,7 +11,7 @@ import {
   Button,
 } from "@chakra-ui/react";
 import CheckListItem from "./CheckListItem";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import apiClient from "../../services/apiClient";
 import { useQueryClient } from "@tanstack/react-query";
 import { Card } from "../../config/entities";
@@ -25,10 +25,12 @@ const CheckList = ({ cardData }: CheckListProps) => {
   const toast = useToast({ position: "top-right", status: "error", duration: 2000 });
   const inputRef = useRef<HTMLInputElement>(null);
   const queryClient = useQueryClient();
+  const [loading, setLoading] = useState(false);
 
   // Add new Task logic
   const addNewTask = () => {
     if (inputRef.current && inputRef.current.value) {
+      setLoading(true);
       tasksClient
         .postData({ content: inputRef.current.value, cardId: cardData.id })
         .then((res) => {
@@ -39,9 +41,11 @@ const CheckList = ({ cardData }: CheckListProps) => {
             })
           );
           if (inputRef.current) inputRef.current.value = "";
+          setLoading(false);
         })
         .catch(() => {
           toast({ description: "Could not add task." });
+          setLoading(false);
         });
     }
   };
@@ -62,9 +66,11 @@ const CheckList = ({ cardData }: CheckListProps) => {
       <VStack border="1px solid #E0E0E0" padding={4} borderRadius={12} boxShadow="0px 2px 4px 0px rgba(0, 0, 0, 0.05)">
         <HStack borderRadius={12} backgroundColor="#fff">
           <InputGroup size="md">
-            <Input onKeyDown={handleEnter} ref={inputRef} variant="outline" pr="5rem" type="text" placeholder="Task, eg: Take out the trash" />
+            <Input disabled={loading} onKeyDown={handleEnter} ref={inputRef} variant="outline" pr="5rem" type="text" placeholder="Task, eg: Take out the trash" />
             <InputRightElement width="5rem">
               <Button
+                isLoading={loading}
+                isDisabled={loading}
                 variant="green"
                 h="1.90rem"
                 size="md"
@@ -73,7 +79,6 @@ const CheckList = ({ cardData }: CheckListProps) => {
               >
                 Insert
                 </Button>
-
             </InputRightElement>
           </InputGroup>
         </HStack>

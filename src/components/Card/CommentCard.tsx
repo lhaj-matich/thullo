@@ -1,7 +1,7 @@
 import { Avatar, Box, Button, HStack, Textarea, useStyleConfig, useToast } from "@chakra-ui/react";
 import { createImageLink } from "../../utils/loadImage";
 import apiClient from "../../services/apiClient";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import { Card } from "../../config/entities";
 import useAuth from "../../hooks/useAuth";
@@ -18,9 +18,11 @@ const CommentCard = ({ cardId, listId }: CommentCardProps) => {
   const toast = useToast({ position: "top-right", status: "error", duration: 2000 });
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const queryClient = useQueryClient();
+  const [loading, setLoading] = useState(false);
 
   const addNewComment = () => {
     if (inputRef.current && inputRef.current.value) {
+      setLoading(true);
       commentsClient
         .postData({ cardId, content: inputRef.current.value })
         .then((res: any) => {
@@ -31,8 +33,10 @@ const CommentCard = ({ cardId, listId }: CommentCardProps) => {
             })
           );
           if (inputRef.current) inputRef.current.value = "";
+          setLoading(false);
         })
         .catch((e) => {
+          setLoading(false);
           toast({ description: e.response.data.message });
         });
     }
@@ -50,10 +54,10 @@ const CommentCard = ({ cardId, listId }: CommentCardProps) => {
           src={createImageLink(auth.user?.profileImage)}
           name={auth.user?.fullname}
         />
-        <Textarea ref={inputRef} variant="generic" border="none" rows={2} placeholder="Writa a comment"></Textarea>
+        <Textarea isDisabled={loading} ref={inputRef} variant="generic" border="none" rows={2} placeholder="Writa a comment"></Textarea>
       </HStack>
       <HStack justifyContent="flex-end">
-        <Button paddingY={2} variant="generic" borderRadius="12px" onClick={addNewComment}>
+        <Button isLoading={loading} isDisabled={loading} paddingY={2} variant="generic" borderRadius="12px" onClick={addNewComment}>
           Comment
         </Button>
       </HStack>

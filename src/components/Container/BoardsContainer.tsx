@@ -16,6 +16,7 @@ const BoardsContainer = () => {
   const { data, isLoading } = useQuery<Board[]>({
     queryKey: ["boards"],
     queryFn: () => boardsClient.getData().then((res) => res.data.boards),
+    refetchOnWindowFocus: false
   });
   
   return (

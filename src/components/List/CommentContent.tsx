@@ -1,7 +1,7 @@
 import { KeyboardEvent } from "react";
 import apiClient from "../../services/apiClient";
 import { useQueryClient } from "@tanstack/react-query";
-import { HStack, Heading, Link, Textarea, VStack } from "@chakra-ui/react";
+import { HStack, Heading, Link, Textarea, VStack, useToast } from "@chakra-ui/react";
 import { Card, Comment } from "../../config/entities";
 import { useRef } from "react";
 
@@ -15,13 +15,13 @@ interface CommentEditProps {
 const CommentContent = ({ commentData, mode, listId, setMode }: CommentEditProps) => {
   const queryClient = useQueryClient();
   const inputRef = useRef<HTMLTextAreaElement>(null);
+  const toast = useToast({duration: 2000, position: "top-left"});
 
   const handleEditComment = (commentId: string) => {
     if (inputRef && inputRef.current && inputRef.current.value) {
       const commentsClient = new apiClient(`comments/${commentId}`);
       const commentContent = inputRef.current.value;
-      commentsClient.updateData({ content: inputRef.current.value }, {}).then(() => {
-        queryClient.setQueryData<Card[]>(["lists", listId, "cards"], (cards) =>
+      queryClient.setQueryData<Card[]>(["lists", listId, "cards"], (cards) =>
           cards?.map((card) => {
             if (card.id === commentData.cardId) {
               return {
@@ -40,8 +40,11 @@ const CommentContent = ({ commentData, mode, listId, setMode }: CommentEditProps
             return card;
           })
         );
-      });
       setMode(false);
+      commentsClient.updateData({ content: inputRef.current.value }, {}).catch(() => toast({
+        description: 'Error deleting updating comment',
+        status: 'error'
+      }))
     }
   };
 

@@ -29,6 +29,7 @@ const SentInvitesList = () => {
     queryKey: ["sentInvites"],
     queryFn: () => invitesClient.getData("/sent").then((res) => res.data.invites),
     keepPreviousData: true,
+    refetchOnWindowFocus: false
   });
 
   const handleCancelInvite = (id: string) => {

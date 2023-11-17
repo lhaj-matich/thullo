@@ -15,6 +15,7 @@ const AttachmentsList = ({ cardId, listId }: AttachementListProps) => {
   const { data, isLoading } = useQuery<Attachement[]>({
     queryKey: ["attachements", cardId],
     queryFn: () => attachementClient.getData().then((res: any) => res.data.attachements),
+    refetchOnWindowFocus: false
   });
 
   if (isLoading)

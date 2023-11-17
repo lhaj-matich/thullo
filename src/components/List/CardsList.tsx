@@ -20,7 +20,7 @@ const CardsList = ({ list }: CardsListProps) => {
   const { isLoading, data } = useQuery<Card[]>({
     queryKey: ["lists", list.id, "cards"],
     queryFn: () => cardClient.getData().then((res: any) => res.data.cards),
-    // refetchOnWindowFocus: true,
+    refetchOnWindowFocus: false,
   });
 
   return (

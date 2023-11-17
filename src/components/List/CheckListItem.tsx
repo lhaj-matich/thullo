@@ -17,43 +17,41 @@ const CheckListItem = ({ task, listId }: TaskItemProps) => {
   // ? Logic for deleting a task
 
   const deleteTask = (id: string) => {
-    tasksClient.deleteData().then(() => {
-      queryClient.setQueryData<Card[]>(["lists", listId, "cards"], (cards) =>
-        cards?.map((item) => {
-          if (item.id === task.cardId) {
-            return {
-              ...item,
-              checklists: item.checklists?.filter((task) => task.id !== id),
-            };
-          }
-          return item;
-        })
-      );
-    });
+    queryClient.setQueryData<Card[]>(["lists", listId, "cards"], (cards) =>
+      cards?.map((item) => {
+        if (item.id === task.cardId) {
+          return {
+            ...item,
+            checklists: item.checklists?.filter((task) => task.id !== id),
+          };
+        }
+        return item;
+      })
+    );
+    tasksClient.deleteData();
   };
 
   //? Logic for resolving a task
   const ToggleTaskStatus = () => {
     //! This function needs to be refactored to be reused.
-    tasksClient.updateData({ resolved: !checked }, null).then(() => {
-      queryClient.setQueryData<Card[]>(["lists", listId, "cards"], (cards) =>
-        cards?.map((item) => {
-          if (item.id === task.cardId) {
-            return {
-              ...item,
-              checklists: item.checklists?.map((checklistItem) => {
-                if (checklistItem.id === task.id) {
-                  return { ...checklistItem, resolved: !checked };
-                }
-                return checklistItem;
-              }),
-            };
-          }
-          return item;
-        })
-      );
-      setChecked(!checked);
-    });
+    queryClient.setQueryData<Card[]>(["lists", listId, "cards"], (cards) =>
+      cards?.map((item) => {
+        if (item.id === task.cardId) {
+          return {
+            ...item,
+            checklists: item.checklists?.map((checklistItem) => {
+              if (checklistItem.id === task.id) {
+                return { ...checklistItem, resolved: !checked };
+              }
+              return checklistItem;
+            }),
+          };
+        }
+        return item;
+      })
+    );
+    setChecked(!checked);
+    tasksClient.updateData({ resolved: !checked }, null);
   };
   return (
     <HStack justifyContent="space-between" padding={1} borderBottom="1px solid #F1F1F1" width="100%">

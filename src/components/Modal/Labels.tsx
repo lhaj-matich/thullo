@@ -10,6 +10,7 @@ import {
   HStack,
   Input,
   useToast,
+  Spinner,
 } from "@chakra-ui/react";
 import { MdLabel } from "react-icons/md";
 
@@ -28,12 +29,14 @@ interface LabelsProps {
 const Labels = ({ cardId }: LabelsProps) => {
   const [color, setColor] = useState("");
   const queryClient = useQueryClient();
+  const [loading, setLoading] = useState(false);
   const toast = useToast({ duration: 2000, position: "top-right", status: "error" });
   const inputRef = useRef<HTMLInputElement>(null);
   const labelsClient = new apiClient(`/cards/${cardId}/labels`);
 
   const insertNewLabel = () => {
     if (color && inputRef.current && inputRef.current.value) {
+      setLoading(true);
       labelsClient
         .postData({ tag: inputRef.current.value, color })
         .then((res: any) => {
@@ -43,8 +46,10 @@ const Labels = ({ cardId }: LabelsProps) => {
           ]);
           if (inputRef.current) inputRef.current.value = "";
           setColor("");
+          setLoading(false);
         })
         .catch(() => {
+          setLoading(false);
           toast({ description: "Could not add label." });
         });
     }
@@ -59,9 +64,12 @@ const Labels = ({ cardId }: LabelsProps) => {
         </HStack>
       </MenuButton>
       <MenuList padding={4} borderRadius="12px">
-        <Heading letterSpacing="-0.42px" color="#4F4F4F" fontSize="19px" fontFamily="Poppins" fontWeight={600}>
-          Label
-        </Heading>
+        <HStack justifyContent="space-between">
+          <Heading letterSpacing="-0.42px" color="#4F4F4F" fontSize="19px" fontFamily="Poppins" fontWeight={600}>
+            Label
+          </Heading>
+          {loading && <Spinner color="primary" />}
+        </HStack>
         <Text marginY={3} letterSpacing="-0.42px" color="#828282" fontSize="16px" fontFamily="Poppins" fontWeight={400}>
           Enter the label and select a color
         </Text>

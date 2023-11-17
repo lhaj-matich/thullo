@@ -1,4 +1,4 @@
-import { HStack, VStack, Box, Link } from "@chakra-ui/react";
+import { HStack, VStack, Box, Link, useToast } from "@chakra-ui/react";
 import UserInfo from "./UserInfo";
 import moment from "moment";
 import { Card, Comment } from "../../config/entities";
@@ -17,19 +17,21 @@ const CommentListItem = ({ commentData: comment, listId }: CommentItemProps) => 
   const { auth } = useAuth();
   const commentsClient = new apiClient("comments");
   const queryClient = useQueryClient();
+  const toast = useToast({duration: 2000, position: 'top-right'});
   const [edit, setEdit] = useState(false);
 
   const handleDeleteComment = (commentId: string) => {
-    commentsClient.deleteData(`/${commentId}`).then(() => {
-      queryClient.setQueryData<Card[]>(["lists", listId, "cards"], (cards) =>
-        cards?.map((card) => {
-          if (card.id === comment.cardId) {
-            return { ...card, comments: card.comments?.filter((comment) => comment.id !== commentId) };
-          }
-          return card;
-        })
-      );
-    });
+    queryClient.setQueryData<Card[]>(["lists", listId, "cards"], (cards) =>
+      cards?.map((card) => {
+        if (card.id === comment.cardId) {
+          return { ...card, comments: card.comments?.filter((comment) => comment.id !== commentId) };
+        }
+        return card;
+      })
+    );
+    commentsClient.deleteData(`/${commentId}`).catch(() => {
+      toast({ description: "Error deleting comment", status: "error"})
+    })
   };
 
   return (

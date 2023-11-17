@@ -56,19 +56,16 @@ const CardModal = ({ list, card, opened, onClose }: CardModalProps) => {
   };
 
   const EditCardClient = (value: string, field: string) => {
-    cardClient
-      .updateData({ [field]: value }, null)
-      .then(() => {
-        queryClient.setQueryData<Card[]>(["lists", card.listId, "cards"], (cards) =>
-          cards?.map((item) => {
-            if (item.id === card.id) {
-              return { ...item, [field]: value };
-            }
-            return item;
-          })
-        );
+    queryClient.setQueryData<Card[]>(["lists", card.listId, "cards"], (cards) =>
+      cards?.map((item) => {
+        if (item.id === card.id) {
+          return { ...item, [field]: value };
+        }
+        return item;
       })
-      .catch((e) => toast({ description: e.response.data.message }));
+    );
+    //! Should complete the optimistic logic for the case of failure
+    cardClient.updateData({ [field]: value }, null).catch((e) => toast({ description: e.response.data.message }));
   };
 
   return (
@@ -83,7 +80,7 @@ const CardModal = ({ list, card, opened, onClose }: CardModalProps) => {
             width="100%"
             height="150px"
             borderRadius="12px"
-            src={createUnsplashLink(card.coverImage, 500, 1500)}
+            src={createUnsplashLink(card.coverImage, 400, 800)}
           />
           <HStack alignItems="flex-start" marginTop={4}>
             <Box width="75%">

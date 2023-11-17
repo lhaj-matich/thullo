@@ -21,7 +21,7 @@ const Loader = ({ image }: LoaderProps) => {
 const CardLoader = () => {
   const result = Math.floor(Math.random() * 2);
   return (
-    <HStack flexDirection={result === 1 ? "column" : "column-reverse"}>
+    <HStack flexDirection={result === 1 ? "column" : "column-reverse"} marginBottom={3}>
       <Loader image={false} />
       <Loader image={true} />
     </HStack>

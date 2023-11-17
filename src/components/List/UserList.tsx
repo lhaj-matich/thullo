@@ -1,4 +1,4 @@
-import { Box, Heading, useStyleConfig } from "@chakra-ui/react";
+import { Box, HStack, Heading, Spinner, useStyleConfig } from "@chakra-ui/react";
 
 import UserListItem from "./UserListItem";
 import { User } from "../Nav/BoardSearch";
@@ -8,10 +8,17 @@ interface userListProps {
   userId: string;
   onClick: (id: string) => void;
   users: User[] | undefined;
+  loading: boolean;
 }
 
-const UserList = ({ onClick, users, userId }: userListProps) => {
+const UserList = ({ onClick, users, userId, loading }: userListProps) => {
   const styles = useStyleConfig("BoxStyle", { variant: "usersList" });
+  if (loading)
+    return (
+      <HStack justifyContent="center" padding={5}>
+        <Spinner color="primary" />
+      </HStack>
+    );
   if (users?.length == 0)
     return (
       <Heading

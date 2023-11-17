@@ -4,6 +4,7 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import InvitesListItem from "./InvitesListItem";
 import apiClient from "../../services/apiClient";
 import { Board, User } from "../Nav/BoardSearch";
+import InviteLoader from "../Loader/InviteLoader";
 
 export interface Invite {
   id: string;
@@ -24,7 +25,7 @@ export interface InviteResponse {
 const SentInvitesList = () => {
   const invitesClient = new apiClient<InviteResponse>("/invites");
   const queryClient = useQueryClient();
-  const { data } = useQuery<Invite[]>({
+  const { data, isLoading } = useQuery<Invite[]>({
     queryKey: ["sentInvites"],
     queryFn: () => invitesClient.getData("/sent").then((res) => res.data.invites),
     keepPreviousData: true,
@@ -45,7 +46,10 @@ const SentInvitesList = () => {
     );
   return (
     <Box>
-      {data?.map((invite, index) => (
+      {isLoading && (
+        <InviteLoader />
+      )}
+      {!isLoading && data?.map((invite, index) => (
         <InvitesListItem
           type="sent"
           id={invite.id}

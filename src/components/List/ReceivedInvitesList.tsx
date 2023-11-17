@@ -5,6 +5,7 @@ import InvitesListItem from "./InvitesListItem";
 import apiClient from "../../services/apiClient";
 import { Board } from "../Nav/BoardSearch";
 import useGlobal from "../../hooks/useGlobal";
+import InviteLoader from "../Loader/InviteLoader";
 
 export interface Invite {
   id: string;
@@ -24,7 +25,7 @@ const ReceivedInvitesList = () => {
   const invitesClient = new apiClient<InviteResponse>("/invites");
   const queryClient = useQueryClient();
   const { invites } = useGlobal();
-  const { data } = useQuery<Invite[]>({
+  const { data, isLoading } = useQuery<Invite[]>({
     queryKey: ["receivedInvites"],
     queryFn: () => invitesClient.getData().then((res) => res.data.invites),
     keepPreviousData: true,
@@ -57,20 +58,24 @@ const ReceivedInvitesList = () => {
     );
   return (
     <Box>
-      {data?.map((invite, index) => (
-        <InvitesListItem
-          type="received"
-          id={invite.id}
-          key={index}
-          boardCover={invite.board.coverImage}
-          author={invite.board.author}
-          users={invite.board.users}
-          boardName={invite.board.title}
-          createdAt={invite.createdAt}
-          onAccept={handleAcceptInvite}
-          onCancel={handleCancelInvite}
-        />
-      ))}
+      {isLoading && (
+        <InviteLoader />
+      )}
+      {!isLoading &&
+        data?.map((invite, index) => (
+          <InvitesListItem
+            type="received"
+            id={invite.id}
+            key={index}
+            boardCover={invite.board.coverImage}
+            author={invite.board.author}
+            users={invite.board.users}
+            boardName={invite.board.title}
+            createdAt={invite.createdAt}
+            onAccept={handleAcceptInvite}
+            onCancel={handleCancelInvite}
+          />
+        ))}
     </Box>
   );
 };

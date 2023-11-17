@@ -1,4 +1,4 @@
-import { Box, Grid, Heading, HStack } from "@chakra-ui/react";
+import { Box, Grid, Heading, HStack, Spinner } from "@chakra-ui/react";
 import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 
@@ -13,7 +13,7 @@ const BoardsContainer = () => {
   const boardsClient = new apiClient<BoardsReponse>("/boards");
   const navigate = useNavigate();
 
-  const { data } = useQuery<Board[]>({
+  const { data, isLoading } = useQuery<Board[]>({
     queryKey: ["boards"],
     queryFn: () => boardsClient.getData().then((res) => res.data.boards),
   });
@@ -27,6 +27,11 @@ const BoardsContainer = () => {
         </Heading>
         <NewBoard />
       </HStack>
+      {isLoading && (
+        <HStack justifyContent="center" alignItems="center" height="100%">
+          <Spinner color="primary" boxSize="130px" thickness="5px" />
+        </HStack>
+      )}
       <Grid justifyContent="center" marginTop={8} templateColumns="repeat(auto-fill, 330px)" gap={18} padding={4}>
         {data?.map((board, index) => (
           <GenericCard

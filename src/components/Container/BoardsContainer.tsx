@@ -17,8 +17,7 @@ const BoardsContainer = () => {
     queryKey: ["boards"],
     queryFn: () => boardsClient.getData().then((res) => res.data.boards),
   });
-
-  // Query logic
+  
   return (
     <Box marginTop={5} height="85vh" width="85vw">
       <HStack justifyContent="space-between">

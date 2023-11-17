@@ -53,7 +53,7 @@ const BoardPage = () => {
   useEffect(() => {
     boardClient
       .getData(`/${id}`)
-      .then((res) => setBoard(res.data.board))
+      .then((res) => {setBoard(res.data.board); setLoading(false)})
       .catch(() => {
         navigate("/");
         toast({
@@ -62,10 +62,8 @@ const BoardPage = () => {
           status: "error",
           duration: 2000,
         });
+        setLoading(false);
       });
-    setTimeout(() => {
-      setLoading(false);
-    }, 1500);
   }, []);
 
   if (loading) return <Loading />;

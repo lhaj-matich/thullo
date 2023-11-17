@@ -6,7 +6,7 @@ interface LoaderProps {
 
 const Loader = ({ image }: LoaderProps) => {
   return (
-    <VStack backgroundColor="#fff" borderRadius="16px" padding="5" width="320px" alignItems="flex-start">
+    <VStack backgroundColor="#fff" borderRadius="16px" padding="5" width="320px" alignItems="flex-start" marginBottom={2}>
       {image && <Skeleton height="200px" width="100%" borderRadius="24px" endColor="#E8EBED" />}
       <Skeleton height="20px" width="100%" borderRadius={12} endColor="#E8EBED" />
       <HStack flexDirection={Math.floor(Math.random() * 2) === 1 ? "row" : "row-reverse"} marginTop={3} marginBottom={2}>

@@ -7,19 +7,23 @@ import FormElement from "./FormElement";
 import FormReminder from "./FormReminder";
 import PasswordInput from "./PasswordInput";
 import useAuth from "../../hooks/useAuth";
+import { useState } from "react";
 
 const LoginForm = () => {
   const loginClient = new apiClient<loginData>("/users/login");
   const toast = useToast();
   const redirect = useNavigate();
   const { auth, setAuth } = useAuth();
+  const [loading, setLoading] = useState(false);
   const { reset, errors, register, handleSubmit } = useLogin();
 
   if (auth.loggedIn) return <Navigate to="/" />;
   const sendLoginData = (data: loginData) => {
+    setLoading(true);
     loginClient
       .postData(data)
       .then((res) => {
+        setLoading(false);
         toast({
           position: "top-right",
           duration: 1000,
@@ -33,6 +37,7 @@ const LoginForm = () => {
         });
       })
       .catch((err) => {
+        setLoading(false);
         toast({ position: "top-right", description: err.response?.data?.message || err.message, status: "error" });
       });
     reset();
@@ -50,7 +55,7 @@ const LoginForm = () => {
               <Link href="/forgotpassword" float="right" color="primary">Forgot password ?</Link>
             </Box>
           </FormElement>
-          <Button type="submit" variant="primary" width="100%">
+          <Button type="submit" variant="primary" width="100%" isLoading={loading}>
             Sign in
           </Button>
         </FormContainer>

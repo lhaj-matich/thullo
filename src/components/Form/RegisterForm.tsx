@@ -7,18 +7,22 @@ import apiClient from "../../services/apiClient";
 import useSignup, { signUpData } from "../../hooks/useSignup";
 import { Navigate, useNavigate } from "react-router-dom";
 import PasswordInput from "./PasswordInput";
+import { useState } from "react";
 
 const RegisterForm = () => {
   const signUpClient = new apiClient<signUpData>("/users/signup");
   const toast = useToast();
   const redirect = useNavigate();
+  const [loading, setLoading] = useState(false);
   const { auth, reset, setAuth, errors, register, handleSubmit } = useSignup();
 
   if (auth.loggedIn) return <Navigate to="/" />;
   const sendSignupData = (data: signUpData) => {
+    setLoading(true);
     signUpClient
       .postData(data)
       .then((res) => {
+        setLoading(false);
         toast({
           position: "top-right",
           duration: 1000,
@@ -32,6 +36,7 @@ const RegisterForm = () => {
         });
       })
       .catch((err) => {
+        setLoading(false);
         toast({ position: "top-right", description: err.response?.data?.message || err.message, status: "error" });
       });
     reset();
@@ -56,7 +61,7 @@ const RegisterForm = () => {
               register={register("confirmPassword")}
             />
           </FormElement>
-          <Button type="submit" variant="primary" width="100%" marginTop={15}>
+          <Button type="submit" isLoading={loading} variant="primary" width="100%" marginTop={15}>
             Sign up
           </Button>
         </FormContainer>

@@ -1,7 +1,5 @@
 import axios from "axios";
 
-console.log(import.meta.env.VITE_BACKEND_ENDPOINT_DEV)
-
 const axiosInstance = axios.create({
   baseURL:
     import.meta.env.VITE_MODE === "dev" ? import.meta.env.VITE_BACKEND_ENDPOINT_DEV : import.meta.env.VITE_BACKEND_ENDPOINT_PROD,

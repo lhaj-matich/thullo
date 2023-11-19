@@ -16,8 +16,6 @@ const AuthProvider = ({ children }: AuthProps) => {
   const userData: UserInfo = user ? JSON.parse(user) : null;
   const [auth, setAuth] = useState<AuthAction>({ loggedIn: userData ? true : false, user: userData || null });
 
-  console.log(userData);
-
   useEffect(() => {
     new apiClient<UserResponse>("/users/me").getData().then((res) => {
       setAuth({ loggedIn: true, user: res.data.user });

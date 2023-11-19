@@ -152,7 +152,7 @@ export const authorizeRoute = catchAsync(async (req: Request, res: Response, nex
       passwordChangedAt: true,
     },
   });
-  console.log('Find unique took: ', Date.now() - startTime + ' ms');
+  // console.log('Find unique took: ', Date.now() - startTime + ' ms');
   if (!user) return next(new AppError("The user associated with this token has been deleted.", 401));
   if (decodedToken.iat && user.passwordChangedAt && checkPasswordChanged(decodedToken.iat, user.passwordChangedAt))
     return next(new AppError("User password has been changed, please login with the new password", 401));

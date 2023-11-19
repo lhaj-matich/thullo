@@ -91,7 +91,11 @@ export const getBoardById = catchAsync(async (req: Request, res: Response, next:
       users: {
         select: { id: true, fullname: true, email: true, profileImage: true },
       },
-      lists: true,
+      lists: {
+        orderBy: {
+          createdAt: 'asc'
+        }
+      },
     },
   });
   if (!board) return next(new AppError(`Could not find board: ${id}`, 404));

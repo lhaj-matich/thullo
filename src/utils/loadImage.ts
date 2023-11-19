@@ -4,10 +4,12 @@ const placeHolder =
 
 export const createImageLink = (userImage: string | undefined) => {
   if (!userImage) return placeHolder;
+  if (import.meta.env.VITE_MODE === "dev") return import.meta.env.VITE_FILES_ENDPOINT_DEV + "img/users/" + userImage;
   return userImage;
 };
 
 export const createAttachementLink = (userImage: string | undefined) => {
   if (!userImage) return null;
+  if (import.meta.env.VITE_MODE === "dev") return import.meta.env.VITE_FILES_ENDPOINT_DEV + "attachement/" + userImage;
   return userImage;
 };

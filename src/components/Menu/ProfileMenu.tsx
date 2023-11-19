@@ -6,6 +6,7 @@ import apiClient from "../../services/apiClient";
 import useGlobal from "../../hooks/useGlobal";
 
 import { InviteResponse } from "../List/ReceivedInvitesList";
+import { createImageLink } from "../../utils/loadImage";
 
 const ProfileMenu = () => {
   const { inviteModal, profileModal, invites } = useGlobal();
@@ -36,7 +37,9 @@ const ProfileMenu = () => {
             borderRadius={9}
             bg="#BDBDBD"
             name={auth.user?.fullname}
-            src={auth.user?.profileImage}
+            src={
+              import.meta.env.VITE_MODE === "dev" ? createImageLink(auth.user?.profileImage) : auth.user?.profileImage
+            }
           />
           <Heading fontFamily="Poppins" fontSize={14}>
             {auth.user?.fullname}

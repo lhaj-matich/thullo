@@ -51,7 +51,7 @@ const AttachementListItem = ({ title, date, file, cardId, listId,  attaid }: Att
           {title}
         </Heading>
         <HStack>
-          <Button fontSize="14px" onClick={() => console.log("Download attachement")} variant="outlinePrivate">
+          <Button fontSize="14px" onClick={() => console.log("Download attachement: Feature is not implemented yet")} variant="outlinePrivate">
             Download
           </Button>
           <Button fontSize="14px" onClick={() => handleDeleteAttachement(attaid)} variant="outlinePrivate">

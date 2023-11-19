@@ -90,7 +90,6 @@ export const orderCards = catchAsync(async (req: Request, res: Response, next: N
   });
 
   sourceCards.forEach(async (card) => {
-    console.log("Updating card source")
     await prisma.card.update({
       where: {
         id: card.id,

@@ -50,8 +50,8 @@ const ListHeader = ({ name, id }: ListHeaderProps) => {
         setBoard({ ...board, lists: newLists });
         onClose();
       })
-      .catch(() => {
-        toast({ description: "Could not delete list." });
+      .catch((e) => {
+        toast({ description: e.response.data.message });
       });
   };
 
@@ -64,8 +64,8 @@ const ListHeader = ({ name, id }: ListHeaderProps) => {
         setIsEditing(false);
         setValue(newListName);
       })
-      .catch(() => {
-        toast({ description: "Could not update list." });
+      .catch((e) => {
+        toast({ description: e.response.data.message });
       });
   };
 

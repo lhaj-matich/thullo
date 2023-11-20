@@ -3,17 +3,20 @@ import crypto from "crypto";
 import jwt, { JwtPayload } from "jsonwebtoken";
 import { NextFunction, Request, Response } from "express";
 
-
 import AppError from "../utils/AppError";
 import catchAsync from "../utils/catchAsync";
 import { userValidator } from "../utils/validator";
 import EncryptText from "../utils/Encyption";
 import Email from "../utils/Email";
 
-import prisma from '../utils/Prisma';
+import prisma from "../utils/Prisma";
 
-
-
+export const getStatus = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+  return res.status(200).json({
+    status: "success",
+    message: "API is fully functional",
+  });
+});
 
 const generateToken = async (id: string | undefined) => {
   if (!process.env.JWT_SECRET) return null;
@@ -53,7 +56,7 @@ const sendAuthToken = async (res: Response, next: NextFunction, userId: string) 
   const cookieOptions: any = {
     httpOnly: process.env.DEV_MODE === "dev" ? true : false,
     secure: process.env.DEV_MODE === "dev" ? false : true,
-    sameSite: process.env.DEV_MODE === "dev" ? 'lax' : 'none',
+    sameSite: process.env.DEV_MODE === "dev" ? "lax" : "none",
     expires: new Date(Date.now() + parseInt(process.env.JWT_EXPIRES_IN || "90") * 24 * 3600000),
   };
   if (!token) return next(new AppError("Internal Error: auth module error", 500));
@@ -87,7 +90,7 @@ export const updatePassword = catchAsync(async (req: Request, res: Response, nex
   });
   res.status(200).json({
     status: "success",
-    message: "User password updated successfully."
+    message: "User password updated successfully.",
   });
 });
 
@@ -154,7 +157,11 @@ export const authorizeRoute = catchAsync(async (req: Request, res: Response, nex
   });
   // console.log('Find unique took: ', Date.now() - startTime + ' ms');
   if (!user) return next(new AppError("The user associated with this token has been deleted.", 401));
-  if (decodedToken.iat && user.passwordChangedAt && checkPasswordChanged(decodedToken.iat, user.passwordChangedAt))
+  if (
+    decodedToken.iat &&
+    user.passwordChangedAt &&
+    checkPasswordChanged(decodedToken.iat, user.passwordChangedAt)
+  )
     return next(new AppError("User password has been changed, please login with the new password", 401));
   req.currentUser = user.id;
   req.boardId = new EncryptText(req.cookies.boardId).decrypt() || null;
@@ -163,7 +170,8 @@ export const authorizeRoute = catchAsync(async (req: Request, res: Response, nex
 
 export const preventUnauthorized = (level: string | undefined) => {
   return catchAsync(async (req: Request, res: Response, next: NextFunction) => {
-    if (!req.boardId) return next(new AppError("Board id is not selected please reload the application", 400));
+    if (!req.boardId)
+      return next(new AppError("Board id is not selected please reload the application", 400));
     const board = await prisma.board.findUnique({
       where: {
         id: req.boardId,
@@ -183,7 +191,9 @@ export const preventUnauthorized = (level: string | undefined) => {
     } else {
       const users = board.users.map((item) => item.id);
       if (!users.includes(req.currentUser) && board.authorId != req.currentUser)
-        return next(new AppError("This user lacks authorization to carry out this action on the board.", 401));
+        return next(
+          new AppError("This user lacks authorization to carry out this action on the board.", 401)
+        );
     }
     next();
   });
@@ -195,7 +205,9 @@ export const resetPassword = catchAsync(async (req: Request, res: Response, next
   if (!(newPassword && confirmPassword))
     return next(new AppError("Please provide the new password with the confirmed password", 400));
   if (!(newPassword === confirmPassword))
-    return next(new AppError("Make sure the confirmed passowrd is equal to the password you've provided", 400));
+    return next(
+      new AppError("Make sure the confirmed passowrd is equal to the password you've provided", 400)
+    );
   const user = await prisma.user.findFirst({
     where: {
       passwordResetToken: resetToken,
@@ -263,7 +275,7 @@ export const logout = catchAsync(async (req: Request, res: Response, next: NextF
   const cookieOptions: any = {
     httpOnly: process.env.DEV_MODE === "dev" ? true : false,
     secure: process.env.DEV_MODE === "dev" ? false : true,
-    sameSite: process.env.DEV_MODE === "dev" ? 'lax' : 'none',
+    sameSite: process.env.DEV_MODE === "dev" ? "lax" : "none",
     expires: new Date(Date.now() + 4 * 1000),
   };
 

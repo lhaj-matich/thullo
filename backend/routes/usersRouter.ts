@@ -5,14 +5,16 @@ import boardsRouter from "./boardsRouter";
 
 const Router = express.Router();
 
-Router.use("/:userId/boards", boardsRouter);
 
 Router.route("/signup").post(authController.signup);
 Router.route("/login").post(authController.login);
 Router.route("/resetPassword/:token").post(authController.resetPassword);
 Router.route("/forgotPassword").post(authController.forgotPassword);
+Router.route("/status").get(authController.getStatus);
 
 Router.use(authController.authorizeRoute);
+
+Router.use("/:userId/boards", boardsRouter);
 
 Router.route("/me").get(authController.isLoggedIn);
 Router.route("/updatePassword").put(authController.updatePassword);

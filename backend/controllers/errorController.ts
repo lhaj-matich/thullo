@@ -24,7 +24,7 @@ const handleOperationErrors = (err: Error): any => {
   //? This should stay here for the logs
   console.log(err);
   // Handle generic errors
-  return new AppError("Internal API Error. Contact adminstrator", 400);
+  return new AppError("Internal API Error. Contact adminstrator", 500);
 };
 
 const handleErrors = (err: Error, req: Request, res: Response, next: NextFunction) => {

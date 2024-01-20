@@ -33,10 +33,10 @@ const LoginForm = () => {
   if (auth.loggedIn) return <Navigate to="/" />;
 
   useEffect(() => {
-    apiStatus.getData().catch(() => {
+    apiStatus.getData(undefined, { timeout: 3000 }).catch(() => {
       onOpen();
-    })
-  }, [])
+    });
+  }, []);
 
   const restartAPI = async () => {
     setStatus(true);

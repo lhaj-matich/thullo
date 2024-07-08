@@ -2,13 +2,13 @@ import { Prisma, PrismaClient } from "@prisma/client";
 import { createPrismaRedisCache } from "prisma-redis-middleware";
 import Redis from "ioredis";
 
-const redis: any = new Redis({
-    port: 10704,
+const redis: any = process.env.DEV_MODE === "prod" ? new Redis({
+    port: 17544,
     host: process.env.REDIS_HOST,
     username: process.env.REDIS_USERNAME,
     password: process.env.REDIS_PASSWORD,
     db: 0
-});
+}) : new Redis();
 
 // const redis = new Redis();
 

@@ -4,6 +4,11 @@ import morgan from "morgan";
 import cors, { CorsOptions } from "cors";
 import cookieParser from "cookie-parser";
 import express, { Express, Request, Response, NextFunction } from "express";
+import dotenv from "dotenv";
+
+dotenv.config({
+  path: ".env",
+});
 
 // Routers
 import usersRouter from "./routes/usersRouter";

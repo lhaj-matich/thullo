@@ -18,7 +18,7 @@ interface PhotoSearchProps extends BoxProps {
   id: string;
 }
 
-const PhotoSearch = ({ setImageId, id, buttonElement, ...rest}: PhotoSearchProps) => {
+const PhotoSearch = ({ setImageId, id, buttonElement, ...rest }: PhotoSearchProps) => {
   const [search, setSearch] = useState("");
   const [images, setImages] = useState<string[]>(RANDOM_IMAGES);
   const getImages = (search: string) => {
@@ -30,7 +30,9 @@ const PhotoSearch = ({ setImageId, id, buttonElement, ...rest}: PhotoSearchProps
           per_page: "12",
         },
       })
-      .then((res) => setImages(res.data.results.map((image) => image.id)));
+      .then((res) => {
+        setImages(res.data.results.map((image) => image.urls.small));
+      });
   };
 
   return (
@@ -59,7 +61,7 @@ const PhotoSearch = ({ setImageId, id, buttonElement, ...rest}: PhotoSearchProps
           ClickCb={() => getImages(search)}
           ChangeCb={(e) => setSearch(e.target.value)}
         />
-        <ImagesList selectImage={(id) => setImageId(id)} id={id} imagesIds={images || []} />
+        <ImagesList selectImage={(id) => setImageId(id)} id={id} imageUrls={images || []} />
       </MenuList>
     </Menu>
   );
